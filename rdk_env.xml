@@ -1,0 +1,11 @@
+<environment>
+  <components>
+    <rdklogger>
+     <dependencies>sdk, log4c</dependencies>
+
+     <is_coverity_supported>True</is_coverity_supported>
+
+    </rdklogger>
+   </components>
+</environment>
+

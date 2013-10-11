@@ -1,0 +1,21 @@
+* text=auto !eol
+/Makefile -text
+/README -text
+/build.sh -text
+/config.mak -text
+/debug.ini -text
+doc/rdklogger-doxygen.cfg -text
+include/rdk_debug.h -text
+include/rdk_error.h -text
+include/rdk_logger_types.h -text
+include/rdk_utils.h -text
+/log4crc -text
+/rdk_build.sh -text
+/rdk_env.xml -text
+src/include/rdk_debug_priv.h -text
+src/rdk_debug.c -text
+src/rdk_debug_priv.c -text
+src/rdk_logger_init.c -text
+src/rdk_logger_util.c -text
+test/rdk_logger_debug_test.c -text
+test/rdk_logger_test_main.c -text
