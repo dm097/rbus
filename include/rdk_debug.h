@@ -117,9 +117,9 @@ rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level);
  *  These entries are read at startup and can be modifiy/add as per the requirement.
  * @details Bydefault logs are redirected to /opt/logs/ocapri_log.txt. 
  * But these can be configure to capture logs for each component in separate files under 
- * /opt/logs/ by setting configuration parameter SEPARATE.LOG.SUPPORT as TRUE in 
+ * /opt/logs/ by setting configuration parameter SEPARATE.LOGFILE.SUPPORT as TRUE in 
  * debug.ini
- * @details Following logs files generated if SEPARATE.LOG.SUPPORT=TRUE
+ * @details Following logs files generated if SEPARATE.LOGFILE.SUPPORT=TRUE
  *
  * For POD: pod_log.txt
  *
@@ -127,9 +127,6 @@ rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level);
  *
  * For RMFStreamer: rmfstr_log.txt
  *
- * For VOD client application: vod_log.txt
- *
- * For IARM: uimgr_log.txt
  */ 
 
 #define RDK_LOG rdk_dbg_MsgRaw
