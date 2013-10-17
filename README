@@ -10,7 +10,7 @@ configuration file debug.ini at startup.
 Build Instructions:
 -------------------
 * Checking out the rdklogger on host machine.
- $ svn co https://svn3.teamccp.com/svn/rdk/rdk/components/comcast/rdk_logger rdklogger
+ $ svn co https://svn3.teamccp.com/svn/rdk/rdk/components/comcast/rdk_logger/generic/trunk  rdklogger
 
 * Building the rdklogger module
  $ cd trunk/rdklogger
