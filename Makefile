@@ -4,7 +4,7 @@ CFLAGS?=  -Wno-format -Wunused -DUSE_CC_GETTIMEOFDAY
 ARFLAGS?=rcs
 SRC_DIR=src
 LIBNAME=rdkloggers
-SYSROOT_FLAG="--sysroot=$(PLATFORM_SDK)"
+SYSROOT_FLAG?="--sysroot=$(PLATFORM_SDK)"
 
 TST_DIR=test
 TST_BIN=logger_test
