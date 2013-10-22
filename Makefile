@@ -4,6 +4,7 @@ CFLAGS?=  -Wno-format -Wunused -DUSE_CC_GETTIMEOFDAY
 ARFLAGS?=rcs
 SRC_DIR=src
 LIBNAME=rdkloggers
+SYSROOT_FLAG="--sysroot=$(PLATFORM_SDK)"
 
 TST_DIR=test
 TST_BIN=logger_test
@@ -62,5 +63,5 @@ clean :
 	rm -rf $(OBJ_DIR) $(LIBFILE) $(TEST_OBJ_DIR)
 
 test : $(TEST_OBJ_DIR) $(LIBFILE)  $(TESTS)
-	$(CC) -o $(BUILD_DIR)/$(TST_BIN) $(TESTS) -l$(LIBNAME) -L $(PLATFORM_SDK)/lib -L  $(RDK_LOGGER_DIR)/../opensource/lib -L $(LIBDIR) $(TST_FLAGS)  --sysroot=$(PLATFORM_SDK) -llog4c
+	$(CC) -o $(BUILD_DIR)/$(TST_BIN) $(TESTS) -l$(LIBNAME) -L $(PLATFORM_SDK)/lib -L  $(RDK_LOGGER_DIR)/../opensource/lib -L $(LIBDIR) $(TST_FLAGS)  $(SYSROOT_FLAG) -llog4c
 	
