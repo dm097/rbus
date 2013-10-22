@@ -1,7 +1,7 @@
 PWD=`pwd`
-export RDK_DIR=$PWD/../
-export PLATFORM_SDK=$RDK_DIR/sdk/toolchain/staging_dir
-export ROOTFS=$RDK_DIR/sdk/fsroot/ramdisk
+export RDK_DIR=`echo $PWD/..`
+source soc/build/soc_env.sh
+
 
 copyLibs=0
 instalLibs=0

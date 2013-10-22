@@ -1,6 +1,5 @@
 RDK_LOGGER_DIR?=$(RDK_DIR)/rdklogger
 include $(RDK_LOGGER_DIR)/config.mak
-#CFLAGS= -Wall -g
 CFLAGS?=  -Wno-format -Wunused -DUSE_CC_GETTIMEOFDAY
 ARFLAGS?=rcs
 SRC_DIR=src
@@ -16,7 +15,7 @@ LIBFILE=$(LIBDIR)/lib$(LIBNAME).so
 OBJ_DIR=$(BUILD_DIR)/objs_$(LIBNAME)
 TEST_OBJ_DIR=$(BUILD_DIR)/objs_$(TST_BIN)
 
-INCLUDES+= -I include -I $(SRC_DIR)/include -I$(TOOLCHAIN_DIR)/include/glib-2.0 -I$(TOOLCHAIN_DIR)/lib/glib-2.0/include -I$(RDK_DIR)/opensource/src/log4c/src
+INCLUDES+= -I include -I $(SRC_DIR)/include -I$(PLATFORM_SDK)/include/glib-2.0 -I$(PLATFORM_SDK)/lib/glib-2.0/include -I$(RDK_DIR)/opensource/src/log4c/src
 CFLAGS += -DGCC4_XXX
 
 CFLAGS+= $(INCLUDES)
@@ -35,7 +34,7 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
-	$(CC) -shared -o $(LIBFILE) $(OBJS)  -L $(LIBDIR) -L $(RDK_LOGGER_DIR)/../opensource/lib -L lib --sysroot=$(TOOLCHAIN_DIR)
+	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L $(LIBDIR) -L $(RDK_LOGGER_DIR)/../opensource/lib 
 
 $(OBJ_DIR)/%.o :$(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
@@ -63,5 +62,5 @@ clean :
 	rm -rf $(OBJ_DIR) $(LIBFILE) $(TEST_OBJ_DIR)
 
 test : $(TEST_OBJ_DIR) $(LIBFILE)  $(TESTS)
-	$(CC) -o $(BUILD_DIR)/$(TST_BIN) $(TESTS) -l$(LIBNAME) -L $(PLATFORM_SDK)/lib -L  $(RDK_LOGGER_DIR)/../opensource/lib -L $(LIBDIR) $(TST_FLAGS) --sysroot=$(TOOLCHAIN_DIR) -llog4c
+	$(CC) -o $(BUILD_DIR)/$(TST_BIN) $(TESTS) -l$(LIBNAME) -L $(PLATFORM_SDK)/lib -L  $(RDK_LOGGER_DIR)/../opensource/lib -L $(LIBDIR) $(TST_FLAGS)  --sysroot=$(PLATFORM_SDK) -llog4c
 	

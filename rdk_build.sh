@@ -72,7 +72,6 @@ ARGS=$@
 
 # component-specific vars
 export FSROOT=${RDK_FSROOT_PATH}
-export TOOLCHAIN_DIR=${RDK_TOOLCHAIN_PATH}
 export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 
 
