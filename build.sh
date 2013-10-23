@@ -1,6 +1,12 @@
 PWD=`pwd`
 export RDK_DIR=`echo $PWD/..`
-source soc/build/soc_env.sh
+#source soc/build/soc_env.sh
+export PLATFORM_SDK=${RDK_DIR}/sdk/toolchain/staging_dir
+export ROOTFS=${RDK_DIR}/sdk/fsroot/ramdisk
+
+export CROSS_COMPILE=${PLATFORM_SDK}/bin/i686-cm-linux-
+export CC=${CROSS_COMPILE}gcc
+export CXX=${CROSS_COMPILE}g++
 
 
 copyLibs=0
