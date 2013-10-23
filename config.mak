@@ -22,6 +22,8 @@ LIBDIR=$(BUILD_DIR)/lib
 
 LOGGER_INCL=$(RDK_LOGGER_DIR)/include
 
+-include $(RDK_LOGGER_DIR)/soc/build/config.mak
+
 INCLUDES=-I$(LOGGER_INCL)\
 	-I$(RDK_LOGGER_DIR)/../core\
 	-I$(PLATFORM_SDK)/include/ \
