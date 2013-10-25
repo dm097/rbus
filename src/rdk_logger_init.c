@@ -41,7 +41,7 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
          * sockets when the other end breaks the connection. The EPIPE 
          * error is still returned. 
          */
-         sigignore(SIGPIPE);
+         signal(SIGPIPE, SIG_IGN);
 
 	return RDK_SUCCESS;
 }
