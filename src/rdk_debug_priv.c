@@ -527,10 +527,10 @@ void rdk_dbg_priv_SetLogLevelString(const char* pszModuleName, const char* pszLo
     int mod = 0;
     const char *msg = "";
 
-    if ((pszModuleName != NULL) && (pszLogLevels != 0))
+    if ((pszModuleName != NULL) && (pszLogLevels != NULL))
     {
         /* Intialize to the default configuration for all modules. */
-        if(0 == strcmp(pszModuleName, "LOG.MPE.DEFAULT"))
+        if(0 == strcmp(pszModuleName, "LOG.RDK.DEFAULT"))
         {
             (void) parseLogConfig(pszLogLevels, &defaultConfig, &msg);
             for (mod = 1; mod <= global_count; mod++)
