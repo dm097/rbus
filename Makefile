@@ -8,7 +8,7 @@ SYSROOT_FLAG?="--sysroot=$(PLATFORM_SDK)"
 
 TST_DIR=test
 TST_BIN=logger_test
-TST_FLAGS=-lpthread -lglib-2.0 -L lib
+TST_FLAGS=-lpthread -lglib-2.0 -Llib
 
 DOC_DIR=doc
 
@@ -16,7 +16,7 @@ LIBFILE=$(LIBDIR)/lib$(LIBNAME).so
 OBJ_DIR=$(BUILD_DIR)/objs_$(LIBNAME)
 TEST_OBJ_DIR=$(BUILD_DIR)/objs_$(TST_BIN)
 
-INCLUDES+= -I include -I $(SRC_DIR)/include -I$(PLATFORM_SDK)/include/glib-2.0 -I$(PLATFORM_SDK)/lib/glib-2.0/include -I$(RDK_DIR)/opensource/src/log4c/src
+INCLUDES+= -Iinclude -I$(SRC_DIR)/include -I$(PLATFORM_SDK)/include/glib-2.0 -I$(PLATFORM_SDK)/lib/glib-2.0/include -I$(RDK_DIR)/opensource/src/log4c/src
 CFLAGS += -DGCC4_XXX
 
 CFLAGS+= $(INCLUDES)
@@ -25,6 +25,9 @@ OBJS=$(OBJ_DIR)/rdk_logger_init.o\
 			$(OBJ_DIR)/rdk_debug.o \
 			$(OBJ_DIR)/rdk_debug_priv.o
 
+if XG2V2_GW
+LIB_LOG4C = -llog4c
+endif
 
 TESTS=$(TEST_OBJ_DIR)/rdk_logger_test_main.o \
       $(TEST_OBJ_DIR)/rdk_logger_debug_test.o 
@@ -35,7 +38,7 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
-	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L $(LIBDIR) -L $(RDK_LOGGER_DIR)/../opensource/lib 
+	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib LIB_LOG4C
 
 $(OBJ_DIR)/%.o :$(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
