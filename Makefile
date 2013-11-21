@@ -25,9 +25,6 @@ OBJS=$(OBJ_DIR)/rdk_logger_init.o\
 			$(OBJ_DIR)/rdk_debug.o \
 			$(OBJ_DIR)/rdk_debug_priv.o
 
-if XG2V2_GW
-LIB_LOG4C = -llog4c
-endif
 
 TESTS=$(TEST_OBJ_DIR)/rdk_logger_test_main.o \
       $(TEST_OBJ_DIR)/rdk_logger_debug_test.o 
@@ -38,7 +35,7 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
-	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib LIB_LOG4C
+	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c
 
 $(OBJ_DIR)/%.o :$(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
