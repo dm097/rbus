@@ -1,10 +1,14 @@
 * text=auto !eol
 /Makefile -text
+/Makefile.am -text
 /README -text
 /build.sh -text
+cfg/Makefile.am -text
 /config.mak -text
+/configure.ac -text
 /debug.ini -text
 doc/rdklogger-doxygen.cfg -text
+include/Makefile.am -text
 include/rdk_debug.h -text
 include/rdk_error.h -text
 include/rdk_logger_types.h -text
@@ -12,6 +16,7 @@ include/rdk_utils.h -text
 /log4crc -text
 /rdk_build.sh -text
 /rdk_env.xml -text
+src/Makefile.am -text
 src/include/rdk_debug_priv.h -text
 src/rdk_debug.c -text
 src/rdk_debug_priv.c -text
