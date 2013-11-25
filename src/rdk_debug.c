@@ -15,6 +15,7 @@
 
 #include <string.h> // memset
 #include <rdk_utils.h>
+#include <stdarg.h>
 
 extern int global_count;
 
@@ -69,7 +70,7 @@ void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
 {
 #if !defined(RDK_LOG_DISABLE)
     int num;
-    va_list args = NULL;
+    va_list args;
 
     va_start(args, format);
     /** Get the registered value of module */

@@ -939,7 +939,7 @@ static void socket_close_log()
  */
 static void socket_append_msg(char* fmt, ...)
 {
-    va_list ap = NULL;
+    va_list ap;
 
     va_start(ap, fmt);
     vsocket_append_msg(fmt, ap);
