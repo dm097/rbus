@@ -35,7 +35,7 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
-	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c -lglib-2.0
+	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c -L$(PLATFORM_SDK)/lib -lglib-2.0
 
 $(OBJ_DIR)/%.o :$(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
