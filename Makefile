@@ -8,7 +8,7 @@ SYSROOT_FLAG?="--sysroot=$(PLATFORM_SDK)"
 
 TST_DIR=test
 TST_BIN=logger_test
-ifdef XG2V2_GW
+ifeq ($(RDK_PLATFORM_DEVICE), xg2v2client)
 TST_FLAGS=-lpthread -lglib-2.0 -Llib
 else
 TST_FLAGS=-lpthread  -Llib
@@ -39,7 +39,7 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
-ifdef XG2V2_GW
+ifeq ($(RDK_PLATFORM_DEVICE), xg2v2client)
 	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c
 else
 	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c -L$(PLATFORM_SDK)/lib -lglib-2.0
