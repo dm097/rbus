@@ -8,7 +8,11 @@ SYSROOT_FLAG?="--sysroot=$(PLATFORM_SDK)"
 
 TST_DIR=test
 TST_BIN=logger_test
+ifdef XG2V2_GW
+TST_FLAGS=-lpthread -lglib-2.0 -Llib
+else
 TST_FLAGS=-lpthread  -Llib
+endif
 
 DOC_DIR=doc
 
@@ -35,7 +39,11 @@ all:  $(LIBFILE)
 
 
 $(LIBFILE): $(LIBDIR) $(OBJ_DIR) $(OBJS) $(UTILS_LIBFILE)
+ifdef XG2V2_GW
+	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c
+else
 	$(CC) -shared -fPIC -o $(LIBFILE) $(OBJS)  -L$(LIBDIR) -L$(RDK_LOGGER_DIR)/../opensource/lib -llog4c -L$(PLATFORM_SDK)/lib -lglib-2.0
+endif
 
 $(OBJ_DIR)/%.o :$(SRC_DIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
