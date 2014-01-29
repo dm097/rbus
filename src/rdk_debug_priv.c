@@ -632,7 +632,7 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
 
     /** Loop through the control word and print out the enabled levels. */
 
-    for (level = 0; level <= global_count; level++)
+    for (level = 0; level <= ENUM_RDK_LOG_COUNT; level++)
     {
         if (modCfg & (1 << level))
         {
