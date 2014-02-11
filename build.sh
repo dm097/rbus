@@ -83,5 +83,5 @@ then
   cp *.ini $instaldir/env
   cp log4crc $instaldir/env
   cp -a $instaldir/env/* $ROOTFS/mnt/nfs/env
-  cp -a $instaldir/lib/* $ROOTFS/mnt/nfs/lib
+  cp -a $instaldir/lib/* $ROOTFS/usr/lib
 fi
