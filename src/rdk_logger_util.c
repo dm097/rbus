@@ -116,6 +116,7 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
         char trimname[line_buf_len];
         char trimvalue[line_buf_len];
         EnvVarNode *node;
+        EnvVarNode *tmp_node;
         char *equals;
         int length;
 
@@ -139,10 +140,29 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
         /* Trim all whitespace from name and value strings */
         trim( name,trimname);
         trim( value,trimvalue);
-
-        node = ( EnvVarNode*)malloc(sizeof(EnvVarNode));
-        node->name = strdup( trimname);
-        node->value = strdup( trimvalue);
+        
+        tmp_node = g_envCache;
+        while(tmp_node)
+        {
+            if(strcmp(tmp_node->name, trimname) == 0)
+            {
+                break;
+            }
+            tmp_node = tmp_node->next;    
+        }   
+        
+        if(!tmp_node)
+        {
+            node = ( EnvVarNode*)malloc(sizeof(EnvVarNode));
+            node->name = strdup( trimname);
+            node->value = strdup( trimvalue);
+        }
+        else
+        {
+            free(tmp_node->value);
+            tmp_node->value = strdup( trimvalue);
+            continue;
+        }
 
         /** Update number only for the modules, not for environment variable */
         if ((strcmp("LOG.RDK.DEFAULT",node->name) != 0) && 
