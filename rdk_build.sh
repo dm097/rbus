@@ -30,6 +30,9 @@ export RDK_TOOLCHAIN_PATH=${RDK_TOOLCHAIN_PATH-`readlink -m $RDK_PROJECT_ROOT_PA
 
 # default component name
 export RDK_COMPONENT_NAME=${RDK_COMPONENT_NAME-`basename $RDK_SOURCE_PATH`}
+export RDK_DIR=$RDK_PROJECT_ROOT_PATH
+source $RDK_SCRIPTS_PATH/soc/build/soc_env.sh
+
 
 
 # parse arguments
@@ -79,30 +82,64 @@ export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 
 function configure()
 {
-    true #use this function to perform any pre-build configuration
+        pd=`pwd`
+        cd ${RDK_SOURCE_PATH}
+        aclocal -I cfg
+        libtoolize --automake
+        autoheader
+        automake --foreign --add-missing
+        rm -f configure
+        autoconf
+        echo "  CONFIG_MODE = $CONFIG_MODE"
+        configure_options=" "
+        if [ "x$DEFAULT_HOST" != "x" ]; then
+        configure_options="--host $DEFAULT_HOST"
+        fi
+        configure_options="$configure_options --enable-shared --with-pic"
+        generic_options="$configure_options"
+
+        export ac_cv_func_malloc_0_nonnull=yes
+        export ac_cv_func_memset=yes
+        ./configure --prefix=${RDK_FSROOT_PATH}/usr --sysconfdir=${RDK_FSROOT_PATH}/etc $configure_options
+        cd $pd
 }
 
 function clean()
 {
-    true #use this function to provide instructions to clean workspace
+    pd=`pwd`
+    dnames="${RDK_SOURCE_PATH}"
+    for dName in $dnames
+    do
+        cd $dName
+        if [ -f Makefile ]; then
+                make distclean
+        fi
+        rm -f configure;
+        rm -rf aclocal.m4 autom4te.cache config.log config.status libtool
+        find . -iname "Makefile.in" -exec rm -f {} \;
+        find . -iname "Makefile" | xargs rm -f
+        ls cfg/* | grep -v "Makefile.am" | xargs rm -f
+        cd $pd
+    done
 }
 
 function build()
 {
     cd ${RDK_SOURCE_PATH}
-    sh build.sh $* $BUILD_CONFIG clean
+    make
 }
 
 function rebuild()
 {
     clean
+    configure
     build
 }
 
 function install()
 {
     cd ${RDK_SOURCE_PATH}
-    sh build.sh $* $BUILD_CONFIG install
+    make install
 }
 
 
