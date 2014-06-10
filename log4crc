@@ -46,8 +46,6 @@
     
     <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
-    <appender name="socket" type="socket_env" layout="basic"/>
-    <appender name="/opt/logs/RILog.txt" type="stream_env_plus_stdout"  layout="dated" />
     <appender name="RI_rollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="ocapri_log.txt" layout="comcast_dated" rollingpolicy="RI_rollingpolicy"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
