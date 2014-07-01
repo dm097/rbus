@@ -89,6 +89,7 @@ extern int global_count;
 
 
 static int initLogger(char *category);
+
 static const char* dated_format_nocr(const log4c_layout_t* a_layout,
         const log4c_logging_event_t*a_event);
 static const char* basic_format_nocr(const log4c_layout_t* a_layout,
@@ -97,8 +98,8 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* a_layout,
         const log4c_logging_event_t*a_event);
 static int stream_env_overwrite_open(log4c_appender_t * appender);
 static int stream_env_append_open(log4c_appender_t * appender);
-static int stream_env_append(log4c_appender_t* appender, const log4c_logging_event_t* a_event);
-static int stream_env_plus_stdout_append(log4c_appender_t* appender, const log4c_logging_event_t* a_event);
+static int stream_env_append(log4c_appender_t* appender, const log4c_logging_event_t* event);
+static int stream_env_plus_stdout_append(log4c_appender_t* appender, const log4c_logging_event_t* event);
 static int stream_env_close(log4c_appender_t * appender);
 
 /* GLOBALS */
@@ -338,6 +339,10 @@ static int parseLogConfig(const char *cfgStr, uint32_t *configEntry,
     return rc;
 }
 
+static void printTime(const struct tm *pTm, char *pBuff)
+{
+    sprintf(pBuff,"%02d%02d%02d-%02d:%02d:%02d",pTm->tm_year + 1900 - 2000, pTm->tm_mon + 1, pTm->tm_mday, pTm->tm_hour, pTm->tm_min, pTm->tm_sec);
+}
 
 /*****************************************************************************
  *
@@ -639,105 +644,62 @@ static int initLogger(char *category)
 /****************************************************************
  * Dated layout with no ending carriage return / line feed
  */
-static const char* dated_format_nocr(const log4c_layout_t* a_layout,
-        const log4c_logging_event_t*a_event)
+static const char* dated_format_nocr(const log4c_layout_t* layout,
+        const log4c_logging_event_t* event)
 {
-#if 0 //__BUG_MEMORY_LEAK__.  This make it really impossible to use  the "basic".
-    char *rendered_msg = g_try_malloc(MAX_LOGLINE_LENGTH+1);
-
-    if (NULL == rendered_msg)
-    {
-        fprintf(stderr, "\nline %d of %s %s memory allocation of %d failure!\n",
-                    __LINE__, __FILE__, __func__, MAX_LOGLINE_LENGTH+1);
-        return "------- ERROR: couldn't allocate memory for log message!?\r\n";
-    }
-#endif
-
-#ifndef _WIN32
     struct tm tm;
-    //localtime_r(&a_event->evt_timestamp.tv_sec, &tm); /* Use the UTC Time for logging */
-    gmtime_r(&a_event->evt_timestamp.tv_sec, &tm);
-    (void) snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size,
-            "%04d%02d%02d %02d:%02d:%02d.%03ld %-8s %s- %s", tm.tm_year + 1900,
-            tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
-            a_event->evt_timestamp.tv_usec / 1000, log4c_priority_to_string(
-                    a_event->evt_priority), a_event->evt_category,
-            a_event->evt_msg);
-#else
-    SYSTEMTIME stime;
-    FILETIME ftime;
+    char timeBuff[40];
+    //localtime_r(&event->evt_timestamp.tv_sec, &tm); /* Use the UTC Time for logging */
+    gmtime_r(&event->evt_timestamp.tv_sec, &tm);
 
-    if ( FileTimeToLocalFileTime(&a_event->evt_timestamp, &ftime))
-    {
-        if ( FileTimeToSystemTime(&ftime, &stime))
-        {
+    memset(&timeBuff,0,40);
 
-            (void)snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size, "%04d%02d%02d %02d:%02d:%02d.%03d %-8s %s- %s",
-                    stime.wYear, stime.wMonth , stime.wDay,
-                    stime.wHour, stime.wMinute, stime.wSecond,
-                    stime.wMilliseconds,
-                    log4c_priority_to_string(a_event->evt_priority),
-                    a_event->evt_category, a_event->evt_msg);
-        }
-    }
-#endif
-    if (a_event->evt_buffer.buf_size > 0 && a_event->evt_buffer.buf_data != NULL) 
+    printTime(&tm,timeBuff);
+
+    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+            "%s.%03ld %-8s %s- %s", timeBuff,
+            event->evt_timestamp.tv_usec / 1000, log4c_priority_to_string(
+                    event->evt_priority), event->evt_category,
+            event->evt_msg);
+    if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
-        a_event->evt_buffer.buf_data[a_event->evt_buffer.buf_size - 1] = 0;
+        event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
     }
-    return a_event->evt_buffer.buf_data;
+    return event->evt_buffer.buf_data;
 }
 
 /****************************************************************
  * Basic layout with no ending carriage return / line feed
  */
-static const char* basic_format_nocr(const log4c_layout_t* a_layout,
-        const log4c_logging_event_t* a_event)
+static const char* basic_format_nocr(const log4c_layout_t* layout,
+        const log4c_logging_event_t* event)
 {
-#if 0 //__BUG_MEMORY_LEAK__.  This make it really impossible to use  the "basic".
+    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size, "%-8s %s - %s",
+            log4c_priority_to_string(event->evt_priority),
+            event->evt_category, event->evt_msg);
 
-    char *rendered_msg = g_try_malloc(MAX_LOGLINE_LENGTH+1);
-
-    if (NULL == rendered_msg)
+    if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
-        fprintf(stderr, "\nline %d of %s %s memory allocation of %d failure!\n",
-                    __LINE__, __FILE__, __func__, MAX_LOGLINE_LENGTH+1);
-        return "------- ERROR: couldn't allocate memory for log message!?\r\n";
-    }
-#endif
-
-    (void) snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size, "%-8s %s - %s",
-            log4c_priority_to_string(a_event->evt_priority),
-            a_event->evt_category, a_event->evt_msg);
-
-    if (a_event->evt_buffer.buf_size > 0 && a_event->evt_buffer.buf_data != NULL) 
-    {
-        a_event->evt_buffer.buf_data[a_event->evt_buffer.buf_size - 1] = 0;
+        event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
     }
 
-    return a_event->evt_buffer.buf_data;
+    return event->evt_buffer.buf_data;
 }
 
-static const char* comcast_dated_format_nocr(const log4c_layout_t* a_layout,
-        const log4c_logging_event_t*a_event)
+static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
+        const log4c_logging_event_t*event)
 {
-#if 0 //__BUG_MEMORY_LEAK__.  This make it really impossible to use  the "basic".
-    char *rendered_msg = g_try_malloc(MAX_LOGLINE_LENGTH+1);
-
-    if (NULL == rendered_msg)
-    {
-        fprintf(stderr, "\nline %d of %s %s memory allocation of %d failure!\n",
-                    __LINE__, __FILE__, __func__, MAX_LOGLINE_LENGTH+1);
-        return "------- ERROR: couldn't allocate memory for log message!?\r\n";
-    }
-#endif
-
-#ifndef _WIN32
     struct tm tm;
-    //localtime_r(&a_event->evt_timestamp.tv_sec, &tm);  /* Use the UTC Time for logging */
-    gmtime_r(&a_event->evt_timestamp.tv_sec, &tm);
+    char timeBuff[40];
+    //localtime_r(&event->evt_timestamp.tv_sec, &tm);  /* Use the UTC Time for logging */
+    gmtime_r(&event->evt_timestamp.tv_sec, &tm);
+
+    memset(&timeBuff,0,40);
+
+    printTime(&tm,timeBuff);
+
     /** Get the last part of the cagetory as "module" */
-    char *p= (char *)(a_event->evt_category);
+    char *p= (char *)(event->evt_category);
     if (NULL == p)
     {
         p = (char*)"UNKNOWN";
@@ -748,7 +710,7 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* a_layout,
         if ( len > 0 && *p != '.' && *(p+len-1) !='.')
         {
             p = p + len - 1;
-            while (p != (char *)(a_event->evt_category) && *p != '.') p--;
+            while (p != (char *)(event->evt_category) && *p != '.') p--;
             if (*p == '.') p+=1;
 
         }
@@ -758,34 +720,16 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* a_layout,
         }
     }
 
-    (void) snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size,
-            "%02d%02d%02d-%02d:%02d:%02d.%06ld [mod=%s, lvl=%s] [tid=%ld] %s", 
-            tm.tm_year + 1900 - 2000, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, a_event->evt_timestamp.tv_usec, 
-            p, log4c_priority_to_string(a_event->evt_priority), syscall(SYS_gettid),
-            a_event->evt_msg);
-#else
-    SYSTEMTIME stime;
-    FILETIME ftime;
-
-    if ( FileTimeToLocalFileTime(&a_event->evt_timestamp, &ftime))
+    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+            "%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s",timeBuff,
+            event->evt_timestamp.tv_usec,
+            p, log4c_priority_to_string(event->evt_priority), syscall(SYS_gettid),
+            event->evt_msg);
+    if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
-        if ( FileTimeToSystemTime(&ftime, &stime))
-        {
-
-            (void)snprintf(a_event->evt_buffer.buf_data, a_event->evt_buffer.buf_size, "%04d%02d%02d %02d:%02d:%02d.%03d %-8s %s- %s",
-                    stime.wYear, stime.wMonth , stime.wDay,
-                    stime.wHour, stime.wMinute, stime.wSecond,
-                    stime.wMilliseconds,
-                    log4c_priority_to_string(a_event->evt_priority),
-                    a_event->evt_category, a_event->evt_msg);
-        }
+        event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
     }
-#endif
-    if (a_event->evt_buffer.buf_size > 0 && a_event->evt_buffer.buf_data != NULL) 
-    {
-        a_event->evt_buffer.buf_data[a_event->evt_buffer.buf_size - 1] = 0;
-    }
-    return a_event->evt_buffer.buf_data;
+    return event->evt_buffer.buf_data;
 }
 /****************************************************************
  * Stream layout that will parse environment variables from the
@@ -896,32 +840,32 @@ static int stream_env_append_open(log4c_appender_t* appender)
 }
 
 static int stream_env_append(log4c_appender_t* appender,
-        const log4c_logging_event_t* a_event)
+        const log4c_logging_event_t* event)
 {
     int retval;
     FILE* fp = (FILE*)log4c_appender_get_udata(appender);
 
-    retval = fprintf(fp, "%s", a_event->evt_rendered_msg);
+    retval = fprintf(fp, "%s", event->evt_rendered_msg);
     (void)fflush(fp);
 
-    //g_free((void *)a_event->evt_rendered_msg);
+    //g_free((void *)event->evt_rendered_msg);
 
     return retval;
 }
 
 static int stream_env_plus_stdout_append(log4c_appender_t* appender,
-        const log4c_logging_event_t* a_event)
+        const log4c_logging_event_t* event)
 {
     int retval;
     FILE* fp = (FILE*)log4c_appender_get_udata(appender);
 
-    retval = fprintf(fp, "%s", a_event->evt_rendered_msg);
-    fprintf(stdout, "%s", a_event->evt_rendered_msg);
+    retval = fprintf(fp, "%s", event->evt_rendered_msg);
+    fprintf(stdout, "%s", event->evt_rendered_msg);
 
     (void)fflush(fp);
     (void)fflush(stdout);
 
-    //g_free((void *)a_event->evt_rendered_msg);
+    //g_free((void *)event->evt_rendered_msg);
 
     return retval;
 }
