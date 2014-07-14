@@ -100,7 +100,12 @@ function configure()
 
         export ac_cv_func_malloc_0_nonnull=yes
         export ac_cv_func_memset=yes
-        ./configure --prefix=${RDK_FSROOT_PATH}/usr --sysconfdir=${RDK_FSROOT_PATH}/etc $configure_options
+
+        if [ "$RDK_PLATFORM_SOC" = "stm" ];then
+           ./configure --with-libtool-sysroot=${RDK_FSROOT_PATH} --prefix=/usr --sysconfdir=/etc $configure_options
+        else
+           ./configure --prefix=${RDK_FSROOT_PATH}/usr --sysconfdir=${RDK_FSROOT_PATH}/etc $configure_options
+        fi
         cd $pd
 }
 
@@ -139,7 +144,12 @@ function rebuild()
 function install()
 {
     cd ${RDK_SOURCE_PATH}
-    make install
+
+    if [ "$RDK_PLATFORM_SOC" = "stm" ];then
+       make install DESTDIR=${RDK_FSROOT_PATH}
+    else
+       make install
+    fi
 }
 
 
