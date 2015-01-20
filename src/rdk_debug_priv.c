@@ -551,19 +551,29 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
     /** Get the category from module name */
     static log4c_category_t *cat_cache[RDK_MAX_MOD_COUNT] = {NULL};
     char cat_name[64] = {'\0'};
+    log4c_category_t* cat = NULL;
+
     if (!g_debugEnabled || !WANT_LOG(module, level))
     {
         return;
     }
+
     char *parent_cat_name = (char *)log4c_category_get_name(stackCat);
     snprintf(cat_name, sizeof(cat_name)-1, "%s.%s", parent_cat_name == NULL ? "" : parent_cat_name, module_name); 
 
-    if (cat_cache[module] == NULL) {
-        /** Only doing a read here, lock not needed */
-        cat_cache[module] = log4c_category_get(cat_name);
+    if((module >= 0) && (module < RDK_MAX_MOD_COUNT))
+    {
+        if (cat_cache[module] == NULL) {
+            /** Only doing a read here, lock not needed */
+            cat_cache[module] = log4c_category_get(cat_name);
+        }
+    
+        cat = cat_cache[module];
     }
-
-    log4c_category_t* cat = cat_cache[module];
+    else
+    {
+        cat = log4c_category_get(cat_name);
+    }
 
     switch (level)
     {
