@@ -1,0 +1,13 @@
+Package: librdkloggers0
+Version: 1.99+gitr0+1f1eef2bc3-r0.0
+Description: This receipe compiles rmfcore code base. This has interface clasess that would be necessary for all the mediaplayers
+ This receipe compiles rmfcore code base. This has interface clasess that
+ would be necessary for all the mediaplayers.
+Section: console/utils
+Priority: optional
+Maintainer: CPE SI Yocto Team <CCP_CPESI-YOCTO@cable.comcast.com>
+License: CLOSED
+Architecture: mips32el
+OE: rdk-logger
+Depends: libglib-2.0-0 (>= 2.38.2), log4c (>= 1.2.3), libc6 (>= 2.19)
+Source: git://gerrit.teamccp.com:29418/rdk/components/generic/rdk_logger/generic;protocol=ssh;branch=master
