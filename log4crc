@@ -47,6 +47,7 @@
     <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="RI_rollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="ocapri_log.txt" layout="comcast_dated" rollingpolicy="RI_rollingpolicy"/>
+    <appender name="cef_file_appender" type="rollingfile" logdir="/opt/logs/" prefix="cef.log" layout="comcast_dated" rollingpolicy="RI_rollingpolicy"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!-- ---------------------------------------------------------------------
@@ -85,6 +86,8 @@
     -->
     
     <category name="RI" priority="info" appender="stdout"/>
+
+    <category name="RI.Stack.LOG.RDK.CEF" priority="info" appender="cef_file_appender"/>
 
     <!-- <category name="RI" priority="error" appender="syslog"/> -->
     <!-- <category name="RI" priority="error" appender="socket"/> -->
