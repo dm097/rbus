@@ -84,6 +84,7 @@ extern const char *rdk_logLevelStrings[ENUM_RDK_LOG_COUNT];
 void rdk_dbgInit();
 
 rdk_Error rdk_logger_init(const char* debugConfigFile);
+rdk_Error rdk_logger_deinit();
 
 /**
  * <i>rdk_dbg_MsgRaw()</i> adds a log message. It is appended to the log output based

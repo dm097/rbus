@@ -45,3 +45,10 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
 
 	return RDK_SUCCESS;
 }
+
+rdk_Error rdk_logger_deinit()
+{
+    log4c_fini();
+
+    return RDK_SUCCESS;
+}
