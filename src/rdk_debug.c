@@ -34,10 +34,10 @@ void rdk_dbgInit()
         rdk_dbg_priv_Init();
         inited = TRUE;
         RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "\n");
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+        RDK_LOG(RDK_LOG_DEBUG, "LOG.RDK.OS",
                 "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "Stack level logging levels: \n");
-
+        RDK_LOG(RDK_LOG_DEBUG, "LOG.RDK.OS", "Stack level logging levels: \n");
+#error ooo
         /**
          * Now just dump all the current settings so that an analysis of a log
          * file will include what logging information to expect
@@ -48,11 +48,11 @@ void rdk_dbgInit()
 	    
             memset(config, 0, sizeof(config));
             (void) rdk_dbg_priv_LogQueryOpSysIntf((char*) modptr, config, 127);
-            RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+            RDK_LOG(RDK_LOG_DEBUG, "LOG.RDK.OS",
                     "Initial Logging Level for %-10s: %s\n", modptr, config);
         }
 
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+        RDK_LOG(RDK_LOG_DEBUG, "LOG.RDK.OS",
                 "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
     }
 }
