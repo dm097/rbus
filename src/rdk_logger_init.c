@@ -12,15 +12,21 @@
 
 #include <sys/socket.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "rdk_debug.h"
 #include "rdk_error.h"
 #include "rdk_debug_priv.h"
 #include "rdk_utils.h"
 
+#define BUF_LEN 256
 
 rdk_Error rdk_logger_init(const char* debugConfigFile)
 {
 	rdk_Error ret;
+    struct stat st;
+    char buf[BUF_LEN] = {'\0'};
 
 	if (NULL == debugConfigFile)
 	{
@@ -35,6 +41,18 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
 	}
 
 	rdk_dbgInit(); 
+
+	snprintf(buf, BUF_LEN-1, "/tmp/%s", "debugConfigFile_read");
+	buf[BUF_LEN-1] = '\0';
+
+    if((0 == stat(buf, &st) && (0 != st.st_ino)))
+    {
+        printf("%s %s Already Stack Level Logging processed... not processing again.\n", __FUNCTION__, debugConfigFile);
+    }
+    else
+    {
+        rdk_dbgDumpLog(buf);
+    }
 
         /**
          * Requests not to send SIGPIPE on errors on stream oriented
