@@ -19,41 +19,64 @@
 
 extern int global_count;
 
+/*
+ * Touch the file which can be used to check whether to log or not.
+ */
+void TouchFile(const char * pszFile)
+{
+    if(NULL != pszFile)
+    {
+        FILE * fp = fopen(pszFile, "w");
+        if(NULL != fp)
+        {
+            fclose(fp);
+        }
+    }
+}
+
+/**
+ * Dump the log
+ */
+void rdk_dbgDumpLog(const char* path)
+{
+    int mod, i;
+    char config[128];
+    const char *modptr = NULL;
+    RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "\n");
+    RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+            "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+    RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "Stack level logging levels: \n");
+
+    /**
+     * Now just dump all the current settings so that an analysis of a log
+     * file will include what logging information to expect
+     */
+    for (mod = 1; mod <= global_count; mod++) 
+    {
+        modptr = rdk_logger_envGetModFromNum(mod);
+    
+        memset(config, 0, sizeof(config));
+        (void) rdk_dbg_priv_LogQueryOpSysIntf((char*) modptr, config, 127);
+        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+                "Initial Logging Level for %-10s: %s\n", modptr, config);
+    }
+
+    RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
+            "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
+	TouchFile(path);
+}
+
 /**
  * Initialize the underlying MPEOS debug support.
  */
 void rdk_dbgInit()
 {
-    int mod, i;
-    char config[128];
-    const char *modptr = NULL;
     static rdk_logger_Bool inited = FALSE;
 
     if (!inited)
     {
         rdk_dbg_priv_Init();
         inited = TRUE;
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "\n");
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
-                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "Stack level logging levels: \n");
-
-        /**
-         * Now just dump all the current settings so that an analysis of a log
-         * file will include what logging information to expect
-         */
-        for (mod = 1; mod <= global_count; mod++) 
-        {
-            modptr = rdk_logger_envGetModFromNum(mod);
-	    
-            memset(config, 0, sizeof(config));
-            (void) rdk_dbg_priv_LogQueryOpSysIntf((char*) modptr, config, 127);
-            RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
-                    "Initial Logging Level for %-10s: %s\n", modptr, config);
-        }
-
-        RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
-                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
     }
 }
 

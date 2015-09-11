@@ -78,6 +78,15 @@ extern const char *rdk_logLevelStrings[ENUM_RDK_LOG_COUNT];
 #endif /* RDK_DEBUG_DEFINE_STRINGS */
 
 /**
+ * <i>rdk_dbgDumpLog(const char*path)</i> Dumps the stack level logging from specifified debug file.
+ */
+void rdk_dbgDumpLog(const char* path);
+/**
+ * <i>TouchFile()</i> Touch the file
+ */
+void TouchFile(const char * pszFile);
+
+/**
  * <i>rdk_dbgInit()</i> initializes the RDK debug manager module.  This API must
  * be called only once per boot cycle.
  */
