@@ -50,7 +50,6 @@
 #define RDK_DEBUG_DEFINE_STRINGS
 #include "rdk_debug_priv.h"
 #include "log4c.h"
-#include <glib.h>
 #include <rdk_utils.h>
 
 
@@ -748,7 +747,7 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
 static int stream_env_open(log4c_appender_t* appender, int append)
 {
     FILE* fp = (FILE*)log4c_appender_get_udata(appender);
-    char* name = g_strdup(log4c_appender_get_name(appender));
+    char* name = strdup(log4c_appender_get_name(appender));
     int nameLen = strlen(name);
     char* temp = name;
     char *varBegin, *varEnd;
@@ -799,7 +798,7 @@ static int stream_env_open(log4c_appender_t* appender, int append)
     if (newNameLen >MAX_VAR_LEN)
     goto length_error;
 
-    g_free(name);
+    free(name);
 
     if (!strcmp(newName,"stderr"))
     fp = stderr;
@@ -828,14 +827,14 @@ static int stream_env_open(log4c_appender_t* appender, int append)
     fprintf(stderr, "*(*(*(*( log4c appender stream_env, %s -- Illegal env var name or format! %s\n",
             __FUNCTION__, name);
     (void)fflush(stderr);
-    g_free(name);
+    free(name);
     return -1;
 
     length_error:
     fprintf(stderr, "*(*(*(*( log4c appender stream_env, %s -- Path is too long! %s\n",
             __FUNCTION__, name);
     (void)fflush(stderr);
-    g_free(name);
+    free(name);
     return -1;
 }
 
@@ -858,7 +857,7 @@ static int stream_env_append(log4c_appender_t* appender,
     retval = fprintf(fp, "%s", event->evt_rendered_msg);
     (void)fflush(fp);
 
-    //g_free((void *)event->evt_rendered_msg);
+    //free((void *)event->evt_rendered_msg);
 
     return retval;
 }
@@ -875,7 +874,7 @@ static int stream_env_plus_stdout_append(log4c_appender_t* appender,
     (void)fflush(fp);
     (void)fflush(stdout);
 
-    //g_free((void *)event->evt_rendered_msg);
+    //free((void *)event->evt_rendered_msg);
 
     return retval;
 }
