@@ -98,7 +98,10 @@ void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
     va_start(args, format);
     /** Get the registered value of module */
     num = rdk_logger_envGetNum(module);
-
+    if(num < 0)
+    {
+		return;
+	}
     rdk_debug_priv_log_msg( level, num, module, 
                 format, args);
     va_end(args);
