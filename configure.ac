@@ -44,7 +44,6 @@ dnl Checks for library functions.
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset strdup strerror])
 
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 0.10.28])
 PKG_CHECK_MODULES([LOG4C], [log4c >= 1.2.3])
 
 AC_CONFIG_FILES([Makefile
