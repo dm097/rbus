@@ -51,6 +51,7 @@
     <rollingpolicy name="PSM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="Harvester_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="RM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MTA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TDM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -71,6 +72,7 @@
     <appender name="RI_PSMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PSMlog.txt" layout="comcast_dated" rollingpolicy="PSM_rollingpolicy"/>
     <appender name="RI_CMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CMlog.txt" layout="comcast_dated" rollingpolicy="CM_rollingpolicy"/>
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
+    <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
     <appender name="RI_RMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RMlog.txt" layout="comcast_dated" rollingpolicy="RM_rollingpolicy"/>
     <appender name="RI_MTArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MTAlog.txt" layout="comcast_dated" rollingpolicy="MTA_rollingpolicy"/>
     <appender name="RI_TDMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TDMlog.txt" layout="comcast_dated" rollingpolicy="TDM_rollingpolicy"/>
@@ -131,6 +133,7 @@
 	<category name="RI.LM" priority="debug" appender="RI_LMrollingfileappender"/> 
 	<category name="RI.SNMP" priority="debug" appender="RI_SNMProllingfileappender"/> 
 	<category name="RI.FU" priority="debug" appender="RI_FUrollingfileappender"/> 
+	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -165,6 +168,9 @@
 	
 	<category name="RI.Stack.CR" priority="debug" appender="RI_CRrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.CR" priority="debug" appender="RI_CRrollingfileappender"/>
+
+	<category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 	
 	<category name="RI.Stack.MTA" priority="debug" appender="RI_MTArollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.MTA" priority="debug" appender="RI_MTArollingfileappender"/>
