@@ -60,6 +60,9 @@
     <rollingpolicy name="LM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="SNMP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FU_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="HOTSPOT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="DHCPSNOOP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -81,6 +84,8 @@
     <appender name="RI_LMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LM.txt" layout="comcast_dated" rollingpolicy="LM_rollingpolicy"/>
     <appender name="RI_SNMProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SNMP.txt" layout="comcast_dated" rollingpolicy="SNMP_rollingpolicy"/>
     <appender name="RI_FUrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FUlog.txt" layout="comcast_dated" rollingpolicy="FU_rollingpolicy"/>
+    <appender name="RI_HOTSPOTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Hotspotlog.txt" layout="comcast_dated" rollingpolicy="HOTSPOT_rollingpolicy"/>
+    <appender name="RI_DHCPSNOOProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Dhcpsnooplog.txt" layout="comcast_dated" rollingpolicy="DHCPSNOOP_rollingpolicy"/>
    
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -134,6 +139,8 @@
 	<category name="RI.SNMP" priority="debug" appender="RI_SNMProllingfileappender"/> 
 	<category name="RI.FU" priority="debug" appender="RI_FUrollingfileappender"/> 
 	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
+    <category name="RI.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+    <category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -196,5 +203,10 @@
 	<category name="RI.Stack.FU" priority="debug" appender="RI_FUrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.FU" priority="debug" appender="RI_FUrollingfileappender"/>
 
+    <category name="RI.Stack.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+
+    <category name="RI.Stack.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
  
 </log4c>
