@@ -62,7 +62,7 @@
     <rollingpolicy name="FU_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="HOTSPOT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="DHCPSNOOP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-
+    <rollingpolicy name="NOTIFY_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -86,7 +86,8 @@
     <appender name="RI_FUrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FUlog.txt" layout="comcast_dated" rollingpolicy="FU_rollingpolicy"/>
     <appender name="RI_HOTSPOTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Hotspotlog.txt" layout="comcast_dated" rollingpolicy="HOTSPOT_rollingpolicy"/>
     <appender name="RI_DHCPSNOOProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Dhcpsnooplog.txt" layout="comcast_dated" rollingpolicy="DHCPSNOOP_rollingpolicy"/>
-   
+   <appender name="RI_NOTIFYrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="NOTIFYLog.txt" layout="comcast_dated" rollingpolicy="NOTIFY_rollingpolicy"/>
+
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
@@ -141,7 +142,7 @@
 	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
     <category name="RI.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
     <category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
-
+	<category name="RI.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/> 
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -209,4 +210,7 @@
     <category name="RI.Stack.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
     <category name="RI.Stack.LOG.RDK.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
  
+	<category name="RI.Stack.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
+
 </log4c>
