@@ -64,6 +64,7 @@
     <rollingpolicy name="DHCPSNOOP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="NOTIFY_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WECB_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="WECBMASTER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -89,6 +90,7 @@
     <appender name="RI_DHCPSNOOProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Dhcpsnooplog.txt" layout="comcast_dated" rollingpolicy="DHCPSNOOP_rollingpolicy"/>
    <appender name="RI_NOTIFYrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="NOTIFYLog.txt" layout="comcast_dated" rollingpolicy="NOTIFY_rollingpolicy"/>
    <appender name="RI_WECBrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBLog.txt" layout="comcast_dated" rollingpolicy="WECB_rollingpolicy"/>
+   <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -146,6 +148,7 @@
     <category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
 	<category name="RI.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
  	<category name="RI.WECB" priority="debug" appender="RI_WECBrollingfileappender"/> 
+ 	<category name="RI.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/> 
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -217,4 +220,7 @@
 	<category name="RI.Stack.LOG.RDK.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
 	<category name="RI.Stack.WECB" priority="debug" appender="RI_WECBrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.WECB" priority="debug" appender="RI_WECBrollingfileappender"/>
+	<category name="RI.Stack.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
+
+	<category name="RI.Stack.LOG.RDK.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
 </log4c>
