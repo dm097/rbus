@@ -28,6 +28,19 @@
 //  for any other purpose.
 // COPYRIGHT_END
 
+/**
+ * @file rdk_debug_priv.c
+ */
+
+
+/**
+* @defgroup rdk_logger
+* @{
+* @defgroup src
+* @{
+**/
+
+
 #include <assert.h>
 #include <stdio.h>
 /*lint -e(451)*/
@@ -398,7 +411,14 @@ void rdk_dbg_priv_LogControlInit(void)
     }
 }
 
-/** Function to check if a specific log level of a module is enabled.*/
+/**
+ * @brief Function to check if a specific log level of a module is enabled.
+ *
+ * @param[in] module The module name or category for for which the log level shall be checked (as mentioned in debug.ini).
+ * @param[in] level The debug logging level.
+ *
+ * @return Returns true, if debug log level enabled successfully else returns false.
+ */
 rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level)
 {
         int number = rdk_logger_envGetNum(module); 
