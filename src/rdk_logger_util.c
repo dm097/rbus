@@ -10,6 +10,10 @@
  * ============================================================================
  */
 
+/**
+ * @file rdk_logger_util.c
+ * This source file contains the APIs for RDK logger util.
+ */
 
 /*
  * This file provides the CableLabs Reference Implementation of the rdk_logger_ utility APIs.
@@ -32,7 +36,6 @@
 #include <linux/reboot.h>
 
 
-/* Node for storing env vars in a linked list cache */
 typedef struct EnvVarNode
 {
     int number;
@@ -79,12 +82,11 @@ static void trim(char *instr, char* outstr)
 }
 
 /**
- * The <i>rdk_logger_env_add_conf_file()</i> function sets up the environment variable
- * storage by parsing configuration file.
+ * @brief This Function sets up the environment variable cache by parsing configuration file and adding
+ * each name/value pairs to the list.
  *
- * @param path Path of the file.
- * @return Returns <i>-1<i> on failure, otherwise <i>RDK_SUCCESS</i>
- *          is returned.
+ * @param[in] path Path of the configuration file.
+ * @return Returns Returns RDK_SUCCESS if the setting of environment variable is successful else it returns -1.
  */
 rdk_Error rdk_logger_env_add_conf_file( const char * path)
 {
@@ -187,12 +189,12 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
 }
 
 /**
- * The <i>rdk_logger_envGet()</i> function will get the value of the specified
- * environment variable.
+ * @brief This function will get value of the specified environment variable.
  *
- * @param name is a pointer to the name of the target environment variable.
- * @return NULL if the create fails, otherwise <i>value<i/>
- *          is returned.
+ * @param[in] name It is a pointer to the name of the target environment variable.
+ *
+ * @return Returns a pointer to the associated string value of the target environment
+ * variable or return NULL if the variable can't be found.
  */
 const char* rdk_logger_envGet(const char *name)
 {
@@ -219,12 +221,12 @@ const char* rdk_logger_envGet(const char *name)
 }
 
 /**
- * The <i>rdk_logger_envGetValueFromNum()</i> function will get the value of the specified
- * environment variable based on its registered number.
+ * @brief This function is used to get the value of the specified environment variable based
+ * on its registered number.
  *
- * @param number is a registered number of the target environment variable.
- * @return NULL if the create fails, otherwise <i>value<i/>
- *          is returned.
+ * @param[in] number Is a registered number of the target environment variable.
+ * @return Returns a pointer to the associated string value of the target environment.
+ * variable or return NULL in failure condition.
  */
 const char* rdk_logger_envGetValueFromNum(int number)
 {   
@@ -249,15 +251,13 @@ const char* rdk_logger_envGetValueFromNum(int number)
     pthread_mutex_unlock(&g_cacheMutex);
     return NULL;
 }
-/**
- * The <i>rdk_logger_envGetNum()</i> function will give the registered number 
- * of the specified environment variable.
- *
- * @param mod is a pointer to the name of the target environment variable.
- * @return -1 if fails, otherwise <i>number<i/>
- *          is returned.
- */
 
+/**
+ * @brief Function will give the registered number of the specified environment variable.
+ *
+ * @param[in] mod It is a pointer to the name of the target environment variable.
+ * @return Returns an integer value if the call is success otherwise returns -1.
+ */
 int rdk_logger_envGetNum(const char * mod)
 {
     EnvVarNode *node = g_envCache;
@@ -283,12 +283,12 @@ int rdk_logger_envGetNum(const char * mod)
 }
 
 /**
- * The <i>rdk_logger_envGetModFromNum()</i> function will get the name of the specified
- * environment variable based on its registered number.
+ * @brief This function is used to get the name of the specified environment variable based
+ * on its registered number.
  *
- * @param number is a registered number of the target environment variable.
- * @return NULL if it fails, otherwise <i>name<i/>
- *          is returned.
+ * @param[in] Num Is a registered number of the target environment variable.
+ * @return Returns a pointer to the associated string value of the target environment variable associated
+ * for registered number. Return NULL if the environment variable can't be found for registered number.
  */
 const char* rdk_logger_envGetModFromNum(int Num)
 {

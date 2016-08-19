@@ -10,6 +10,19 @@
  * ============================================================================
  */
 
+/**
+ * @file rdk_debug.c
+ * This source file contains the APIs for RDK debug.
+ */
+
+/**
+* @defgroup rdk_logger
+* @{
+* @defgroup src
+* @{
+**/
+
+
 #include <rdk_debug.h>
 #include <rdk_debug_priv.h>
 
@@ -19,8 +32,11 @@
 
 extern int global_count;
 
-/*
- * Touch the file which can be used to check whether to log or not.
+/**
+ * @brief Touch the file which can be used to check whether to log or not.
+ *
+ * @param[in] pszFile Character string representing name of the file to be created.
+ * @return None.
  */
 void TouchFile(const char * pszFile)
 {
@@ -35,7 +51,11 @@ void TouchFile(const char * pszFile)
 }
 
 /**
- * Dump the log
+ * @brief Dump the debug log. It will Dump all the current settings so that an analysis of a log
+ * file will include what logging information to expect.
+ *
+ * @param[in] path Character string representing path of the temp file to be created.
+ * @return None.
  */
 void rdk_dbgDumpLog(const char* path)
 {
@@ -67,7 +87,8 @@ void rdk_dbgDumpLog(const char* path)
 }
 
 /**
- * Initialize the underlying MPEOS debug support.
+ * @brief Initialize the underlying MPEOS debug support. This API must be called only once per boot cycle.
+ * @return None.
  */
 void rdk_dbgInit()
 {
@@ -81,12 +102,12 @@ void rdk_dbgInit()
 }
 
 /**
- * Send a debugging message to the debugging window.
+ * @brief Send a debugging message to the debugging window. It is appended to the log output based
+ * on configurations set in the environment file.
  *
- * @param level The debug logging level.
- * @param module The module name or category for debug output (as mentioned in debug.ini).
- * @param format The <i>printf</i> string describing the message.  This can be followed
- *               by 0 or more arguments to the <i>printf</i> format string.
+ * @param[in] level The debug logging level.
+ * @param[in] module The name of the module for which this message belongs to, it is mentioned in debug.ini.
+ * @param[in] format Printf style string containing the log message.
  */
 void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
         const char *format, ...)

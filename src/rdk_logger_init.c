@@ -10,6 +10,19 @@
  * ============================================================================
  */
 
+/**
+ * @file rdk_logger_init.c
+ * This source file contains the APIs for RDK logger initializer.
+ */
+
+/**
+* @defgroup rdk_logger
+* @{
+* @defgroup src
+* @{
+**/
+
+
 #include <sys/socket.h>
 #include <signal.h>
 #include <sys/types.h>
@@ -22,6 +35,17 @@
 
 #define BUF_LEN 256
 
+/**
+ * @brief Initialize the logger. Sets up the environment variable storage by parsing
+ * debug configuration file then Initialize the debug support to the underlying platform.
+ *
+ * @note  Requests not to send SIGPIPE on errors on stream oriented sockets
+ * when the other end breaks the connection. The EPIPE error is still returned.
+ *
+ * @param[in] debugConfigFile The character pointer variable of debug configuration file.
+ *
+ * @return Returns 0 if initialization of RDK logger module is successful, else it returns -1.
+ */
 rdk_Error rdk_logger_init(const char* debugConfigFile)
 {
 	rdk_Error ret;
@@ -64,6 +88,11 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
 	return RDK_SUCCESS;
 }
 
+/**
+ * @brief Cleanup the logger instantiation.
+ *
+ * @return Returns 0 if the call is successful else return -1.
+ */
 rdk_Error rdk_logger_deinit()
 {
     log4c_fini();
