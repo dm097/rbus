@@ -64,6 +64,7 @@
 
     <!--<rollingpolicy name="RI_rollingpolicy" type="sizewin" maxsize="10485760" maxnum="10"/>-->
     <rollingpolicy name="CR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="WIFI_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -71,6 +72,7 @@
   <!--  <appender name="/rdklogs/rdk_log.txt" type="stream_env_plus_stdout"  layout="dated" />-->
     
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
+    <appender name="RI_WIFIrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WiFilog.txt" layout="comcast_dated" rollingpolicy="WIFI_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -111,6 +113,7 @@
     
     	<!--<category name="RI" priority="debug" appender="RI_rollingfileappender"/>-->
 	<category name="RI.CR" priority="debug" appender="RI_CRrollingfileappender"/> 
+	<category name="RI.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/> 
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -132,6 +135,8 @@
 	
 	<category name="RI.Stack.CR" priority="debug" appender="RI_CRrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.CR" priority="debug" appender="RI_CRrollingfileappender"/>
+	<category name="RI.Stack.WiFi" priority="debug" appender="RI_WiFirollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/>
 
 	
 </log4c>
