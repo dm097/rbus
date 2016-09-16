@@ -31,23 +31,6 @@ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])],
 dnl **********************************
 dnl checks for dependencies
 dnl **********************************
-SYSTEMD_CFLAGS=" "
-SYSTEMD_LDFLAGS=" "
-AC_ARG_ENABLE([journal],
-        AS_HELP_STRING([--enable-journal],[enable systemd journal logging]),
-        [
-                case "${enableval}" in
-                yes) SYSTEMD_CFLAGS="-DSYSTEMD_JOURNAL"
-                     SYSTEMD_LDFLAGS="-lsystemd" ;;
-                no) AC_MSG_ERROR([systemd journal logging  is disabled]) ;;
-                *) AC_MSG_ERROR([bad value ${enableval} for --enable-journal ]) ;;
-                esac
-                ],
-        [echo "journal logging  is disable"])
-
-AC_SUBST(SYSTEMD_CFLAGS)
-AC_SUBST(SYSTEMD_LDFLAGS)
-
 AC_HEADER_STDC
 
 dnl Checks for header files.
