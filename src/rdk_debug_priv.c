@@ -759,7 +759,10 @@ static int stream_env_open(log4c_appender_t* appender, int append)
     int newNameLen = 0;
 
     if (fp)
-    return 0;
+    {
+        free(name); /*RDKB-7467, CID-24968, free unused resources*/
+        return 0;
+    }
 
     newName[0] = '\0';
 
