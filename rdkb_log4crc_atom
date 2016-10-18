@@ -65,6 +65,7 @@
     <!--<rollingpolicy name="RI_rollingpolicy" type="sizewin" maxsize="10485760" maxnum="10"/>-->
     <rollingpolicy name="CR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WIFI_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="ServiceManager_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -73,6 +74,7 @@
     
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
     <appender name="RI_WIFIrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WiFilog.txt" layout="comcast_dated" rollingpolicy="WIFI_rollingpolicy"/>
+<appender name="RI_ServiceManagerrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ServiceManagerlog.txt" layout="comcast_dated" rollingpolicy="ServiceManager_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -114,6 +116,7 @@
     	<!--<category name="RI" priority="debug" appender="RI_rollingfileappender"/>-->
 	<category name="RI.CR" priority="debug" appender="RI_CRrollingfileappender"/> 
 	<category name="RI.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/> 
+	<category name="RI.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -137,6 +140,8 @@
 	<category name="RI.Stack.LOG.RDK.CR" priority="debug" appender="RI_CRrollingfileappender"/>
 	<category name="RI.Stack.WiFi" priority="debug" appender="RI_WiFirollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/>
+<category name="RI.Stack.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
+<category name="RI.Stack.LOG.RDK.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 
 	
 </log4c>
