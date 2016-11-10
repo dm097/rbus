@@ -65,6 +65,8 @@
     <rollingpolicy name="NOTIFY_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WECB_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WECBMASTER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="XSMART_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -88,11 +90,13 @@
     <appender name="RI_FUrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FUlog.txt" layout="comcast_dated" rollingpolicy="FU_rollingpolicy"/>
     <appender name="RI_HOTSPOTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Hotspotlog.txt" layout="comcast_dated" rollingpolicy="HOTSPOT_rollingpolicy"/>
     <appender name="RI_DHCPSNOOProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Dhcpsnooplog.txt" layout="comcast_dated" rollingpolicy="DHCPSNOOP_rollingpolicy"/>
-   <appender name="RI_NOTIFYrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="NOTIFYLog.txt" layout="comcast_dated" rollingpolicy="NOTIFY_rollingpolicy"/>
-   <appender name="RI_WECBrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBLog.txt" layout="comcast_dated" rollingpolicy="WECB_rollingpolicy"/>
-   <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
+    <appender name="RI_NOTIFYrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="NOTIFYLog.txt" layout="comcast_dated" rollingpolicy="NOTIFY_rollingpolicy"/>
+    <appender name="RI_WECBrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBLog.txt" layout="comcast_dated" rollingpolicy="WECB_rollingpolicy"/>
+    <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
+    <appender name="RI_XSMARTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XsmartLog.txt" layout="comcast_dated" rollingpolicy="XSMART_rollingpolicy"/>
+    <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
 
-   <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
+    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
         Priorities (log levels)
@@ -144,11 +148,13 @@
 	<category name="RI.SNMP" priority="debug" appender="RI_SNMProllingfileappender"/> 
 	<category name="RI.FU" priority="debug" appender="RI_FUrollingfileappender"/> 
 	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
-    <category name="RI.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
-    <category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
+	<category name="RI.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+	<category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
 	<category name="RI.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
  	<category name="RI.WECB" priority="debug" appender="RI_WECBrollingfileappender"/> 
  	<category name="RI.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/> 
+ 	<category name="RI.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/> 
+ 	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -210,17 +216,24 @@
 	<category name="RI.Stack.FU" priority="debug" appender="RI_FUrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.FU" priority="debug" appender="RI_FUrollingfileappender"/>
 
-    <category name="RI.Stack.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
-    <category name="RI.Stack.LOG.RDK.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+	<category name="RI.Stack.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
 
-    <category name="RI.Stack.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
-    <category name="RI.Stack.LOG.RDK.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
+	<category name="RI.Stack.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
  
 	<category name="RI.Stack.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
+
 	<category name="RI.Stack.WECB" priority="debug" appender="RI_WECBrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.WECB" priority="debug" appender="RI_WECBrollingfileappender"/>
-	<category name="RI.Stack.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
 
+	<category name="RI.Stack.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
+	
+	<category name="RI.Stack.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
+	
+	<category name="RI.Stack.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/>
 </log4c>
