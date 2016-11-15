@@ -67,7 +67,9 @@
     <rollingpolicy name="WECBMASTER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="XSMART_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    
+    <rollingpolicy name="FSC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="PWRMGR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>    
+
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="socket" type="socket_env" layout="basic"/> -->
@@ -95,6 +97,8 @@
     <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
     <appender name="RI_XSMARTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XsmartLog.txt" layout="comcast_dated" rollingpolicy="XSMART_rollingpolicy"/>
     <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
+    <appender name="RI_FSCrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FSCLog.txt" layout="comcast_dated" rollingpolicy="FSC_rollingpolicy"/>
+    <appender name="RI_PWRMGRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="POWERMGRLog.txt" layout="comcast_dated" rollingpolicy="PWRMGR_rollingpolicy"/>
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -155,6 +159,8 @@
  	<category name="RI.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/> 
  	<category name="RI.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/> 
  	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
+    <category name="RI.FSC" priority="debug" appender="RI_FSCrollingfileappender"/> 
+    <category name="RI.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>     
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -236,4 +242,10 @@
 	
 	<category name="RI.Stack.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/>
+
+    <category name="RI.Stack.FSC" priority="debug" appender="RI_FSCrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.FSC" priority="debug" appender="RI_FSCrollingfileappender"/>
+    
+    <category name="RI.Stack.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>    
 </log4c>
