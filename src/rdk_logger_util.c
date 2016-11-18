@@ -16,7 +16,7 @@
  */
 
 /*
- * This file provides the CableLabs Reference Implementation of the rdk_logger_ utility APIs.
+ * This file provides the rdk_logger_ utility APIs.
  */
 
 /* Header Files */
