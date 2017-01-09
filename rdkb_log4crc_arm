@@ -67,6 +67,7 @@
     <rollingpolicy name="WEBPA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PAM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PSM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="MOCA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Harvester_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="RM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -91,6 +92,7 @@
     <appender name="RI_WEBPArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBPAlog.txt" layout="comcast_dated" rollingpolicy="WEBPA_rollingpolicy"/>
     <appender name="RI_PAMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PAMlog.txt" layout="comcast_dated" rollingpolicy="PAM_rollingpolicy"/>
     <appender name="RI_PSMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PSMlog.txt" layout="comcast_dated" rollingpolicy="PSM_rollingpolicy"/>
+    <appender name="RI_MOCArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MOCAlog.txt" layout="comcast_dated" rollingpolicy="MOCA_rollingpolicy"/>
     <appender name="RI_CMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CMlog.txt" layout="comcast_dated" rollingpolicy="CM_rollingpolicy"/>
     <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
     <appender name="RI_RMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RMlog.txt" layout="comcast_dated" rollingpolicy="RM_rollingpolicy"/>
@@ -148,6 +150,7 @@
 	<category name="RI.WEBPA" priority="debug" appender="RI_WEBPArollingfileappender"/>
 	<category name="RI.PAM" priority="debug" appender="RI_PAMrollingfileappender"/>
 	<category name="RI.PSM" priority="debug" appender="RI_PSMrollingfileappender"/> 
+	<category name="RI.MOCA" priority="debug" appender="RI_MOCArollingfileappender"/> 
 	<category name="RI.MTA" priority="debug" appender="RI_MTArollingfileappender"/> 
 	<category name="RI.CM" priority="debug" appender="RI_CMrollingfileappender"/>
 	<category name="RI.TDM" priority="debug" appender="RI_TDMrollingfileappender"/> 
@@ -192,6 +195,9 @@
 	<category name="RI.Stack.PSM" priority="debug" appender="RI_PSMrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.PSM" priority="debug" appender="RI_PSMrollingfileappender"/>
 	
+	<category name="RI.Stack.MOCA" priority="debug" appender="RI_MOCArollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.MOCA" priority="debug" appender="RI_MOCArollingfileappender"/>
+
 	<category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 	
