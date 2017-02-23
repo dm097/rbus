@@ -48,6 +48,10 @@
 #include <rdk_utils.h>
 
 
+#ifdef SYSTEMD_SYSLOG_HELPER
+#include "syslog_helper_ifc.h"
+#endif
+
 /// Debugging messages are enabled.  Default is enabled (1) and 0 for off.
 static int g_debugEnabled = 1;
 
@@ -80,7 +84,6 @@ extern int global_count;
 
 
 #define MAX_LOGLINE_LENGTH 4096
-
 
 static int initLogger(char *category);
 
@@ -856,11 +859,15 @@ static int stream_env_append_open(log4c_appender_t* appender)
 static int stream_env_append(log4c_appender_t* appender,
         const log4c_logging_event_t* event)
 {
-    int retval;
+    int retval=0;
     FILE* fp = (FILE*)log4c_appender_get_udata(appender);
 
+#if defined(SYSTEMD_SYSLOG_HELPER)
+    send_logs_to_syslog(event->evt_rendered_msg);
+#else
     retval = fprintf(fp, "%s", event->evt_rendered_msg);
     (void)fflush(fp);
+#endif
 
     //free((void *)event->evt_rendered_msg);
 
@@ -870,15 +877,18 @@ static int stream_env_append(log4c_appender_t* appender,
 static int stream_env_plus_stdout_append(log4c_appender_t* appender,
         const log4c_logging_event_t* event)
 {
-    int retval;
+    int retval=0;
     FILE* fp = (FILE*)log4c_appender_get_udata(appender);
 
+#if defined(SYSTEMD_SYSLOG_HELPER)
+        send_logs_to_syslog(event->evt_rendered_msg);
+#else
     retval = fprintf(fp, "%s", event->evt_rendered_msg);
     fprintf(stdout, "%s", event->evt_rendered_msg);
 
     (void)fflush(fp);
     (void)fflush(stdout);
-
+#endif
     //free((void *)event->evt_rendered_msg);
 
     return retval;

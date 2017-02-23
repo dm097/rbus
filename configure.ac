@@ -31,6 +31,24 @@ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])],
 dnl **********************************
 dnl checks for dependencies
 dnl **********************************
+SYSLOG_HELPER_CFLAGS=" "
+SYSLOG_HELPER_LDFLAGS=" "
+
+AC_ARG_ENABLE([systemd-syslog-helper],
+        AS_HELP_STRING([--enable-systemd-syslog-helper],[enable systemd syslog logging]),
+        [
+                case "${enableval}" in
+                yes) SYSLOG_HELPER_CFLAGS="-DSYSTEMD_SYSLOG_HELPER"
+                     SYSLOG_HELPER_LDFLAGS="-lsysloghelper" ;;
+                no) AC_MSG_ERROR([systemd syslog logging  is disabled]) ;;
+                *) AC_MSG_ERROR([bad value ${enableval} for --enable-systemd-syslog-helper ]) ;;
+                esac
+                ],
+        [echo "systemd syslog logging  is disable"])
+
+AC_SUBST(SYSLOG_HELPER_CFLAGS)
+AC_SUBST(SYSLOG_HELPER_LDFLAGS)
+
 AC_HEADER_STDC
 
 dnl Checks for header files.
