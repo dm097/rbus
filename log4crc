@@ -4,7 +4,7 @@
 <log4c version="1.2.3">
 
     <config>
-        <bufsize>0</bufsize>
+        <bufsize>1024</bufsize>
         <debug level="0"/>
         <nocleanup>0</nocleanup>
         <reread>0</reread>
