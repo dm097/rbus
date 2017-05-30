@@ -68,7 +68,8 @@
     <rollingpolicy name="XSMART_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FSC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="PWRMGR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>    
+    <rollingpolicy name="PWRMGR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="MESH_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -99,6 +100,7 @@
     <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
     <appender name="RI_FSCrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FSCLog.txt" layout="comcast_dated" rollingpolicy="FSC_rollingpolicy"/>
     <appender name="RI_PWRMGRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="POWERMGRLog.txt" layout="comcast_dated" rollingpolicy="PWRMGR_rollingpolicy"/>
+    <appender name="RI_MESHrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshAgentLog.txt" layout="comcast_dated" rollingpolicy="MESH_rollingpolicy"/>
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -161,6 +163,7 @@
  	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
     <category name="RI.FSC" priority="debug" appender="RI_FSCrollingfileappender"/> 
     <category name="RI.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>     
+    <category name="RI.MESH" priority="debug" appender="RI_MESHrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -247,5 +250,6 @@
     <category name="RI.Stack.LOG.RDK.FSC" priority="debug" appender="RI_FSCrollingfileappender"/>
     
     <category name="RI.Stack.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
-    <category name="RI.Stack.LOG.RDK.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>    
+    <category name="RI.Stack.LOG.RDK.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.MESH" priority="debug" appender="RI_MESHrollingfileappender"/>
 </log4c>
