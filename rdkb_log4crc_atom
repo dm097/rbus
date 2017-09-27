@@ -65,12 +65,14 @@
     <!--<rollingpolicy name="RI_rollingpolicy" type="sizewin" maxsize="10485760" maxnum="10"/>-->
     <rollingpolicy name="CR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WIFI_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="Harvester_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ServiceManager_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="XSMART_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MESH_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MeshService_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-        
+    <rollingpolicy name="WEBPA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+	<rollingpolicy name="Seshat_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>    
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -79,11 +81,14 @@
     
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
     <appender name="RI_WIFIrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WiFilog.txt" layout="comcast_dated" rollingpolicy="WIFI_rollingpolicy"/>
+    <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
     <appender name="RI_ServiceManagerrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ServiceManagerlog.txt" layout="comcast_dated" rollingpolicy="ServiceManager_rollingpolicy"/>
     <appender name="RI_XSMARTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XsmartLog.txt" layout="comcast_dated" rollingpolicy="XSMART_rollingpolicy"/>
     <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
     <appender name="RI_MESHrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshAgentLog.txt" layout="comcast_dated" rollingpolicy="MESH_rollingpolicy"/>
     <appender name="RI_MeshServicerollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshServiceLog.txt" layout="comcast_dated" rollingpolicy="MeshService_rollingpolicy"/>
+	<appender name="RI_WEBPArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBPAlog.txt" layout="comcast_dated" rollingpolicy="WEBPA_rollingpolicy"/>
+	<appender name="RI_Seshatrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SeshatLog.txt" layout="comcast_dated" rollingpolicy="Seshat_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -125,11 +130,14 @@
     	<!--<category name="RI" priority="debug" appender="RI_rollingfileappender"/>-->
 	<category name="RI.CR" priority="debug" appender="RI_CRrollingfileappender"/> 
 	<category name="RI.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/> 
+	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 	<category name="RI.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 	<category name="RI.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/> 
 	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
 	<category name="RI.MESH" priority="debug" appender="RI_MESHrollingfileappender"/> 
 	<category name="RI.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/> 
+	<category name="RI.WEBPA" priority="debug" appender="RI_WEBPArollingfileappender"/>
+	<category name="RI.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -155,6 +163,9 @@
     <category name="RI.Stack.WiFi" priority="debug" appender="RI_WiFirollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/>
 
+    <category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
+
     <category name="RI.Stack.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 
@@ -169,4 +180,10 @@
 
     <category name="RI.Stack.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
+	
+    <category name="RI.Stack.WEBPA" priority="debug" appender="RI_WEBPArollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.WEBPA" priority="debug" appender="RI_WEBPArollingfileappender"/>
+
+	 <category name="RI.Stack.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
 </log4c>

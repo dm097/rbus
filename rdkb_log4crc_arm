@@ -69,7 +69,6 @@
     <rollingpolicy name="PSM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MOCA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="Harvester_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="RM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MTA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TDM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -84,7 +83,7 @@
     <rollingpolicy name="WECBMASTER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ETHAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROV_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    
+    <rollingpolicy name="PARODUS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/> 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="socket" type="socket_env" layout="basic"/> -->
@@ -96,7 +95,6 @@
     <appender name="RI_PSMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PSMlog.txt" layout="comcast_dated" rollingpolicy="PSM_rollingpolicy"/>
     <appender name="RI_MOCArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MOCAlog.txt" layout="comcast_dated" rollingpolicy="MOCA_rollingpolicy"/>
     <appender name="RI_CMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CMlog.txt" layout="comcast_dated" rollingpolicy="CM_rollingpolicy"/>
-    <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
     <appender name="RI_RMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RMlog.txt" layout="comcast_dated" rollingpolicy="RM_rollingpolicy"/>
     <appender name="RI_MTArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MTAlog.txt" layout="comcast_dated" rollingpolicy="MTA_rollingpolicy"/>
     <appender name="RI_TDMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TDMlog.txt" layout="comcast_dated" rollingpolicy="TDM_rollingpolicy"/>
@@ -111,6 +109,7 @@
    <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
     <appender name="RI_ETHAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ETHAGENTLog.txt" layout="comcast_dated" rollingpolicy="ETHAGENT_rollingpolicy"/>
     <appender name="RI_GWPROVrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVLog.txt" layout="comcast_dated" rollingpolicy="GWPROV_rollingpolicy"/>
+	<appender name="RI_PARODUSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PARODUSlog.txt" layout="comcast_dated" rollingpolicy="PARODUS_rollingpolicy"/>
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
@@ -161,7 +160,6 @@
 	<category name="RI.LM" priority="debug" appender="RI_LMrollingfileappender"/> 
 	<category name="RI.SNMP" priority="debug" appender="RI_SNMProllingfileappender"/> 
 	<category name="RI.FU" priority="debug" appender="RI_FUrollingfileappender"/> 
-	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
     <category name="RI.HOTSPOT" priority="debug" appender="RI_HOTSPOTrollingfileappender"/>
     <category name="RI.DHCPSNOOP" priority="debug" appender="RI_DHCPSNOOProllingfileappender"/>
 	<category name="RI.NOTIFY" priority="debug" appender="RI_NOTIFYrollingfileappender"/>
@@ -169,6 +167,7 @@
  	<category name="RI.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/> 
 	<category name="RI.ETHAGENT" priority="debug" appender="RI_ETHAGENTrollingfileappender"/>
     <category name="RI.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
+	<category name="RI.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -203,9 +202,6 @@
 	<category name="RI.Stack.MOCA" priority="debug" appender="RI_MOCArollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.MOCA" priority="debug" appender="RI_MOCArollingfileappender"/>
 
-	<category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
-	<category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
-	
 	<category name="RI.Stack.MTA" priority="debug" appender="RI_MTArollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.MTA" priority="debug" appender="RI_MTArollingfileappender"/>
 	
@@ -246,4 +242,7 @@
 
     <category name="RI.Stack.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
+
+	<category name="RI.Stack.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
 </log4c>
