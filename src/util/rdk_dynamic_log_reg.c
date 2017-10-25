@@ -26,9 +26,9 @@
 #include "dynamicLogger.h"
 #include "rdk_log_reg.h"
 
-#define LENGTH_1 40
-#define LENGTH_2 10
-#define LENGTH_3 4
+#define LENGTH_1 64
+#define LENGTH_2 64
+#define LENGTH_NULL 4
 
 typedef struct rdk_logger_component_details{
     char appName[LENGTH_1];
@@ -90,14 +90,14 @@ void EvtHandler(const char *owner, IARM_EventId_t eventId, void *data, size_t le
     rdk_logger_component_details_t *compDetails = NULL;
     GList *comp_list = NULL;
     int cbFound = 0;
- 
+
     if((NULL == owner) || (NULL == data))
     {
         return;
     }
 
     eventData = (IARM_Bus_DynamicLogger_EventData_t *)data;
- 
+
     /*Confirm whether the intended event is received*/
     if((0 != strncmp(owner, IARM_BUS_DYNAMIC_LOGGER_NAME, strlen(IARM_BUS_DYNAMIC_LOGGER_NAME))) ||
        (IARM_BUS_DYNAMICLOGGER_EVENT_LOG_STATUS != eventId) ||
@@ -298,7 +298,7 @@ void rdk_logger_registerLogCtrlComp(const char* module,const char* subModule,rdk
             }
             else
             {
-                strncpy(modDetails->subCompName,"NULL",LENGTH_3);
+                strncpy(modDetails->subCompName,"NULL",LENGTH_NULL);
             }
             modDetails->LOGCTRL_CB = CB;
         }
@@ -346,7 +346,7 @@ void rdk_logger_unRegisterLogCtrlComp(const char* module,const char* subModule)
     strncpy(lModule, module, strlen(module));
 
     if(NULL == subModule)
-        strncpy(lsubModule, "NULL", LENGTH_3);
+        strncpy(lsubModule, "NULL", LENGTH_NULL);
     else
         strncpy(lsubModule, subModule, strlen(subModule));
     /*Traverse through the glist and remove the unregistered component*/

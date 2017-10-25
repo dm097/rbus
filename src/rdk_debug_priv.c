@@ -617,6 +617,24 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
 }
 
 
+void RDK_LOG_ControlCB(const char *moduleName, const char *subComponentName, const char *loggingLevel, int log_status)
+{
+    char logTypeName[20] = {0};
+
+    if ((NULL == moduleName) || (NULL == loggingLevel))
+    {
+        return;
+    }
+
+    strncpy(logTypeName, loggingLevel, sizeof(logTypeName));
+    if (logTypeName[0] == '~')
+    {
+        logTypeName[0] = '!';
+    }
+
+    rdk_dbg_priv_SetLogLevelString(moduleName, (const char *)logTypeName);
+}
+
 
 
 /*************************Copied from ri_log.c******************/

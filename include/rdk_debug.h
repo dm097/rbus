@@ -191,6 +191,8 @@ const char *rdk_logLevelStrings[ENUM_RDK_LOG_COUNT] =
 extern const char *rdk_logLevelStrings[ENUM_RDK_LOG_COUNT];
 #endif /* RDK_DEBUG_DEFINE_STRINGS */
 
+void RDK_LOG_ControlCB(const char *moduleName, const char *subComponentName, const char *loggingLevel, int log_status);
+
 /**
  * @ingroup RDKLOGGER_DEBUG_API
  * @{
