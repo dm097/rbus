@@ -3,12 +3,13 @@ dnl Process this file with autoconf to produce a configure script.
 
 dnl AC_PREREQ([2.69])
 AC_INIT(rdklogger, 1.0, balaji_punnuru@cable.comcast.com,rmfwebkitifc)
-AC_CONFIG_SRCDIR([src/rdk_logger_util.c])
+AC_CONFIG_SRCDIR([src])
 AM_CONFIG_HEADER(cfg/config.h)
 AC_CONFIG_MACRO_DIR([cfg])
 AC_CONFIG_AUX_DIR([cfg])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 1.9])
 LT_INIT
+IS_DYNAMIC_ENABLED=""
 
 dnl subdirectories.
 
@@ -33,6 +34,21 @@ dnl checks for dependencies
 dnl **********************************
 SYSLOG_HELPER_CFLAGS=" "
 SYSLOG_HELPER_LDFLAGS=" "
+UTILS=""
+AC_ARG_ENABLE([dynamic],
+        AS_HELP_STRING([--enable-dynamic],[enable dynamic (default is no)]),
+        [
+          case "${enableval}" in
+           yes) IS_DYNAMIC_ENABLED=true
+                UTILS="util";;
+           no)  IS_DYNAMIC_ENABLED=false ;;
+          *) AC_MSG_ERROR([bad value ${enableval} for --enable-dynamic]) ;;
+           esac
+           ],
+        [echo "dynamic logging is disabled"])
+AM_CONDITIONAL([IS_DYNAMIC_ENABLED], [test x$IS_DYNAMIC_ENABLED = xtrue])
+
+
 
 AC_ARG_ENABLE([systemd-syslog-helper],
         AS_HELP_STRING([--enable-systemd-syslog-helper],[enable systemd syslog logging]),
@@ -48,6 +64,7 @@ AC_ARG_ENABLE([systemd-syslog-helper],
 
 AC_SUBST(SYSLOG_HELPER_CFLAGS)
 AC_SUBST(SYSLOG_HELPER_LDFLAGS)
+AC_SUBST(UTILS)
 
 AC_HEADER_STDC
 
@@ -67,5 +84,7 @@ PKG_CHECK_MODULES([LOG4C], [log4c >= 1.2.3])
 AC_CONFIG_FILES([Makefile
 		 cfg/Makefile
                  src/Makefile
+                 src/util/Makefile
+                 test/Makefile
                  include/Makefile])
 AC_OUTPUT

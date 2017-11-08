@@ -1,6 +1,6 @@
 ## Copyright (c) 2013 Comcast. All rights reserved.
 
-SUBDIRS = 
+SUBDIRS = $(UTILS)
 AM_CPPFLAGS = -pthread -Wall
 lib_LTLIBRARIES = librdkloggers.la
 librdkloggers_la_SOURCES = rdk_debug.c rdk_debug_priv.c rdk_logger_init.c rdk_logger_util.c
