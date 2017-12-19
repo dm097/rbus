@@ -142,6 +142,14 @@ extern "C"
 #endif
 
 /**
+ * Support for overriding debug.ini file location
+ */
+#define DEBUG_INI_OVERRIDE_PATH "/nvram/debug.ini"
+#define RDK_LOGGER_INIT()	(0 == access(DEBUG_INI_OVERRIDE_PATH, F_OK)) \
+								? rdk_logger_init(DEBUG_INI_OVERRIDE_PATH) \
+								: rdk_logger_init(DEBUG_INI_NAME);
+
+/**
  * @enum rdk_LogLevel
  * @brief These values represent the logging 'levels' or 'types', they are each
  * independent.
