@@ -68,7 +68,7 @@ extern int global_count;
  * Returns 1 if logging has been requested for the corresponding module (mod)
  * and level (lvl) combination. To be used in rdk_dbg_priv_* files ONLY.
  */
-#define WANT_LOG(mod, lvl) (rdk_g_logControlTbl[(mod)] & (1 << (lvl)))
+#define WANT_LOG(mod, lvl) ( ( ((mod) >= 0) && ((mod) < RDK_MAX_MOD_COUNT) ) ? (rdk_g_logControlTbl[(mod)] & (1 << (lvl))) : 0 )
 
 
 /** Skip whitespace in a c-style string. */
