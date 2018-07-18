@@ -240,7 +240,7 @@ rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level);
  */ 
 
 #define RDK_LOG rdk_dbg_MsgRaw
-
+#define RDK_LOG1 rdk_dbg_MsgRaw1
 
 #ifdef __cplusplus
 }

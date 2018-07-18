@@ -129,3 +129,20 @@ void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
 #endif /* RDK_LOG_DISABLE */
 }
 
+void rdk_dbg_MsgRaw1(rdk_LogLevel level, const char *module,
+        const char *format, va_list args)
+{
+#if !defined(RDK_LOG_DISABLE)
+    int num;
+
+    /** Get the registered value of module */
+    num = rdk_logger_envGetNum(module);
+    if(num < 0)
+    {
+        return;
+    }
+    rdk_debug_priv_log_msg( level, num, module,
+                format, args);
+#endif /* RDK_LOG_DISABLE */
+}
+
