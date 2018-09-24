@@ -62,15 +62,15 @@
     -->
 
     <rollingpolicy name="RI_rollingpolicy" type="sizewin" maxsize="10485760" maxnum="10"/>
-    <rollingpolicy name="RI_XWCLIENTrollingpolicy" type="sizewin" maxsize="128000" maxnum="2"/>
+ <!-- <rollingpolicy name="RI_XWCLIENTrollingpolicy" type="sizewin" maxsize="128000" maxnum="2"/> -->
     <rollingpolicy name="RI_XWCONFIG_rollingpolicy" type="sizewin" maxsize="64000" maxnum="2"/>
  <!--   <rollingpolicy name="RI_LEDMGRrollingpolicy" type="sizewin" maxsize="128000" maxnum="2"/> -->
     
     <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="RI_rollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="ocapri_log.txt" layout="comcast_dated" rollingpolicy="RI_rollingpolicy"/>
-    <appender name="RI_XWCLIENTrollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="xwclient_log.txt" layout="comcast_dated" rollingpolicy="RI_XWCLIENTrollingpolicy"/>
-<!-- <appender name="RI_LEDMGRrollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="ledmgr_log.txt" layout="comcast_dated" rollingpolicy="RI_LEDMGRrollingpolicy"/> -->
+<!-- <appender name="RI_XWCLIENTrollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="xwclient_log.txt" layout="comcast_dated" rollingpolicy="RI_XWCLIENTrollingpolicy"/>
+    <appender name="RI_LEDMGRrollingfileappender" type="rollingfile" logdir="/opt/logs/" prefix="ledmgr_log.txt" layout="comcast_dated" rollingpolicy="RI_LEDMGRrollingpolicy"/> -->
     <appender name="RI_XWCONFIGrollingfileappender" type="rollingfile" logdir="/mnt/ramdisk/opt/logs/" prefix="xwconfig_log.txt" layout="comcast_dated" rollingpolicy="RI_XWCONFIG_rollingpolicy"/>
     <appender name="$(CEF_LOG_PATH)" type="stream_env_append" layout="comcast_dated"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
@@ -112,7 +112,7 @@
     
     <category name="RI" priority="info" appender="stdout"/>
     <category name="RI.Stack.LOG.RDK.CEF" priority="info" appender="$(CEF_LOG_PATH)"/>
-    <category name="RI.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/>
+<!-- <category name="RI.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/> -->
     <category name="RI.XWCONFIG" priority="debug" appender="RI_XWCONFIGrollingfileappender"/>
  <!--   <category name="RI.LEDMGR" priority="debug" appender="RI_LEDMGRrollingfileappender"/> -->
 
@@ -186,8 +186,8 @@
 
     <category name="RI.Storage" />
 
-    <category name="RI.Stack.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/>
-    <category name="RI.Stack.LOG.RDK.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/>
+ <!--   <category name="RI.Stack.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/> -->
     <category name="RI.Stack.XWCONFIG" priority="debug" appender="RI_XWCONFIGrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.XWCONFIG" priority="debug" appender="RI_XWCONFIGrollingfileappender"/>
 <!--   <category name="RI.Stack.LEDMGR" priority="debug" appender="RI_LEDMGRrollingfileappender"/>
