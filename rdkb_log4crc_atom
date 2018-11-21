@@ -72,6 +72,7 @@
     <rollingpolicy name="MeshService_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WEBPA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 	<rollingpolicy name="Seshat_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>    
+   <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -87,6 +88,7 @@
     <appender name="RI_MeshServicerollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshServiceLog.txt" layout="comcast_dated" rollingpolicy="MeshService_rollingpolicy"/>
 	<appender name="RI_WEBPArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBPAlog.txt" layout="comcast_dated" rollingpolicy="WEBPA_rollingpolicy"/>
 	<appender name="RI_Seshatrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SeshatLog.txt" layout="comcast_dated" rollingpolicy="Seshat_rollingpolicy"/>
+    <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -135,6 +137,7 @@
 	<category name="RI.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/> 
 	<category name="RI.WEBPA" priority="debug" appender="RI_WEBPArollingfileappender"/>
 	<category name="RI.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+	<category name="RI.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -181,4 +184,8 @@
 
 	 <category name="RI.Stack.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+
+    <category name="RI.Stack.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.SPDTST" priority="debug" appender="RI_Speedtestrollingfileappender"/>
+
 </log4c>
