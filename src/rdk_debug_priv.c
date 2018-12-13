@@ -54,6 +54,10 @@
 #include "log4c.h"
 #include <rdk_utils.h>
 
+#ifdef SYSTEMD_JOURNAL
+#include <systemd/sd-journal.h>
+#endif //SYSTEMD_JOURNAL
+
 
 #ifdef SYSTEMD_SYSLOG_HELPER
 #include "syslog_helper_ifc.h"
@@ -881,6 +885,37 @@ static int stream_env_append_open(log4c_appender_t* appender)
     return stream_env_open(appender, 1);
 }
 
+#ifdef SYSTEMD_JOURNAL
+static int stream_env_append_get_priority(int log4c_pr)
+{
+    int priority;
+    switch(log4c_pr)
+    {
+    case LOG4C_PRIORITY_FATAL:
+        priority = LOG_EMERG;
+        break;
+    case LOG4C_PRIORITY_ERROR:
+        priority = LOG_ERR;
+        break;
+    case LOG4C_PRIORITY_WARN:
+        priority = LOG_WARNING;
+        break;
+    case LOG4C_PRIORITY_NOTICE:
+        priority = LOG_NOTICE;
+        break;
+    case LOG4C_PRIORITY_INFO:
+        priority = LOG_INFO;
+        break;
+    case LOG4C_PRIORITY_DEBUG:
+    case LOG4C_PRIORITY_TRACE:
+    default:
+        priority = LOG_DEBUG;
+        break;
+    }
+    return priority;
+}
+#endif
+
 static int stream_env_append(log4c_appender_t* appender,
         const log4c_logging_event_t* event)
 {
@@ -889,6 +924,16 @@ static int stream_env_append(log4c_appender_t* appender,
 
 #if defined(SYSTEMD_SYSLOG_HELPER)
     send_logs_to_syslog(event->evt_rendered_msg);
+#elif defined(SYSTEMD_JOURNAL)
+    if (fp == stdout || fp == stderr)
+    {
+        retval = sd_journal_print(stream_env_append_get_priority(event->evt_priority), "%s",event->evt_rendered_msg);
+    }
+    else
+    {
+        retval = fprintf(fp, "%s", event->evt_rendered_msg);
+        (void)fflush(fp);
+    }
 #else
     retval = fprintf(fp, "%s", event->evt_rendered_msg);
     (void)fflush(fp);
@@ -907,10 +952,19 @@ static int stream_env_plus_stdout_append(log4c_appender_t* appender,
 
 #if defined(SYSTEMD_SYSLOG_HELPER)
         send_logs_to_syslog(event->evt_rendered_msg);
+#elif defined(SYSTEMD_JOURNAL)
+    if (fp != stdout || fp != stderr)
+    {
+       retval = fprintf(fp, "%s", event->evt_rendered_msg);
+    }
+    else
+    {
+       retval = sd_journal_print(stream_env_append_get_priority(event->evt_priority), "%s",event->evt_rendered_msg);
+    }
+    (void)fflush(fp);
 #else
     retval = fprintf(fp, "%s", event->evt_rendered_msg);
     fprintf(stdout, "%s", event->evt_rendered_msg);
-
     (void)fflush(fp);
     (void)fflush(stdout);
 #endif
@@ -918,6 +972,7 @@ static int stream_env_plus_stdout_append(log4c_appender_t* appender,
 
     return retval;
 }
+
 
 static int stream_env_close(log4c_appender_t* appender)
 {
