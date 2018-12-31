@@ -66,7 +66,6 @@
     <rollingpolicy name="CR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WIFI_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Harvester_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="ServiceManager_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="XSMART_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MESH_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -82,7 +81,6 @@
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
     <appender name="RI_WIFIrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WiFilog.txt" layout="comcast_dated" rollingpolicy="WIFI_rollingpolicy"/>
     <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
-    <appender name="RI_ServiceManagerrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ServiceManagerlog.txt" layout="comcast_dated" rollingpolicy="ServiceManager_rollingpolicy"/>
     <appender name="RI_XSMARTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XsmartLog.txt" layout="comcast_dated" rollingpolicy="XSMART_rollingpolicy"/>
     <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
     <appender name="RI_MESHrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshAgentLog.txt" layout="comcast_dated" rollingpolicy="MESH_rollingpolicy"/>
@@ -131,7 +129,6 @@
 	<category name="RI.CR" priority="debug" appender="RI_CRrollingfileappender"/> 
 	<category name="RI.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/> 
 	<category name="RI.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
-	<category name="RI.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 	<category name="RI.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/> 
 	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
 	<category name="RI.MESH" priority="debug" appender="RI_MESHrollingfileappender"/> 
@@ -166,8 +163,6 @@
     <category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 
-    <category name="RI.Stack.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
-    <category name="RI.Stack.LOG.RDK.ServiceManager" priority="debug" appender="RI_ServiceManagerrollingfileappender"/>
 
     <category name="RI.Stack.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
