@@ -87,7 +87,6 @@
     <rollingpolicy name="AKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="RTMESSAGE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVETHWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="socket" type="socket_env" layout="basic"/> -->
@@ -117,7 +116,6 @@
     <appender name="RI_AKERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="AKERlog.txt" layout="comcast_dated" rollingpolicy="AKER_rollingpolicy"/>
 <appender name="RI_RTMESSAGErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RTMessagelog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="GWPROVETHWAN_rollingpolicy"/>
-    <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
 
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -180,7 +178,6 @@
     <category name="RI.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
     <category name="RI.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
    <category name="RI.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
-   <category name="RI.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -267,6 +264,4 @@
   
 		<category name="RI.Stack.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
 		<category name="RI.Stack.LOG.RDK.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
-		<category name="RI.Stack.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
-		<category name="RI.Stack.LOG.RDK.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
 </log4c>
