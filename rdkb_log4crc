@@ -92,12 +92,13 @@
     <rollingpolicy name="MeshService_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ETHAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROV_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-	<rollingpolicy name="Seshat_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="Seshat_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="AKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PARODUS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="RTMESSAGE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVETHWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -139,6 +140,7 @@
     <appender name="RI_RTMESSAGErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RTMessagelog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
+    <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -207,6 +209,7 @@
     <category name="RI.ETHAGENT" priority="debug" appender="RI_ETHAGENTrollingfileappender"/>
     <category name="RI.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
 	<category name="RI.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+	<category name="RI.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
     <category name="RI.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
     <category name="RI.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
     <category name="RI.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
@@ -315,6 +318,8 @@
 
 	<category name="RI.Stack.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+    <category name="RI.Stack.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.SPDTST" priority="debug" appender="RI_Speedtestrollingfileappender"/>
 
         <category name="RI.Stack.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>

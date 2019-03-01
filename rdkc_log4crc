@@ -65,6 +65,7 @@
  <!-- <rollingpolicy name="RI_XWCLIENTrollingpolicy" type="sizewin" maxsize="128000" maxnum="2"/> -->
     <rollingpolicy name="RI_XWCONFIG_rollingpolicy" type="sizewin" maxsize="64000" maxnum="2"/>
  <!--   <rollingpolicy name="RI_LEDMGRrollingpolicy" type="sizewin" maxsize="128000" maxnum="2"/> -->
+   <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     
     <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -74,6 +75,7 @@
     <appender name="RI_XWCONFIGrollingfileappender" type="rollingfile" logdir="/mnt/ramdisk/opt/logs/" prefix="xwconfig_log.txt" layout="comcast_dated" rollingpolicy="RI_XWCONFIG_rollingpolicy"/>
     <appender name="$(CEF_LOG_PATH)" type="stream_env_append" layout="comcast_dated"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
+    <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
 
     <!-- 
         Priorities (log levels)
@@ -185,6 +187,9 @@
     <category name="RI.UI.FrontPanel" />
 
     <category name="RI.Storage" />
+    <category name="RI.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
+    <category name="RI.Stack.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.SPDTST" priority="debug" appender="RI_Speedtestrollingfileappender"/>
 
  <!--   <category name="RI.Stack.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.XWCLIENT" priority="debug" appender="RI_XWCLIENTrollingfileappender"/> -->
