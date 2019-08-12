@@ -100,6 +100,8 @@
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="BLE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="WANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="TELCOVOIPAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -143,6 +145,9 @@
     <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
     <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
     <appender name="RI_BLErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Blelog.txt" layout="comcast_dated" rollingpolicy="BLE_rollingpolicy"/>
+    <appender name="RI_WANAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WANAGENTLog.txt" layout="comcast_dated" rollingpolicy="WANAGENT_rollingpolicy"/>
+    <appender name="RI_TELCOVOIPAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TELCOVOIPAGENTLog.txt" layout="comcast_dated" rollingpolicy="TELCOVOIPAGENT_rollingpolicy"/>
+
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
@@ -217,6 +222,8 @@
     <category name="RI.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
     <category name="RI.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
     <category name="RI.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
+    <category name="RI.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
+    <category name="RI.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -336,6 +343,10 @@
 	 <category name="RI.Stack.LOG.RDK.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
      <category name="RI.Stack.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
 	 <category name="RI.Stack.LOG.RDK.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
+     <category name="RI.Stack.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
+	 <category name="RI.Stack.LOG.RDK.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
+     <category name="RI.Stack.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
+	 <category name="RI.Stack.LOG.RDK.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
 
      <category name="RI.Stack.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
