@@ -89,6 +89,7 @@
     <rollingpolicy name="FSC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PWRMGR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MESH_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="T2_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MeshService_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ETHAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROV_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -134,6 +135,7 @@
     <appender name="RI_FSCrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FSCLog.txt" layout="comcast_dated" rollingpolicy="FSC_rollingpolicy"/>
     <appender name="RI_PWRMGRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="POWERMGRLog.txt" layout="comcast_dated" rollingpolicy="PWRMGR_rollingpolicy"/>
     <appender name="RI_MESHrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshAgentLog.txt" layout="comcast_dated" rollingpolicy="MESH_rollingpolicy"/>
+    <appender name="RI_T2rollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="telemetry2_0.txt" layout="comcast_dated" rollingpolicy="T2_rollingpolicy"/>
     <appender name="RI_MeshServicerollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MeshServiceLog.txt" layout="comcast_dated" rollingpolicy="MeshService_rollingpolicy"/>
     <appender name="RI_ETHAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ETHAGENTLog.txt" layout="comcast_dated" rollingpolicy="ETHAGENT_rollingpolicy"/>
     <appender name="RI_GWPROVrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVLog.txt" layout="comcast_dated" rollingpolicy="GWPROV_rollingpolicy"/>
@@ -211,6 +213,7 @@
     <category name="RI.FSC" priority="debug" appender="RI_FSCrollingfileappender"/> 
     <category name="RI.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>     
     <category name="RI.MESH" priority="debug" appender="RI_MESHrollingfileappender"/>
+    <category name="RI.T2" priority="debug" appender="RI_T2rollingfileappender"/>
     <category name="RI.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
     <category name="RI.ETHAGENT" priority="debug" appender="RI_ETHAGENTrollingfileappender"/>
     <category name="RI.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
@@ -315,6 +318,7 @@
     <category name="RI.Stack.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.MESH" priority="debug" appender="RI_MESHrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.T2" priority="debug" appender="RI_T2rollingfileappender"/>
 
     <category name="RI.Stack.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
