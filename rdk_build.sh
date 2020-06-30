@@ -50,8 +50,11 @@ export RDK_TOOLCHAIN_PATH=${RDK_TOOLCHAIN_PATH-`readlink -m $RDK_PROJECT_ROOT_PA
 # default component name
 export RDK_COMPONENT_NAME=${RDK_COMPONENT_NAME-`basename $RDK_SOURCE_PATH`}
 export RDK_DIR=$RDK_PROJECT_ROOT_PATH
-source $RDK_SCRIPTS_PATH/soc/build/soc_env.sh
-
+if [ $XCAM_MODEL = "XHB1" ]; then
+   source ${RDK_PROJECT_ROOT_PATH}/build/components/sdk/soc_env.sh
+else 
+   source $RDK_SCRIPTS_PATH/soc/build/soc_env.sh
+fi
 
 
 # parse arguments
