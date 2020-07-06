@@ -100,6 +100,7 @@
     <rollingpolicy name="GWPROVETHWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVGPONWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="ADVSEC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="BLE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -148,6 +149,7 @@
     <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_GWPROVGPONWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVGPONWANLog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
+    <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
     <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
     <appender name="RI_BLErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Blelog.txt" layout="comcast_dated" rollingpolicy="BLE_rollingpolicy"/>
     <appender name="RI_WANAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WANAGENTLog.txt" layout="comcast_dated" rollingpolicy="WANAGENT_rollingpolicy"/>
@@ -156,7 +158,7 @@
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
-    <!-- 
+    <!--
         Priorities (log levels)
          Available priorities that can be applied to categories are listed 
          below in order of decreasing priority:
@@ -228,14 +230,15 @@
     <category name="RI.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
     <category name="RI.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
     <category name="RI.GWPROVGPONWAN" priority="debug" appender="RI_GWPROVGPONWANrollingfileappender"/>
+    <category name="RI.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
     <category name="RI.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
     <category name="RI.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
     <category name="RI.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
     <category name="RI.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
     <category name="RI.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
-    <!--  
+    <!--
         Logging categories available to the Platform are listed below
-        
+
          To enable additional logging add a 'priority' attribute for 1 or more 
          categories.  For example, to enable INFO logging on the pipeline 
          category, the updated line would look like:
@@ -353,6 +356,8 @@
 	 <category name="RI.Stack.LOG.RDK.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
      <category name="RI.Stack.GWPROVGPONWAN" priority="debug" appender="RI_GWPROVGPONWANrollingfileappender"/>
 	 <category name="RI.Stack.LOG.RDK.GWPROVGPONWAN" priority="debug" appender="RI_GWPROVGPONWANrollingfileappender"/>
+     <category name="RI.Stack.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
      <category name="RI.Stack.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
 	 <category name="RI.Stack.LOG.RDK.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
      <category name="RI.Stack.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
