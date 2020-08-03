@@ -29,6 +29,7 @@ AC_CONFIG_AUX_DIR([cfg])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 1.9])
 LT_INIT
 IS_DYNAMIC_ENABLED=""
+IS_MILESTONE_ENABLED=""
 
 dnl subdirectories.
 
@@ -101,6 +102,18 @@ AC_ARG_ENABLE([journal],
 
 AC_SUBST(SYSTEMD_CFLAGS)
 AC_SUBST(SYSTEMD_LDFLAGS)
+
+AC_ARG_ENABLE([milestone],
+        AS_HELP_STRING([--enable-milestone],[enable milestone (default is no)]),
+        [
+          case "${enableval}" in
+           yes) IS_MILESTONE_ENABLED=true ;;
+           no)  IS_MILESTONE_ENABLED=false ;;
+          *) AC_MSG_ERROR([bad value ${enableval} for --enable-milestone]) ;;
+           esac
+           ],
+        [echo "Milestone support is disabled"])
+AM_CONDITIONAL([IS_MILESTONE_ENABLED], [test x$IS_MILESTONE_ENABLED = xtrue])
 
 AC_HEADER_STDC
 
