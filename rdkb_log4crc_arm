@@ -91,7 +91,8 @@
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="T2_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WEBCONFIG_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="ADVSEC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/> 
+    <rollingpolicy name="ADVSEC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="XDNS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/> 
 <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="socket" type="socket_env" layout="basic"/> -->
@@ -126,6 +127,7 @@
     <appender name="RI_T2rollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="telemetry2_0.txt" layout="comcast_dated" rollingpolicy="T2_rollingpolicy"/>
     <appender name="RI_WEBCONFIGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBCONFIGlog.txt" layout="comcast_dated" rollingpolicy="WEBCONFIG_rollingpolicy"/>
     <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
+    <appender name="RI_XDNSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XDNSlog.txt" layout="comcast_dated" rollingpolicy="XDNS_rollingpolicy"/>
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
@@ -194,6 +196,7 @@
     <category name="RI.Stack.LOG.RDK.SPDTST" priority="debug" appender="RI_Speedtestrollingfileappender"/>
     <category name="RI.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
     <category name="RI.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
+    <category name="RI.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -291,4 +294,7 @@
 
     <category name="RI.Stack.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
+
+        <category name="RI.Stack.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
+        <category name="RI.Stack.LOG.RDK.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
 </log4c>
