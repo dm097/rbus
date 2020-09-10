@@ -107,6 +107,9 @@
     <rollingpolicy name="TELCOVOIPAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WEBCONFIG_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="XDNS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="DSLAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="VLANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="XTMAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -157,6 +160,10 @@
     <appender name="RI_TELCOVOIPAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TELCOVOIPAGENTLog.txt" layout="comcast_dated" rollingpolicy="TELCOVOIPAGENT_rollingpolicy"/>
     <appender name="RI_WEBCONFIGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBCONFIGlog.txt" layout="comcast_dated" rollingpolicy="WEBCONFIG_rollingpolicy"/>
     <appender name="RI_XDNSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XDNSlog.txt" layout="comcast_dated" rollingpolicy="XDNS_rollingpolicy"/>
+    <appender name="RI_DSLAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="DSLAGENTLog.txt" layout="comcast_dated" rollingpolicy="DSLAGENT_rollingpolicy"/>
+    <appender name="RI_VLANAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="VLANAGENTLog.txt" layout="comcast_dated" rollingpolicy="VLANAGENT_rollingpolicy"/>
+    <appender name="RI_XTMAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XTMAGENTLog.txt" layout="comcast_dated" rollingpolicy="XTMAGENT_rollingpolicy"/>
+
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!--
@@ -238,6 +245,10 @@
     <category name="RI.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
     <category name="RI.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
     <category name="RI.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
+    <category name="RI.DSLAGENT" priority="debug" appender="RI_DSLAGENTrollingfileappender"/>
+    <category name="RI.VLANAGENT" priority="debug" appender="RI_VLANAGENTrollingfileappender"/>
+    <category name="RI.XTMAGENT" priority="debug" appender="RI_XTMAGENTrollingfileappender"/>
+
     <!--  
         Logging categories available to the Platform are listed below
 
@@ -366,6 +377,12 @@
 	 <category name="RI.Stack.LOG.RDK.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
      <category name="RI.Stack.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
 	 <category name="RI.Stack.LOG.RDK.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
+     <category name="RI.Stack.DSLAGENT" priority="debug" appender="RI_DSLAGENTrollingfileappender"/>
+         <category name="RI.Stack.LOG.RDK.DSLAGENT" priority="debug" appender="RI_DSLAGENTrollingfileappender"/>
+     <category name="RI.Stack.VLANAGENT" priority="debug" appender="RI_VLANAGENTrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.VLANAGENT" priority="debug" appender="RI_VLANAGENTrollingfileappender"/>
+     <category name="RI.Stack.XTMAGENT" priority="debug" appender="RI_XTMAGENTrollingfileappender"/>
+         <category name="RI.Stack.LOG.RDK.XTMAGENT" priority="debug" appender="RI_XTMAGENTrollingfileappender"/>
 
      <category name="RI.Stack.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
