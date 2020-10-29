@@ -92,7 +92,8 @@
     <rollingpolicy name="T2_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WEBCONFIG_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ADVSEC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="XDNS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/> 
+    <rollingpolicy name="XDNS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CPUPROCANALYZER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>  
 <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
     <appender name="socket" type="socket_env" layout="basic"/> -->
@@ -128,6 +129,7 @@
     <appender name="RI_WEBCONFIGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBCONFIGlog.txt" layout="comcast_dated" rollingpolicy="WEBCONFIG_rollingpolicy"/>
     <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
     <appender name="RI_XDNSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XDNSlog.txt" layout="comcast_dated" rollingpolicy="XDNS_rollingpolicy"/>
+    <appender name="RI_CPUPROCANALYZERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CPUPROCANALYZERlog.txt" layout="comcast_dated" rollingpolicy="CPUPROCANALYZER_rollingpolicy"/>
    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
     <!-- 
@@ -197,6 +199,7 @@
     <category name="RI.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
     <category name="RI.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
     <category name="RI.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
+    <category name="RI.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
     <!--  
         Logging categories available to the Platform are listed below
         
@@ -280,6 +283,9 @@
 
        <category name="RI.Stack.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
+         
+        <category name="RI.Stack.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
+         <category name="RI.Stack.LOG.RDK.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/> 
   
 		<category name="RI.Stack.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
 		<category name="RI.Stack.LOG.RDK.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
