@@ -110,6 +110,7 @@
     <rollingpolicy name="DSLAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="VLANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="XTMAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CPUPROCANALYZER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -163,6 +164,7 @@
     <appender name="RI_DSLAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="DSLAGENTLog.txt" layout="comcast_dated" rollingpolicy="DSLAGENT_rollingpolicy"/>
     <appender name="RI_VLANAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="VLANAGENTLog.txt" layout="comcast_dated" rollingpolicy="VLANAGENT_rollingpolicy"/>
     <appender name="RI_XTMAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XTMAGENTLog.txt" layout="comcast_dated" rollingpolicy="XTMAGENT_rollingpolicy"/>
+    <appender name="RI_CPUPROCANALYZERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CPUPROCANALYZERlog.txt" layout="comcast_dated" rollingpolicy="CPUPROCANALYZER_rollingpolicy"/>
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -248,6 +250,7 @@
     <category name="RI.DSLAGENT" priority="debug" appender="RI_DSLAGENTrollingfileappender"/>
     <category name="RI.VLANAGENT" priority="debug" appender="RI_VLANAGENTrollingfileappender"/>
     <category name="RI.XTMAGENT" priority="debug" appender="RI_XTMAGENTrollingfileappender"/>
+    <category name="RI.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
 
     <!--  
         Logging categories available to the Platform are listed below
@@ -392,4 +395,7 @@
 
      <category name="RI.Stack.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.XDNS" priority="debug" appender="RI_XDNSrollingfileappender"/>
+     
+    <category name="RI.Stack.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
+        <category name="RI.Stack.LOG.RDK.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
 </log4c>
