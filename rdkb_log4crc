@@ -112,6 +112,7 @@
     <rollingpolicy name="XTMAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CPUPROCANALYZER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="HWST_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="OVSAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -167,6 +168,7 @@
     <appender name="RI_XTMAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XTMAGENTLog.txt" layout="comcast_dated" rollingpolicy="XTMAGENT_rollingpolicy"/>
     <appender name="RI_CPUPROCANALYZERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CPUPROCANALYZERlog.txt" layout="comcast_dated" rollingpolicy="CPUPROCANALYZER_rollingpolicy"/>
     <appender name="RI_HWSTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="HWSTLog.txt" layout="comcast_dated" rollingpolicy="HWST_rollingpolicy"/>
+    <appender name="RI_OVSAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="OvsAgentLog.txt" layout="comcast_dated" rollingpolicy="OVSAGENT_rollingpolicy"/>
 
     <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
 
@@ -254,6 +256,7 @@
     <category name="RI.XTMAGENT" priority="debug" appender="RI_XTMAGENTrollingfileappender"/>
     <category name="RI.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
     <category name="RI.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
+    <category name="RI.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
 
     <!--
         Logging categories available to the Platform are listed below
@@ -403,4 +406,7 @@
         <category name="RI.Stack.LOG.RDK.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
      <category name="RI.Stack.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
+
+     <category name="RI.Stack.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
 </log4c>
