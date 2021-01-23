@@ -226,6 +226,8 @@ rdk_Error rdk_logger_deinit();
 void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
         const char *format, ...);
 
+void rdk_dbg_MsgRaw1(rdk_LogLevel level, const char *module,const char *format, va_list args);
+
 rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level);
 
 /** @} */ //end of Doxygen tag RDKLOGGER_DEBUG_API
