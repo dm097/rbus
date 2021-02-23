@@ -51,6 +51,7 @@
 #include "rdk_error.h"
 #define RDK_DEBUG_DEFINE_STRINGS
 #include "rdk_debug_priv.h"
+#include "rdk_dynamic_logger.h"
 #include "log4c.h"
 #include <rdk_utils.h>
 
@@ -568,6 +569,9 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
     char cat_name[64] = {'\0'};
     log4c_category_t* cat = NULL;
 
+    /* Handling process request here. This is not a blocking call and it shall return immediately */
+    rdk_dyn_log_processPendingRequest();
+
     if (!g_debugEnabled || !WANT_LOG(module, level))
     {
         return;
@@ -645,7 +649,6 @@ void RDK_LOG_ControlCB(const char *moduleName, const char *subComponentName, con
 
     rdk_dbg_priv_SetLogLevelString(moduleName, (const char *)logTypeName);
 }
-
 
 
 /*************************Copied from ri_log.c******************/

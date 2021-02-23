@@ -23,19 +23,12 @@
 #include <string>
 #include <time.h>
 #include <sys/time.h>
-#include <fstream>
 #include "rdk_logger_milestone.h"
-
-using namespace std;
 
 #ifdef LOGMILESTONE
 #define MILESTONE_LOG_FILENAME "/opt/logs/rdk_milestones.log"
 #else
 #define MILESTONE_LOG_FILENAME "/rdklogs/logs/rdk_milestones.log"
-#endif
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 unsigned long long getUptimeMS(void)
@@ -60,7 +53,3 @@ void logMilestone(const char *msg_code)
       fclose(fp);
     }
 }
-
-#ifdef __cplusplus
-}
-#endif

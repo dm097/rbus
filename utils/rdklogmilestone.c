@@ -2,7 +2,7 @@
  * If not stated otherwise in this file or this component's Licenses.txt file the
  * following copyright and licenses apply:
  *
- * Copyright 2016 RDK Management
+ * Copyright 2018 RDK Management
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,20 @@
  * limitations under the License.
 */
 
+#include <stdlib.h>
 #include <stdio.h>
-#include "rdk_debug.h"
+#include <string.h>
+#include <strings.h>
+#include "rdk_logger_milestone.h"
 
-int rdk_logger_debug_test();
-
-int main()
+int main(int argc, char* argv[]) 
 {
-	rdk_logger_init(NULL);
-	rdk_logger_debug_test();
-	return 0;
+    if (argc < 2)
+    {
+        printf("Insufficient number of args return\n");
+        return 0;
+    }
+
+    logMilestone(argv[1]);
+    return(0);
 }
