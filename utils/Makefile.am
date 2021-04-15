@@ -17,17 +17,15 @@
 # limitations under the License.
 ##########################################################################
 
-SUBDIRS = 
-AM_CPPFLAGS = -pthread -Wall
-lib_LTLIBRARIES = libloggerutil.la
-libloggerutil_la_SOURCES = rdk_dynamic_log_reg.c
+bin_PROGRAMS = rdklogctrl
 
-INCLUDE_FILES = -I=$(includedir)/glib-2.0 \
-                -I=$(libdir)/glib-2.0/include \
-                -I=${includedir}/rdk/iarmbus \
-                -I=${includedir}/rdk/rdklogctrl
+rdklogctrl_SOURCES=rdklogctrl.c
+rdklogctrl_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src/include -I./usr/include
+rdklogctrl_LDFLAGS = -I./usr/lib
 
-libloggerutil_la_CFLAGS =  $(INCLUDE_FILES)
-libloggerutil_la_LDFLAGS = $(GLIB_LIBS)  $(LOG4C_LIBS)
-libloggerutil_la_CPPFLAGS =  $(GLIB_CFLAGS) -I$(top_srcdir)/src/include -I$(top_srcdir)/include
-libloggerutil_la_LIBADD = -lIARMBus
+if IS_MILESTONE_ENABLED
+bin_PROGRAMS       += rdkLogMileStone
+rdkLogMileStone_SOURCES = rdklogmilestone.c
+rdkLogMileStone_LDADD = $(top_builddir)/src/librdkloggers.la
+rdkLogMileStone_CFLAGS = -I$(top_srcdir)/include
+endif

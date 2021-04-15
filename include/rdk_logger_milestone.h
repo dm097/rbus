@@ -26,7 +26,6 @@
 extern "C" {
 #endif
 
-unsigned long long getUptimeMS(void);
 void logMilestone(const char *msg_code);
 
 #ifdef __cplusplus

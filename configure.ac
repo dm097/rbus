@@ -54,21 +54,6 @@ dnl checks for dependencies
 dnl **********************************
 SYSLOG_HELPER_CFLAGS=" "
 SYSLOG_HELPER_LDFLAGS=" "
-UTILS=""
-AC_ARG_ENABLE([dynamic],
-        AS_HELP_STRING([--enable-dynamic],[enable dynamic (default is no)]),
-        [
-          case "${enableval}" in
-           yes) IS_DYNAMIC_ENABLED=true
-                UTILS="util";;
-           no)  IS_DYNAMIC_ENABLED=false ;;
-          *) AC_MSG_ERROR([bad value ${enableval} for --enable-dynamic]) ;;
-           esac
-           ],
-        [echo "dynamic logging is disabled"])
-AM_CONDITIONAL([IS_DYNAMIC_ENABLED], [test x$IS_DYNAMIC_ENABLED = xtrue])
-
-
 
 AC_ARG_ENABLE([systemd-syslog-helper],
         AS_HELP_STRING([--enable-systemd-syslog-helper],[enable systemd syslog logging]),
@@ -84,7 +69,6 @@ AC_ARG_ENABLE([systemd-syslog-helper],
 
 AC_SUBST(SYSLOG_HELPER_CFLAGS)
 AC_SUBST(SYSLOG_HELPER_LDFLAGS)
-AC_SUBST(UTILS)
 
 SYSTEMD_CFLAGS=" "
 SYSTEMD_LDFLAGS=" "
@@ -133,7 +117,7 @@ PKG_CHECK_MODULES([LOG4C], [log4c >= 1.2.3])
 AC_CONFIG_FILES([Makefile
 		 cfg/Makefile
                  src/Makefile
-                 src/util/Makefile
                  test/Makefile
+                 utils/Makefile
                  include/Makefile])
 AC_OUTPUT

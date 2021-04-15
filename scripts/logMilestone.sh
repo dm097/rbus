@@ -30,19 +30,15 @@ then
     exit 1
 fi
 
-#getClockUptime will give uptime info in milliseconds.
-UPTIME_BIN="/usr/bin/getClockUptime"
+#rdkLogMileStone will give uptime info in milliseconds.
+UPTIME_BIN="/usr/bin/rdkLogMileStone"
 
 MILESTONE_EVENT=$1
-MILESTONE_LOG="$LOG_PATH/rdk_milestones.log"
 
 if [ -f "$UPTIME_BIN" ]; then
-    #Read uptime using getClockUptime binary
-    uptime=`$UPTIME_BIN`
+    #write uptime using rdkLogMileStone binary
+    uptime=`$UPTIME_BIN $1`
 else
     echo "$UPTIME_BIN not found..!"
     exit -1
 fi
-
-#Log the Milestone info with uptime into rdk_milestones.log
-echo "$MILESTONE_EVENT:$uptime" >> $MILESTONE_LOG
