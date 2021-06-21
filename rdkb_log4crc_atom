@@ -94,7 +94,7 @@
     <appender name="RI_BLErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Blelog.txt" layout="comcast_dated" rollingpolicy="BLE_rollingpolicy"/>
     <appender name="RI_T2rollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="telemetry2_0_atom.txt" layout="comcast_dated" rollingpolicy="T2_rollingpolicy"/>
     <appender name="RI_WEBCONFIGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WEBCONFIGlog.txt" layout="comcast_dated" rollingpolicy="WEBCONFIG_rollingpolicy"/>
-   <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
+   <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!-- 
         Priorities (log levels)
@@ -172,7 +172,7 @@
     <category name="RI.Stack.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.Harvester" priority="debug" appender="RI_Harvesterrollingfileappender"/>
 
-
+    <category name="RI.Stack.LOG.RDK.RTMESSAGE" appender="stdout"/>
     <category name="RI.Stack.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.XSMART" priority="debug" appender="RI_XSMARTrollingfileappender"/>
 	

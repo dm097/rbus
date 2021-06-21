@@ -109,6 +109,7 @@
     <category name="RI" priority="info" appender="stdout"/>
     <category name="RI.Stack.LOG.RDK.CEF" priority="info" appender="$(CEF_LOG_PATH)"/>
     <category name="RI.Stack.LOG.RDK.SPDTST" appender="SPDTST_rollingfileappender" />
+    <category name="RI.Stack.LOG.RDK.RTMESSAGE" appender="stdout"/>
 
     <!-- <category name="RI" priority="error" appender="syslog"/> -->
     <!-- <category name="RI" priority="error" appender="socket"/> -->
