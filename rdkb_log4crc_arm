@@ -85,7 +85,6 @@
     <rollingpolicy name="GWPROV_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PARODUS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/> 
     <rollingpolicy name="AKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="RTMESSAGE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVETHWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -121,7 +120,6 @@
     <appender name="RI_GWPROVrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVLog.txt" layout="comcast_dated" rollingpolicy="GWPROV_rollingpolicy"/>
 	<appender name="RI_PARODUSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PARODUSlog.txt" layout="comcast_dated" rollingpolicy="PARODUS_rollingpolicy"/>
     <appender name="RI_AKERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="AKERlog.txt" layout="comcast_dated" rollingpolicy="AKER_rollingpolicy"/>
-<appender name="RI_RTMESSAGErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RTMessagelog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
     <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="GWPROVETHWAN_rollingpolicy"/>
     <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
     <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
@@ -130,7 +128,8 @@
     <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
     <appender name="RI_XDNSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="XDNSlog.txt" layout="comcast_dated" rollingpolicy="XDNS_rollingpolicy"/>
     <appender name="RI_CPUPROCANALYZERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CPUPROCANALYZERlog.txt" layout="comcast_dated" rollingpolicy="CPUPROCANALYZER_rollingpolicy"/>
-   <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
+    
+  <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!-- 
         Priorities (log levels)
@@ -189,7 +188,6 @@
     <category name="RI.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
 	<category name="RI.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
     <category name="RI.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
-    <category name="RI.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
    <category name="RI.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
    <category name="RI.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
    <category name="RI.T2" priority="debug" appender="RI_T2rollingfileappender"/>
@@ -268,6 +266,7 @@
 	<category name="RI.Stack.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
 
 	<category name="RI.Stack.LOG.RDK.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.RTMESSAGE" appender="stdout"/>
 
 	<category name="RI.Stack.ETHAGENT" priority="debug" appender="RI_ETHAGENTrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.ETHAGENT" priority="debug" appender="RI_ETHAGENTrollingfileappender"/>
@@ -281,9 +280,6 @@
         <category name="RI.Stack.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
 
-       <category name="RI.Stack.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
-        <category name="RI.Stack.LOG.RDK.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
-         
         <category name="RI.Stack.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
          <category name="RI.Stack.LOG.RDK.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/> 
   

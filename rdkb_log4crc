@@ -96,7 +96,6 @@
     <rollingpolicy name="Seshat_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="AKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PARODUS_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="RTMESSAGE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVETHWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GWPROVGPONWAN_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -152,9 +151,8 @@
 	<appender name="RI_Seshatrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SeshatLog.txt" layout="comcast_dated" rollingpolicy="Seshat_rollingpolicy"/>
     <appender name="RI_AKERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="AKERlog.txt" layout="comcast_dated" rollingpolicy="AKER_rollingpolicy"/>
     <appender name="RI_PARODUSrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PARODUSlog.txt" layout="comcast_dated" rollingpolicy="PARODUS_rollingpolicy"/>
-    <appender name="RI_RTMESSAGErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RTMessagelog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
-    <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
-    <appender name="RI_GWPROVGPONWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVGPONWANLog.txt" layout="comcast_dated" rollingpolicy="RTMESSAGE_rollingpolicy"/>
+    <appender name="RI_GWPROVETHWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVETHWANLog.txt" layout="comcast_dated" rollingpolicy="GWPROVETHWAN_rollingpolicy"/>
+    <appender name="RI_GWPROVGPONWANrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GWPROVGPONWANLog.txt" layout="comcast_dated" rollingpolicy="GWPROVGPONWAN_rollingpolicy"/>
     <appender name="RI_LIBSYSCALLWRAPPERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LIBSYSCALLWRAPPERLog.txt" layout="comcast_dated" rollingpolicy="LIBSYSCALLWRAPPER_rollingpolicy"/>
     <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
     <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
@@ -170,7 +168,7 @@
     <appender name="RI_HWSTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="HWSTLog.txt" layout="comcast_dated" rollingpolicy="HWST_rollingpolicy"/>
     <appender name="RI_OVSAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="OvsAgentLog.txt" layout="comcast_dated" rollingpolicy="OVSAGENT_rollingpolicy"/>
 
-    <!-- <appender name="stdout" type="stream_env" layout="comcast_dated"/> -->
+    <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!--
         Priorities (log levels)
@@ -241,7 +239,6 @@
 	<category name="RI.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
     <category name="RI.AKER" priority="debug" appender="RI_AKERrollingfileappender"/>
     <category name="RI.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
-    <category name="RI.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
     <category name="RI.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
     <category name="RI.GWPROVGPONWAN" priority="debug" appender="RI_GWPROVGPONWANrollingfileappender"/>
     <category name="RI.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
@@ -371,9 +368,8 @@
 	<category name="RI.Stack.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.PARODUS" priority="debug" appender="RI_PARODUSrollingfileappender"/>
 
-	<category name="RI.Stack.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
-	<category name="RI.Stack.LOG.RDK.RTMESSAGE" priority="debug" appender="RI_RTMESSAGErollingfileappender"/>
-        
+  	<category name="RI.Stack.LOG.RDK.RTMESSAGE" appender="stdout"/>
+
      <category name="RI.Stack.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
 	 <category name="RI.Stack.LOG.RDK.GWPROVETHWAN" priority="debug" appender="RI_GWPROVETHWANrollingfileappender"/>
      <category name="RI.Stack.GWPROVGPONWAN" priority="debug" appender="RI_GWPROVGPONWANrollingfileappender"/>
