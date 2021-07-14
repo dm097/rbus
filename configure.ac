@@ -112,6 +112,20 @@ AC_ARG_ENABLE([onboardlog],
         [echo "Milestone support is disabled"])
 AM_CONDITIONAL([IS_ONBOARDLOG_ENABLED], [test x$IS_ONBOARDLOG_ENABLED = xtrue])
 
+SAFEC_CFLAGS="-DSAFEC_DUMMY_API"
+AC_ARG_ENABLE([safec],
+        AS_HELP_STRING([--enable-safec],[enable safec (default is no)]),
+        [
+          case "${enableval}" in
+           yes) SAFEC_CFLAGS="" ;;
+           no)  SAFEC_CFLAGS="-DSAFEC_DUMMY_API" ;;
+          *) AC_MSG_ERROR([bad value ${enableval} for --enable-safec]) ;;
+           esac
+           ],
+        [echo "safec support is disabled"])
+
+AC_SUBST(SAFEC_CFLAGS)
+
 AC_HEADER_STDC
 
 dnl Checks for header files.
