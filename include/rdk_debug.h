@@ -230,6 +230,8 @@ void rdk_dbg_MsgRaw1(rdk_LogLevel level, const char *module,const char *format, 
 
 rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level);
 
+void rdk_log_onboard(const char *module, const char *msg, ...) __attribute__ ((format (printf, 2, 3)));
+
 /** @} */ //end of Doxygen tag RDKLOGGER_DEBUG_API
 
 /**

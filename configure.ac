@@ -30,6 +30,7 @@ AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 1.9])
 LT_INIT
 IS_DYNAMIC_ENABLED=""
 IS_MILESTONE_ENABLED=""
+IS_ONBOARDLOG_ENABLED=""
 
 dnl subdirectories.
 
@@ -98,6 +99,18 @@ AC_ARG_ENABLE([milestone],
            ],
         [echo "Milestone support is disabled"])
 AM_CONDITIONAL([IS_MILESTONE_ENABLED], [test x$IS_MILESTONE_ENABLED = xtrue])
+
+AC_ARG_ENABLE([onboardlog],
+        AS_HELP_STRING([--enable-onboardlog],[enable onboardlog (default is no)]),
+        [
+          case "${enableval}" in
+           yes) IS_ONBOARDLOG_ENABLED=true ;;
+           no)  IS_ONBOARDLOG_ENABLED=false ;;
+          *) AC_MSG_ERROR([bad value ${enableval} for --enable-onboardlog]) ;;
+           esac
+           ],
+        [echo "Milestone support is disabled"])
+AM_CONDITIONAL([IS_ONBOARDLOG_ENABLED], [test x$IS_ONBOARDLOG_ENABLED = xtrue])
 
 AC_HEADER_STDC
 
