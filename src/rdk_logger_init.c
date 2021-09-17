@@ -40,6 +40,7 @@
 #include "rdk_debug_priv.h"
 #include "rdk_dynamic_logger.h"
 #include "rdk_utils.h"
+#include "safec_library.h"
 
 #define BUF_LEN 256
 static int isLogInited = 0;
@@ -58,7 +59,6 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
 {
     rdk_Error ret;
     struct stat st;
-    char buf[BUF_LEN] = {'\0'};
 
     if (0 == isLogInited)
     {
@@ -77,16 +77,15 @@ rdk_Error rdk_logger_init(const char* debugConfigFile)
         rdk_dbgInit();
         rdk_dyn_log_init();
 
-        snprintf(buf, BUF_LEN-1, "/tmp/%s", "debugConfigFile_read");
-        buf[BUF_LEN-1] = '\0';
+        char *filename = "/tmp/debugConfigFile_read";
 
-        if((0 == stat(buf, &st) && (0 != st.st_ino)))
+        if((0 == stat(filename, &st) && (0 != st.st_ino)))
         {
             printf("%s %s Already Stack Level Logging processed... not processing again.\n", __FUNCTION__, debugConfigFile);
         }
         else
         {
-            rdk_dbgDumpLog(buf);
+            rdk_dbgDumpLog(filename);
         }
 
         /**

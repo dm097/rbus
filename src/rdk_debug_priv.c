@@ -54,6 +54,7 @@
 #include "rdk_dynamic_logger.h"
 #include "log4c.h"
 #include <rdk_utils.h>
+#include "safec_library.h"
 
 #ifdef SYSTEMD_JOURNAL
 #include <systemd/sd-journal.h>
@@ -173,6 +174,52 @@ static const log4c_appender_type_t log4c_appender_type_stream_env_append_plus_st
 { "stream_env_append_plus_stdout", stream_env_append_open,
         stream_env_plus_stdout_append, stream_env_close, };
 
+#define NUM_OF_LOGGER_TYPES (sizeof(log_type_logger_table)/sizeof(log_type_logger_table[0]))
+
+enum LogType_Logger_e {
+    ALL,
+    NONE,
+    TRACE,
+    NOT_TRACE
+};
+
+typedef struct LogType_Pair_For_Logger{
+  char                 *name;
+  enum LogType_Logger_e   type;
+} LOGTYPE_PAIR_FOR_LOGGER;
+
+LOGTYPE_PAIR_FOR_LOGGER log_type_logger_table[] = {
+  {"ALL",    ALL   },
+  {"NONE",   NONE  },
+  {"TRACE",  TRACE },
+  {"!TRACE", NOT_TRACE  },
+};
+
+static int get_log_type_from_name(char *name, enum LogType_Logger_e *type_ptr)
+{
+  errno_t rc = -1;
+  int ind = -1;
+  int i = 0;
+  size_t strsize = 0;
+
+  if((name == NULL) || (type_ptr == NULL))
+     return 0;
+
+  strsize = strlen(name);
+
+  for (i = 0 ; i < NUM_OF_LOGGER_TYPES ; ++i)
+  {
+      rc = strcmp_s(name, strsize, log_type_logger_table[i].name, &ind);
+      ERR_CHK(rc);
+      if((rc == EOK) && (!ind))
+      {
+          *type_ptr = log_type_logger_table[i].type;
+          return 1;
+      }
+  }
+  return 0;
+}
+
 void rdk_dbg_priv_Init()
 {
     const char* envVar;
@@ -220,9 +267,19 @@ static void forceUpperCase(char *token)
 static int logNameToEnum(const char *name)
 {
     int i = 0;
+    errno_t rc = -1;
+    int ind = -1;
+
+    if(name == NULL)
+      return -1;
+
+    int length = strlen(name);
+
     while (i < ENUM_RDK_LOG_COUNT)
     {
-        if (strcmp(name, rdk_logLevelStrings[i]) == 0)
+        rc = strcmp_s(name, length, rdk_logLevelStrings[i], &ind);
+        ERR_CHK(rc);
+        if((rc == EOK) && (!ind))
         {
             return i;
         }
@@ -268,9 +325,10 @@ static int parseLogConfig(const char *cfgStr, uint32_t *configEntry,
         const char **msg)
 {
     uint32_t config = *configEntry;
-    char logTypeName[128] =
-    { 0 };
+    char logTypeName[128] = { 0 };
     int rc = RC_OK;
+    errno_t safec_rc = -1;
+    enum LogType_Logger_e   type;
 
     *msg = "";
 
@@ -286,28 +344,31 @@ static int parseLogConfig(const char *cfgStr, uint32_t *configEntry,
     {
         /* Extract and normalise log type name token. */
 
-        memset(logTypeName, 0, sizeof(logTypeName));
+        safec_rc = memset_s(logTypeName,sizeof(logTypeName), 0, sizeof(logTypeName));
+        ERR_CHK(safec_rc);
         extractToken(&cfgStr, logTypeName);
         forceUpperCase(logTypeName);
 
         /* Handle special meta names. */
+        if(get_log_type_from_name(logTypeName, &type)) {
 
-        if (strcmp(logTypeName, "ALL") == 0)
+        if (type  == ALL)
         {
             config |= LOG_ALL;
         }
-        else if (strcmp(logTypeName, "NONE") == 0)
+        else if (type == NONE )
         {
             config = LOG_NONE;
         }
-        else if (strcmp(logTypeName, "TRACE") == 0)
+        else if (type == TRACE )
         {
             config |= LOG_TRACE;
         }
-        else if (strcmp(logTypeName, "!TRACE") == 0)
+        else if (type == NOT_TRACE)
         {
             config &= ~LOG_TRACE;
         }
+       }
         else
         {
             /* Determine the corresponding bit for the log name. */
@@ -350,7 +411,13 @@ static int parseLogConfig(const char *cfgStr, uint32_t *configEntry,
 
 static void printTime(const struct tm *pTm, char *pBuff)
 {
-    sprintf(pBuff,"%02d%02d%02d-%02d:%02d:%02d",pTm->tm_year + 1900 - 2000, pTm->tm_mon + 1, pTm->tm_mday, pTm->tm_hour, pTm->tm_min, pTm->tm_sec);
+    errno_t rc = -1;
+    /* Here pBuff size is 40 bytes from calling function */
+    rc = sprintf_s(pBuff,40,"%02d%02d%02d-%02d:%02d:%02d",pTm->tm_year + 1900 - 2000, pTm->tm_mon + 1, pTm->tm_mday, pTm->tm_hour, pTm->tm_min, pTm->tm_sec);
+    if(rc < EOK)
+    {
+        ERR_CHK(rc);
+    }
 }
 
 /*****************************************************************************
@@ -371,14 +438,17 @@ void rdk_dbg_priv_LogControlInit(void)
     uint32_t defaultConfig = 0;
     int mod = 0;
     const char *msg = "";
+    errno_t rc = -1;
 
     /** Pre-condition the control table to disable all logging.  This
      * means that if no logging control statements are present in the
      * debug.ini file all logging will be suppressed. */
-    memset(rdk_g_logControlTbl, 0, sizeof(rdk_g_logControlTbl));
+    rc = memset_s(rdk_g_logControlTbl,sizeof(rdk_g_logControlTbl), 0, sizeof(rdk_g_logControlTbl));
+    ERR_CHK(rc);
 
     /** Intialize to the default configuration for all modules. */
-    strcpy(envVarName, "LOG.RDK.DEFAULT");
+    rc = strcpy_s(envVarName,sizeof(envVarName), "LOG.RDK.DEFAULT");
+    ERR_CHK(rc);
     envVarValue = rdk_logger_envGet(envVarName);
     if ((envVarValue != NULL) && (envVarValue[0] != 0))
     {
@@ -415,14 +485,14 @@ void rdk_dbg_priv_LogControlInit(void)
 rdk_logger_Bool rdk_dbg_enabled(const char *module, rdk_LogLevel level)
 {
         int number = rdk_logger_envGetNum(module); 
-	if (WANT_LOG(number, level))
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (WANT_LOG(number, level))
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 /**
@@ -434,11 +504,16 @@ void rdk_dbg_priv_SetLogLevelString(const char* pszModuleName, const char* pszLo
     uint32_t defaultConfig = 0;
     int mod = 0;
     const char *msg = "";
+    errno_t rc = -1;
+    int ind = -1;
 
     if ((pszModuleName != NULL) && (pszLogLevels != NULL))
     {
+        int length = strlen(pszModuleName);
         /* Intialize to the default configuration for all modules. */
-        if(0 == strcmp(pszModuleName, "LOG.RDK.DEFAULT"))
+        rc = strcmp_s(pszModuleName, length, "LOG.RDK.DEFAULT", &ind);
+        ERR_CHK(rc);
+        if((rc == EOK) && (!ind))
         {
             (void) parseLogConfig(pszLogLevels, &defaultConfig, &msg);
             for (mod = 1; mod <= global_count; mod++)
@@ -454,8 +529,10 @@ void rdk_dbg_priv_SetLogLevelString(const char* pszModuleName, const char* pszLo
          * leave it at the default logging. */
         for (mod = 1; mod <= global_count; mod++)
         {
-            envVarName = rdk_logger_envGetModFromNum(mod); 
-            if(0 == strcmp(pszModuleName, envVarName))
+            envVarName = rdk_logger_envGetModFromNum(mod);
+            rc = strcmp_s(pszModuleName, length, envVarName, &ind);
+            ERR_CHK(rc);
+            if((rc == EOK) && (!ind))
             {
                 if ((pszLogLevels != NULL) && (pszLogLevels[0] != '\0'))
                 {
@@ -494,13 +571,14 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
     int mod = -1;
     uint32_t modCfg = 0;
     int level = -1;
+    errno_t rc = -1;
 
     assert(modName);
     assert(cfgStr);
     assert(cfgStrMaxLen > 32);
 
     cfgStrMaxLen -= 1; /**< Ensure there is space for NUL. */
-    strcpy(cfgStr, "");
+    cfgStr[0] = '\0';
 
     /** Get the module configuration. Note: DEFAULT is not valid as it
      * is an alias. 
@@ -517,7 +595,13 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
 
     if (modCfg == 0)
     {
-        strcpy(cfgStr, "NONE");
+        rc = strcpy_s(cfgStr, cfgStrMaxLen, "NONE");
+        if(rc != EOK)
+        {
+            ERR_CHK(rc);
+            return "ERROR: strcpy_s failed";
+        }
+
         return "OK"; /* This is a canonical response. */
     }
 
@@ -553,8 +637,13 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
                 return "Warning: Config string too long, config concatenated.";
             }
 
-            strcat(cfgStr, " "); /* Not efficient - rah rah. */
-            strcat(cfgStr, rdk_logLevelStrings[level]);
+            /* Not efficient - rah rah. */
+            rc = sprintf_s(cfgStr, cfgStrMaxLen, " %s", rdk_logLevelStrings[level]);
+            if(rc < EOK)
+            {
+               ERR_CHK(rc);
+               return "ERROR: sprintf_s failed";
+            }
         }
     }
 
@@ -568,6 +657,7 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
     static log4c_category_t *cat_cache[RDK_MAX_MOD_COUNT] = {NULL};
     char cat_name[64] = {'\0'};
     log4c_category_t* cat = NULL;
+    errno_t rc = -1;
 
     /* Handling process request here. This is not a blocking call and it shall return immediately */
     rdk_dyn_log_processPendingRequest();
@@ -578,7 +668,11 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
     }
 
     char *parent_cat_name = (char *)log4c_category_get_name(stackCat);
-    snprintf(cat_name, sizeof(cat_name)-1, "%s.%s", parent_cat_name == NULL ? "" : parent_cat_name, module_name); 
+    rc = sprintf_s(cat_name, sizeof(cat_name), "%s.%s", (parent_cat_name == NULL ? "" : parent_cat_name), module_name);
+    if(rc < EOK)
+    {
+        ERR_CHK(rc);
+    }
 
     if((module >= 0) && (module < RDK_MAX_MOD_COUNT))
     {
@@ -694,19 +788,22 @@ static const char* dated_format_nocr(const log4c_layout_t* layout,
         const log4c_logging_event_t* event)
 {
     struct tm tm;
-    char timeBuff[40];
+    char timeBuff[40] = {0};
+    errno_t rc = -1;
     //localtime_r(&event->evt_timestamp.tv_sec, &tm); /* Use the UTC Time for logging */
     gmtime_r(&event->evt_timestamp.tv_sec, &tm);
 
-    memset(&timeBuff,0,40);
-
     printTime(&tm,timeBuff);
 
-    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+    rc = sprintf_s(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
             "%s.%03ld %-8s %s- %s", timeBuff,
             event->evt_timestamp.tv_usec / 1000, log4c_priority_to_string(
                     event->evt_priority), event->evt_category,
             event->evt_msg);
+    if(rc < EOK)
+    {
+        ERR_CHK(rc);
+    }
     if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
         event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
@@ -720,9 +817,14 @@ static const char* dated_format_nocr(const log4c_layout_t* layout,
 static const char* basic_format_nocr(const log4c_layout_t* layout,
         const log4c_logging_event_t* event)
 {
-    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size, "%-8s %s - %s",
+    errno_t rc = -1;
+    rc = sprintf_s(event->evt_buffer.buf_data, event->evt_buffer.buf_size, "%-8s %s - %s",
             log4c_priority_to_string(event->evt_priority),
             event->evt_category, event->evt_msg);
+    if(rc < EOK)
+    {
+        ERR_CHK(rc);
+    }
 
     if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
@@ -736,11 +838,10 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
         const log4c_logging_event_t*event)
 {
     struct tm tm;
-    char timeBuff[40];
+    char timeBuff[40] = {0};
+    errno_t rc = -1;
     //localtime_r(&event->evt_timestamp.tv_sec, &tm);  /* Use the UTC Time for logging */
     gmtime_r(&event->evt_timestamp.tv_sec, &tm);
-
-    memset(&timeBuff,0,40);
 
     printTime(&tm,timeBuff);
 
@@ -766,11 +867,15 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
         }
     }
 
-    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+    rc = sprintf_s(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
             "%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s",timeBuff,
             event->evt_timestamp.tv_usec,
             p, log4c_priority_to_string(event->evt_priority), syscall(SYS_gettid),
             event->evt_msg);
+    if(rc < EOK)
+    {
+        ERR_CHK(rc);
+    }
     if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
         event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
@@ -792,6 +897,8 @@ static int stream_env_open(log4c_appender_t* appender, int append)
     const int MAX_VAR_LEN = 1024;
     char newName[MAX_VAR_LEN+1];
     int newNameLen = 0;
+    errno_t rc = -1;
+    int ind = -1;
 
     if (fp)
     {
@@ -809,7 +916,8 @@ static int stream_env_open(log4c_appender_t* appender, int append)
         goto parse_error;
 
         ///> Append characters up to this point to the new name
-        strncat(newName, temp, varBegin-temp);
+        rc = strncat_s(newName,sizeof(newName), temp, varBegin-temp);
+        ERR_CHK(rc);
         newNameLen += varBegin-temp;
         if (newNameLen > MAX_VAR_LEN)
         goto length_error;
@@ -824,7 +932,8 @@ static int stream_env_open(log4c_appender_t* appender, int append)
         goto parse_error;
 
         ///> Append env var value to the new name
-        strncat(newName, envVar, strlen(envVar));
+        rc = strncat_s(newName,sizeof(newName), envVar, strlen(envVar));
+        ERR_CHK(rc);
         newNameLen += strlen(envVar);
         if (newNameLen >MAX_VAR_LEN)
         goto length_error;
@@ -833,17 +942,24 @@ static int stream_env_open(log4c_appender_t* appender, int append)
     }
 
     ///> Append remaining characters
-    strncat(newName, temp, (name + nameLen) - temp);
+    rc = strncat_s(newName,sizeof(newName), temp, (name + nameLen) - temp);
+    ERR_CHK(rc);
     newNameLen += (name + nameLen) - temp;
     if (newNameLen >MAX_VAR_LEN)
     goto length_error;
 
     free(name);
 
-    if (!strcmp(newName,"stderr"))
+    rc = strcmp_s("stderr", strlen("stderr"), newName, &ind);
+    ERR_CHK(rc);
+    if((rc == EOK) && (!ind)){
     fp = stderr;
-    else if (!strcmp(newName,"stdout"))
+    }else {
+    rc = strcmp_s("stdout", strlen("stdout"), newName, &ind);
+    ERR_CHK(rc);
+    if((rc == EOK) && (!ind)){
     fp = stdout;
+    }
     else if (append)
     {
         printf("****Opening %s in append mode\n", newName);
@@ -856,6 +972,7 @@ static int stream_env_open(log4c_appender_t* appender, int append)
         if ((fp = fopen(newName, "w")) == NULL)
         return -1;
     }
+   }
 
     /**> unbuffered mode */
     setbuf(fp, NULL);

@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include "rdk_dynamic_logger.h"
+#include "safec_library.h"
 
 #define DL_PORT 12035
 #define DL_SIGNATURE "COMC"
@@ -86,6 +87,7 @@ static void rdk_dyn_log_validateComponentName(const unsigned char *buf)
     unsigned char log_level = 0;
     int app_len, comp_len, i = DL_SIGNATURE_LEN;
     char *loggingLevel = NULL, comp_name[64] = {0};
+    errno_t rc = -1;
 
     if(0 != memcmp(buf,DL_SIGNATURE,i)) {
         return;
@@ -104,7 +106,9 @@ static void rdk_dyn_log_validateComponentName(const unsigned char *buf)
 
     loggingLevel = rdk_dyn_log_logLevelToString(log_level);
     if(NULL != loggingLevel) {
-        memcpy(comp_name,buf+(++i),comp_len);
+        ++i;
+        rc = memcpy_s(comp_name,sizeof(comp_name),buf+i,comp_len);
+        ERR_CHK(rc);
         RDK_LOG_ControlCB(comp_name, NULL, loggingLevel, 0);
         fprintf(stderr,"%s(): Set %s loglevel for the component %s of the process %s\n",__func__,loggingLevel,comp_name,__progname);
     }
@@ -113,15 +117,18 @@ static void rdk_dyn_log_validateComponentName(const unsigned char *buf)
 void rdk_dyn_log_processPendingRequest()
 {
     char buf[128] = {0};
-    struct sockaddr_in sender_addr;
+    struct sockaddr_in sender_addr = {0};
     struct timeval tv;
     int numbytes, addr_len, ret, i = 0;
     fd_set rfds;
+    errno_t rc = -1;
+    int ind = -1;
 
     if(-1 == g_dl_socket)
         return;
+	
+	int length = strlen("127.0.0.1");
 
-    memset(&sender_addr,0,sizeof(sender_addr));
     while(1) {
         FD_ZERO(&rfds);
         FD_SET(g_dl_socket, &rfds);
@@ -151,7 +158,9 @@ void rdk_dyn_log_processPendingRequest()
          *
          * Ensure that the we handle msgs only from localhost
          */
-        if((0 == strcmp("127.0.0.1",inet_ntoa(sender_addr.sin_addr))) &&
+        rc = strcmp_s("127.0.0.1", length, inet_ntoa(sender_addr.sin_addr), &ind);
+        ERR_CHK(rc);
+        if(((!ind) && (rc == EOK)) &&
                 (numbytes == buf[4]+DL_SIGNATURE_LEN+1)) {
             rdk_dyn_log_validateComponentName(buf);
         }
@@ -160,7 +169,7 @@ void rdk_dyn_log_processPendingRequest()
 
 void rdk_dyn_log_init()
 {
-    struct sockaddr_in my_addr;
+    struct sockaddr_in my_addr = {0};
     int opt = 1;
 
     if ((g_dl_socket = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
@@ -168,7 +177,6 @@ void rdk_dyn_log_init()
         return;
     }
 
-    memset(&my_addr,0,sizeof(my_addr));
     my_addr.sin_family = AF_INET;
     my_addr.sin_port = htons(DL_PORT);
     my_addr.sin_addr.s_addr = inet_addr("127.255.255.255");
