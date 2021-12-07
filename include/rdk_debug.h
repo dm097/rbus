@@ -223,8 +223,7 @@ rdk_Error rdk_logger_init(const char* debugConfigFile);
 
 rdk_Error rdk_logger_deinit();
 
-void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module,
-        const char *format, ...);
+void rdk_dbg_MsgRaw(rdk_LogLevel level, const char *module, const char *format, ...) __attribute__ ((format (printf, 3, 4)));
 
 void rdk_dbg_MsgRaw1(rdk_LogLevel level, const char *module,const char *format, va_list args);
 

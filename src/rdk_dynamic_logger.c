@@ -52,7 +52,7 @@ static char * rdk_dyn_log_logLevelToString(unsigned char log_level)
         case RDK_LOG_ERROR:
             return (negate) ? "!ERROR":"ERROR";
         case RDK_LOG_WARN:
-            return (negate) ? "!WARN":"WARN";
+            return (negate) ? "!WARNING":"WARNING";
         case RDK_LOG_NOTICE:
             return (negate) ? "!NOTICE":"NOTICE";
         case RDK_LOG_INFO:
