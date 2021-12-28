@@ -123,6 +123,8 @@
     <rollingpolicy name="WANCNCTVTYCHK_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FWUPGRADEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="BATTERYMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="VLANMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="GPONMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CELLULARMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="INTERDEVICEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GATEWAYMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -195,6 +197,8 @@
     <appender name="RI_WANCNCTVTYCHKrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="DNSInternetCheck.txt" layout="comcast_dated" rollingpolicy="WANCNCTVTYCHK_rollingpolicy"/>
     <appender name="RI_FWUPGRADEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FwUpgradeManagerLog.txt" layout="comcast_dated" rollingpolicy="FWUPGRADEMANAGER_rollingpolicy"/>
    <appender name="RI_BATTERYMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="BatteryManagerLog.txt" layout="comcast_dated" rollingpolicy="BATTERYMANAGER_rollingpolicy"/>
+    <appender name="RI_VLANMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="VLANManagerLog.txt" layout="comcast_dated" rollingpolicy="VLANMANAGER_rollingpolicy"/>
+    <appender name="RI_GPONMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GPONMANAGERLog.txt" layout="comcast_dated" rollingpolicy="GPONMANAGER_rollingpolicy"/>
    <appender name="RI_CELLULARMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CellularManagerLog.txt" layout="comcast_dated" rollingpolicy="CELLULARMANAGER_rollingpolicy"/>
    <appender name="RI_INTERDEVICEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="InterDeviceManager.txt" layout="comcast_dated" rollingpolicy="INTERDEVICEMANAGER_rollingpolicy"/>
    <appender name="RI_GATEWAYMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GatewayManagerLog.txt" layout="comcast_dated" rollingpolicy="GATEWAYMANAGER_rollingpolicy"/>
@@ -298,6 +302,8 @@
     <category name="RI.WANCNCTVTYCHK" priority="debug" appender="RI_WANCNCTVTYCHKrollingfileappender"/>
     <category name="RI.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
     <category name="RI.BATTERYMANAGER" priority="debug" appender="RI_BATTERYMANAGERrollingfileappender"/>
+    <category name="RI.VLANMANAGER" priority="debug" appender="RI_VLANMANAGERrollingfileappender"/>
+    <category name="RI.GPONMANAGER" priority="debug" appender="RI_GPONMANAGERrollingfileappender"/>
     <category name="RI.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
     <category name="RI.INTERDEVICEMANAGER" priority="debug" appender="RI_INTERDEVICEMANAGERrollingfileappender"/>
     <category name="RI.GATEWAYMANAGER" priority="debug" appender="RI_GATEWAYMANAGERrollingfileappender"/>
@@ -481,6 +487,10 @@
      <category name="RI.Stack.LOG.RDK.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
      <category name="RI.Stack.BATTERYMANAGER" priority="debug" appender="RI_BATTERYMANAGERrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.BATTERYMANAGER" priority="debug" appender="RI_BATTERYMANAGERrollingfileappender"/>
+     <category name="RI.Stack.VLANMANAGER" priority="debug" appender="RI_VLANMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.VLANMANAGER" priority="debug" appender="RI_VLANMANAGERrollingfileappender"/>
+     <category name="RI.Stack.GPONMANAGER" priority="debug" appender="RI_GPONMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.GPONMANAGER" priority="debug" appender="RI_GPONMANAGERrollingfileappender"/>
      <category name="RI.Stack.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
      <category name="RI.Stack.INTERDEVICEMANAGER" priority="debug" appender="RI_INTERDEVICEMANAGERrollingfileappender"/>
