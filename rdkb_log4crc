@@ -86,7 +86,6 @@
     <rollingpolicy name="HOTSPOT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="DHCPSNOOP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="NOTIFY_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-    <rollingpolicy name="WECB_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WECBMASTER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TOUCHSTONE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FSC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -132,6 +131,7 @@
     <rollingpolicy name="LANMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="PLATFORMMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="EASYMESHCTL_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="WEBCONFIGRFC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -162,6 +162,7 @@
     <appender name="RI_HOTSPOTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Hotspotlog.txt" layout="comcast_dated" rollingpolicy="HOTSPOT_rollingpolicy"/>
     <appender name="RI_DHCPSNOOProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Dhcpsnooplog.txt" layout="comcast_dated" rollingpolicy="DHCPSNOOP_rollingpolicy"/>
     <appender name="RI_NOTIFYrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="NOTIFYLog.txt" layout="comcast_dated" rollingpolicy="NOTIFY_rollingpolicy"/>
+    <appender name="RI_WEBCONFIGRFCrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Webconfig_default_rfc.txt" layout="comcast_dated" rollingpolicy="WEBCONFIGRFC_rollingpolicy"/>
     <appender name="RI_WECBrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBLog.txt" layout="comcast_dated" rollingpolicy="WECB_rollingpolicy"/>
     <appender name="RI_WECBMASTERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WECBMASTERLog.txt" layout="comcast_dated" rollingpolicy="WECBMASTER_rollingpolicy"/>
     <appender name="RI_TOUCHSTONErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TouchstoneLog.txt" layout="comcast_dated" rollingpolicy="TOUCHSTONE_rollingpolicy"/>
@@ -313,6 +314,7 @@
     <category name="RI.LANMANAGER" priority="debug" appender="RI_LANMANAGERrollingfileappender"/>
     <category name="RI.PLATFORMMANAGER" priority="debug" appender="RI_PLATFORMMANAGERrollingfileappender"/>
     <category name="RI.EASYMESHCTL" priority="debug" appender="RI_EASYMESHCTLrollingfileappender"/>
+    <category name="RI.WEBCONFIGRFC" priority="debug" appender="RI_WEBCONFIGRFCrollingfileappender"/>
 
     <!--
         Logging categories available to the Platform are listed below
@@ -510,4 +512,6 @@
 
     <category name="RI.Stack.EASYMESHCTL" priority="debug" appender="RI_EASYMESHCTLrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.EASYMESHCTL" priority="debug" appender="RI_EASYMESHCTLrollingfileappender"/>
+     <category name="RI.Stack.WEBCONFIGRFC" priority="debug" appender="RI_WEBCONFIGRFCrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.WEBCONFIGRFC" priority="debug" appender="RI_WEBCONFIGRFCrollingfileappender"/>
 </log4c>
