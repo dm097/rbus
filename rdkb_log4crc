@@ -114,6 +114,7 @@
     <rollingpolicy name="OVSAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WANMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FWUPGRADEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CELLULARMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -171,6 +172,7 @@
     <appender name="RI_OVSAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="OvsAgentLog.txt" layout="comcast_dated" rollingpolicy="OVSAGENT_rollingpolicy"/>
     <appender name="RI_WANMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WANMANAGERLog.txt" layout="comcast_dated" rollingpolicy="WANMANAGER_rollingpolicy"/>
     <appender name="RI_FWUPGRADEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FwUpgradeManagerLog.txt" layout="comcast_dated" rollingpolicy="FWUPGRADEMANAGER_rollingpolicy"/>
+   <appender name="RI_CELLULARMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CellularManagerLog.txt" layout="comcast_dated" rollingpolicy="CELLULARMANAGER_rollingpolicy"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!--
@@ -259,6 +261,7 @@
     <category name="RI.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
     <category name="RI.WANMANAGER" priority="debug" appender="RI_WANMANAGERrollingfileappender"/>
     <category name="RI.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
+    <category name="RI.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
 
     <!--
         Logging categories available to the Platform are listed below
@@ -413,4 +416,6 @@
      <category name="RI.Stack.LOG.RDK.WANMANAGER" priority="debug" appender="RI_WANMANAGERrollingfileappender"/>	
      <category name="RI.Stack.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
+     <category name="RI.Stack.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
 </log4c>
