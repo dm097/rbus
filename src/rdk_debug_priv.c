@@ -40,8 +40,8 @@
 #include <limits.h>   
 #include <unistd.h>
 #include <sys/syscall.h>   /* For SYS_xxx definitions */
-#include <sys/errno.h>
-#include <sys/fcntl.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <netdb.h>

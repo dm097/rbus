@@ -26,6 +26,9 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <unistd.h>
+#include <sys/select.h>
+#include <sys/time.h>
+
 #include "rdk_dynamic_logger.h"
 #include "safec_library.h"
 
