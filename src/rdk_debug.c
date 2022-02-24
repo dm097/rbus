@@ -45,7 +45,7 @@ extern int global_count;
  * @param[in] pszFile Character string representing name of the file to be created.
  * @return None.
  */
-void TouchFile(const char * pszFile)
+static void TouchFile(const char * pszFile)
 {
     if(NULL != pszFile)
     {
