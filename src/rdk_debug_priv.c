@@ -866,10 +866,6 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
         }
     }
 
-    printf("##SAFEC DEBUG: evt_bufsize:%d , evt_maxbufSize:%d , Time:%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s \n",event->evt_buffer.buf_size,
-           event->evt_buffer.buf_maxsize, timeBuff, event->evt_timestamp.tv_usec,
-            p, log4c_priority_to_string(event->evt_priority), syscall(SYS_gettid),
-            event->evt_msg);
     (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
             "%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s",timeBuff,
             event->evt_timestamp.tv_usec,
