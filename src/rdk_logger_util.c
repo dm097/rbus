@@ -31,7 +31,6 @@
 #include "rdk_debug.h"      /* Resolved RDK_LOG support. */
 #include "rdk_error.h"
 #include "rdk_utils.h"
-#include "safec_library.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -100,9 +99,6 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
 {
     const int line_buf_len = 256;
     static int number = 0;
-    errno_t rc = -1;
-    int ind  = -1;
-    int node_name_enable = 0;
 
     FILE* f;
     char lineBuffer[line_buf_len];
@@ -143,13 +139,11 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
 
         /* Read the property and store in the cache */
         length = equals - lineBuffer;
-        rc = strncpy_s( name,sizeof(name),lineBuffer,length);
-        ERR_CHK(rc);
+        strncpy( name,lineBuffer,length);
         name[ length] = '\0'; /* have to null-term */
 
         length = lineBuffer + strlen(lineBuffer) - equals + 1;
-        rc = strncpy_s( value,sizeof(value),equals+1,length);
-        ERR_CHK(rc);
+        strncpy( value,equals+1,length);
         value[ length] = '\0' ;
 
         /* Trim all whitespace from name and value strings */
@@ -159,9 +153,7 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
         tmp_node = g_envCache;
         while(tmp_node)
         {
-            rc = strcmp_s(tmp_node->name,strlen(tmp_node->name), trimname,&ind);
-            ERR_CHK(rc);
-            if((ind == 0) && (rc == EOK))
+            if(strcmp(tmp_node->name, trimname) == 0)
             {
                 break;
             }
@@ -182,29 +174,14 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
         }
 
         /** Update number only for the modules, not for environment variable */
-        rc = strcmp_s("LOG.RDK.DEFAULT",strlen("LOG.RDK.DEFAULT"),node->name, &ind);
-        ERR_CHK(rc);
-        if ((ind != 0) && (rc == EOK))
+        if ((strcmp("LOG.RDK.DEFAULT",node->name) != 0) && 
+               (strcmp("EnableMPELog",node->name) != 0) && 
+               (strcmp("SEPARATE.LOGFILE.SUPPORT",node->name) != 0))
         {
-            rc = strcmp_s("EnableMPELog",strlen("EnableMPELog"),node->name,&ind);
-            ERR_CHK(rc);
-            if ((ind != 0) && (rc == EOK))
-            {
-                rc = strcmp_s("SEPARATE.LOGFILE.SUPPORT",strlen("SEPARATE.LOGFILE.SUPPORT"),node->name,&ind);
-                ERR_CHK(rc);
-                if ((ind != 0) && (rc == EOK))
-                {
-                    node_name_enable = 1;
-                }
-            }
-        }
-
-        if (node_name_enable == 1){
-            number++;
-            node->number = number;
-        }else{
-            node->number = 0;
-        }
+          number++; 
+          node->number = number; 
+        } else 
+        node->number = 0;
 	
         /* Insert at the front of the list */
         node->next = g_envCache;
@@ -229,17 +206,13 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
 const char* rdk_logger_envGet(const char *name)
 {
     EnvVarNode *node = g_envCache;
-    errno_t rc = -1;
-    int ind = -1;
 
     pthread_mutex_lock(&g_cacheMutex);
 
     while (node != NULL)
     {
         /* Env var name match */
-        rc = strcmp_s(name,strlen(name),node->name,&ind);
-        ERR_CHK(rc);
-        if ((ind == 0) && (rc == EOK))
+        if (strcmp(name,node->name) == 0)
         {
             /* return the value */
             pthread_mutex_unlock(&g_cacheMutex);
@@ -295,19 +268,13 @@ const char* rdk_logger_envGetValueFromNum(int number)
 int rdk_logger_envGetNum(const char * mod)
 {
     EnvVarNode *node = g_envCache;
-    errno_t rc = -1;
-    int ind = -1;
-    if(mod == NULL)
-      return -1;
-    int length = strlen(mod);
+
     pthread_mutex_lock(&g_cacheMutex);
 
     while (node != NULL)
     {
         /* Env var name match */
-        rc = strcmp_s(mod,length,node->name,&ind);
-        ERR_CHK(rc);
-        if ((ind == 0) && (rc == EOK))
+        if (strcmp(mod,node->name) == 0)
         {
             /* return the value */
             pthread_mutex_unlock(&g_cacheMutex);
