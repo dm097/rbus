@@ -36,7 +36,6 @@
 #include <string.h> // memset
 #include <rdk_utils.h>
 #include <stdarg.h>
-#include "safec_library.h"
 
 extern int global_count;
 
@@ -70,7 +69,6 @@ void rdk_dbgDumpLog(const char* path)
     int mod, i;
     char config[128];
     const char *modptr = NULL;
-    errno_t rc = -1;
     RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS", "\n");
     RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
             "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
@@ -84,8 +82,7 @@ void rdk_dbgDumpLog(const char* path)
     {
         modptr = rdk_logger_envGetModFromNum(mod);
     
-        rc = memset_s(config,sizeof(config), 0, sizeof(config));
-        ERR_CHK(rc);
+        memset(config, 0, sizeof(config));
         (void) rdk_dbg_priv_LogQueryOpSysIntf((char*) modptr, config, 127);
         RDK_LOG(RDK_LOG_INFO, "LOG.RDK.OS",
                 "Initial Logging Level for %-10s: %s\n", modptr, config);
