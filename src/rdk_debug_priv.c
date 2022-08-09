@@ -634,14 +634,14 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
 
 void RDK_LOG_ControlCB(const char *moduleName, const char *subComponentName, const char *loggingLevel, int log_status)
 {
-    char logTypeName[20] = {0};
+    char logTypeName[20] = {'\0'};
 
     if ((NULL == moduleName) || (NULL == loggingLevel))
     {
         return;
     }
 
-    strncpy(logTypeName, loggingLevel, sizeof(logTypeName));
+    strncpy(logTypeName, loggingLevel, sizeof(logTypeName)-1);
     if (logTypeName[0] == '~')
     {
         logTypeName[0] = '!';
