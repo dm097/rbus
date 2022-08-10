@@ -101,6 +101,7 @@
     <rollingpolicy name="LIBSYSCALLWRAPPER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="ADVSEC_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="IMAGEHEALTHCHECKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="BLE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MAPTLOG_rollingpolicy" type="sizewin" maxsize="131072" maxnum="2"/>
     <rollingpolicy name="WANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -133,6 +134,7 @@
     <appender name="RI_MOCArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MOCAlog.txt" layout="comcast_dated" rollingpolicy="MOCA_rollingpolicy"/>
     <appender name="RI_CMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CMlog.txt" layout="comcast_dated" rollingpolicy="CM_rollingpolicy"/>
     <appender name="RI_CRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CRlog.txt" layout="comcast_dated" rollingpolicy="CR_rollingpolicy"/>
+    <appender name="RI_IMAGEHEALTHCHECKERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="IMAGEHEALTHCHECKERlog.txt" layout="comcast_dated" rollingpolicy="IMAGEHEALTHCHECKER_rollingpolicy"/>
     <appender name="RI_Harvesterrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Harvesterlog.txt" layout="comcast_dated" rollingpolicy="Harvester_rollingpolicy"/>
     <appender name="RI_RMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="RMlog.txt" layout="comcast_dated" rollingpolicy="RM_rollingpolicy"/>
     <appender name="RI_MTArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MTAlog.txt" layout="comcast_dated" rollingpolicy="MTA_rollingpolicy"/>
@@ -242,7 +244,8 @@
  	<category name="RI.WECBMASTER" priority="debug" appender="RI_WECBMASTERrollingfileappender"/> 
  	<category name="RI.TOUCHSTONE" priority="debug" appender="RI_TOUCHSTONErollingfileappender"/> 
     <category name="RI.FSC" priority="debug" appender="RI_FSCrollingfileappender"/> 
-    <category name="RI.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>     
+    <category name="RI.PWRMGR" priority="debug" appender="RI_PWRMGRrollingfileappender"/>
+        <category name="RI.IMAGEHEALTHCHECKER" priority="debug" appender="RI_IMAGEHEALTHCHECKERrollingfileappender"/>
     <category name="RI.MESH" priority="debug" appender="RI_MESHrollingfileappender"/>
     <category name="RI.T2" priority="debug" appender="RI_T2rollingfileappender"/>
     <category name="RI.MeshService" priority="debug" appender="RI_MeshServicerollingfileappender"/>
@@ -378,7 +381,10 @@
     <category name="RI.Stack.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.GWPROV" priority="debug" appender="RI_GWPROVrollingfileappender"/>
 
-	<category name="RI.Stack.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
+    <category name="RI.Stack.IMAGEHEALTHCHECKER" priority="debug" appender="RI_IMAGEHEALTHCHECKERrollingfileappender"/>
+    <category name="RI.Stack.LOG.RDK.IMAGEHEALTHCHECKER" priority="debug" appender="RI_IMAGEHEALTHCHECKERrollingfileappender"/>
+
+    <category name="RI.Stack.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.Seshat" priority="debug" appender="RI_Seshatrollingfileappender"/>
     <category name="RI.Stack.Speedtest" priority="debug" appender="RI_Speedtestrollingfileappender"/>
     <category name="RI.Stack.LOG.RDK.SPDTST" priority="debug" appender="RI_Speedtestrollingfileappender"/>
