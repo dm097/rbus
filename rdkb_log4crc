@@ -114,6 +114,7 @@
     <rollingpolicy name="HWST_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="OVSAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WANMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="WANCNCTVTYCHK_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="FWUPGRADEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="CELLULARMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="INTERDEVICEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -174,6 +175,7 @@
     <appender name="RI_HWSTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="HWSTLog.txt" layout="comcast_dated" rollingpolicy="HWST_rollingpolicy"/>
     <appender name="RI_OVSAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="OvsAgentLog.txt" layout="comcast_dated" rollingpolicy="OVSAGENT_rollingpolicy"/>
     <appender name="RI_WANMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WANMANAGERLog.txt" layout="comcast_dated" rollingpolicy="WANMANAGER_rollingpolicy"/>
+    <appender name="RI_WANCNCTVTYCHKrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="DNSInternetCheck.txt" layout="comcast_dated" rollingpolicy="WANCNCTVTYCHK_rollingpolicy"/>
     <appender name="RI_FWUPGRADEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FwUpgradeManagerLog.txt" layout="comcast_dated" rollingpolicy="FWUPGRADEMANAGER_rollingpolicy"/>
    <appender name="RI_CELLULARMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CellularManagerLog.txt" layout="comcast_dated" rollingpolicy="CELLULARMANAGER_rollingpolicy"/>
     <appender name="RI_INTERDEVICEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="InterDeviceManager.txt" layout="comcast_dated" rollingpolicy="INTERDEVICEMANAGER_rollingpolicy"/>
@@ -265,6 +267,7 @@
     <category name="RI.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
     <category name="RI.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
     <category name="RI.WANMANAGER" priority="debug" appender="RI_WANMANAGERrollingfileappender"/>
+    <category name="RI.WANCNCTVTYCHK" priority="debug" appender="RI_WANCNCTVTYCHKrollingfileappender"/>
     <category name="RI.FWUPGRADEMANAGER" priority="debug" appender="RI_FWUPGRADEMANAGERrollingfileappender"/>
     <category name="RI.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
     <category name="RI.INTERDEVICEMANAGER" priority="debug" appender="RI_INTERDEVICEMANAGERrollingfileappender"/>
@@ -417,6 +420,8 @@
         <category name="RI.Stack.LOG.RDK.CPUPROCANALYZER" priority="debug" appender="RI_CPUPROCANALYZERrollingfileappender"/>
      <category name="RI.Stack.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.HWST" priority="debug" appender="RI_HWSTrollingfileappender"/>
+     <category name="RI.Stack.WANCNCTVTYCHK" priority="debug" appender="RI_WANCNCTVTYCHKrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.WANCNCTVTYCHK" priority="debug" appender="RI_WANCNCTVTYCHKrollingfileappender"/>
 
      <category name="RI.Stack.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.OVSAGENT" priority="debug" appender="RI_OVSAGENTrollingfileappender"/>
