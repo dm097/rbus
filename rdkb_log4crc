@@ -75,6 +75,10 @@
     <rollingpolicy name="MTA_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TDM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="WIFI_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CSCWFMRXM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CSCWFMBRG_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CSCWFMRBP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="CSCWFMMON_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="SSD_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="LM_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="SNMP_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -142,6 +146,10 @@
     <appender name="RI_MTArollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MTAlog.txt" layout="comcast_dated" rollingpolicy="MTA_rollingpolicy"/>
     <appender name="RI_TDMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TDMlog.txt" layout="comcast_dated" rollingpolicy="TDM_rollingpolicy"/>
     <appender name="RI_WIFIrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WiFilog.txt" layout="comcast_dated" rollingpolicy="WIFI_rollingpolicy"/>
+    <appender name="RI_CSCWFMRXMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="csc_rx_motion.log" layout="comcast_dated" rollingpolicy="CSCWFMRXM_rollingpolicy"/>
+    <appender name="RI_CSCWFMBRGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="csc_borg.log" layout="comcast_dated" rollingpolicy="CSCWFMBRG_rollingpolicy"/>
+    <appender name="RI_CSCWFMRBProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="csc_rbuspub.log" layout="comcast_dated" rollingpolicy="CSCWFMRBP_rollingpolicy"/>
+    <appender name="RI_CSCWFMMONrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="csc_mon.log" layout="comcast_dated" rollingpolicy="CSCWFMMON_rollingpolicy"/>
     <appender name="RI_SSDrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SSDlog.txt" layout="comcast_dated" rollingpolicy="SSD_rollingpolicy"/>
     <appender name="RI_LMrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LM.txt" layout="comcast_dated" rollingpolicy="LM_rollingpolicy"/>
     <appender name="RI_SNMProllingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SNMP.txt" layout="comcast_dated" rollingpolicy="SNMP_rollingpolicy"/>
@@ -237,6 +245,10 @@
 	<category name="RI.CM" priority="debug" appender="RI_CMrollingfileappender"/>
 	<category name="RI.TDM" priority="debug" appender="RI_TDMrollingfileappender"/> 
 	<category name="RI.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/> 
+	<category name="RI.CSCWFMRXM" priority="debug" appender="RI_CSCWFMRXMrollingfileappender"/>
+	<category name="RI.CSCWFMBRG" priority="debug" appender="RI_CSCWFMBRGrollingfileappender"/>
+	<category name="RI.CSCWFMRBP" priority="debug" appender="RI_CSCWFMRBProllingfileappender"/>
+	<category name="RI.CSCWFMMON" priority="debug" appender="RI_CSCWFMMONProllingfileappender"/>
 	<category name="RI.SSD" priority="debug" appender="RI_SSDrollingfileappender"/> 
 	<category name="RI.LM" priority="debug" appender="RI_LMrollingfileappender"/> 
 	<category name="RI.SNMP" priority="debug" appender="RI_SNMProllingfileappender"/> 
@@ -337,6 +349,15 @@
 	
 	<category name="RI.Stack.WiFi" priority="debug" appender="RI_WiFirollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.WIFI" priority="debug" appender="RI_WIFIrollingfileappender"/>
+
+	<category name="RI.Stack.CSCWFMRXM" priority="debug" appender="RI_CSCWFMRXMrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.CSCWFMRXM" priority="debug" appender="RI_CSCWFMRXMrollingfileappender"/>
+	<category name="RI.Stack.CSCWFMBRG" priority="debug" appender="RI_CSCWFMBRGrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.CSCWFMBRG" priority="debug" appender="RI_CSCWFMBRGrollingfileappender"/>
+	<category name="RI.Stack.CSCWFMRBP" priority="debug" appender="RI_CSCWFMRBProllingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.CSCWFMRBP" priority="debug" appender="RI_CSCWFMRBProllingfileappender"/>
+	<category name="RI.Stack.CSCWFMMON" priority="debug" appender="RI_CSCWFMMONrollingfileappender"/>
+	<category name="RI.Stack.LOG.RDK.CSCWFMMON" priority="debug" appender="RI_CSCWFMMONrollingfileappender"/>
 	
 	<category name="RI.Stack.SSD" priority="debug" appender="RI_SSDrollingfileappender"/>
 	<category name="RI.Stack.LOG.RDK.SSD" priority="debug" appender="RI_SSDrollingfileappender"/>
