@@ -215,8 +215,6 @@ void RDK_LOG_ControlCB(const char *moduleName, const char *subComponentName, con
 
 void rdk_dbgDumpLog(const char* path);
 
-void TouchFile(const char * pszFile);
-
 void rdk_dbgInit();
 
 rdk_Error rdk_logger_init(const char* debugConfigFile);
