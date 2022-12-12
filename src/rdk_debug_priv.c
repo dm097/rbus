@@ -37,7 +37,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <limits.h>   
+#include <limits.h>
 #include <unistd.h>
 #include <sys/syscall.h>   /* For SYS_xxx definitions */
 #include <errno.h>
@@ -104,7 +104,7 @@ static const char* dated_format_nocr(const log4c_layout_t* a_layout,
 static const char* basic_format_nocr(const log4c_layout_t* a_layout,
         const log4c_logging_event_t*a_event);
 static const char* comcast_dated_format_nocr(const log4c_layout_t* a_layout,
-        const log4c_logging_event_t*a_event);
+         log4c_logging_event_t*a_event);
 static int stream_env_overwrite_open(log4c_appender_t * appender);
 static int stream_env_append_open(log4c_appender_t * appender);
 static int stream_env_append(log4c_appender_t* appender, const log4c_logging_event_t* event);
@@ -732,11 +732,14 @@ static const char* basic_format_nocr(const log4c_layout_t* layout,
     return event->evt_buffer.buf_data;
 }
 
+#define COMCAST_DATAED_BUFF_SIZE    40
+
 static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
-        const log4c_logging_event_t*event)
+        log4c_logging_event_t*event)
 {
     struct tm tm;
-    char timeBuff[40] = {0};
+    int n = -1;
+    char timeBuff[COMCAST_DATAED_BUFF_SIZE] = {0};
     //localtime_r(&event->evt_timestamp.tv_sec, &tm);  /* Use the UTC Time for logging */
     gmtime_r(&event->evt_timestamp.tv_sec, &tm);
 
@@ -758,17 +761,27 @@ static const char* comcast_dated_format_nocr(const log4c_layout_t* layout,
             if (*p == '.') p+=1;
 
         }
-        else 
+        else
         {
             p = (char*)"UNKNOWN";
         }
     }
 
-    (void) snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+    n = snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
             "%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s",timeBuff,
             event->evt_timestamp.tv_usec,
             p, log4c_priority_to_string(event->evt_priority), syscall(SYS_gettid),
             event->evt_msg);
+    if (n > -1 && n > event->evt_buffer.buf_size && event->evt_buffer.buf_maxsize == 0) {
+        event->evt_buffer.buf_size = n + COMCAST_DATAED_BUFF_SIZE + 1;
+        event->evt_buffer.buf_data = (char *) realloc (event->evt_buffer.buf_data, event->evt_buffer.buf_size);
+        //TODO realloc error check
+        n = snprintf(event->evt_buffer.buf_data, event->evt_buffer.buf_size,
+            "%s.%06ld [mod=%s, lvl=%s] [tid=%ld] %s",timeBuff,
+            event->evt_timestamp.tv_usec,
+            p, log4c_priority_to_string(event->evt_priority), syscall(SYS_gettid),
+            event->evt_msg);
+    }
     if (event->evt_buffer.buf_size > 0 && event->evt_buffer.buf_data != NULL)
     {
         event->evt_buffer.buf_data[event->evt_buffer.buf_size - 1] = 0;
