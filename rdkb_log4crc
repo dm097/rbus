@@ -120,7 +120,8 @@
     <rollingpolicy name="CELLULARMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="INTERDEVICEMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="GATEWAYMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
-
+    <rollingpolicy name="LANMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="PLATFORMMANAGER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
 
  <!--   <appender name="stderr" type="stream_env" layout="dated"/>
     <appender name="syslog" type="syslog" layout="basic"/>
@@ -182,8 +183,10 @@
     <appender name="RI_WANCNCTVTYCHKrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="DNSInternetCheck.txt" layout="comcast_dated" rollingpolicy="WANCNCTVTYCHK_rollingpolicy"/>
     <appender name="RI_FWUPGRADEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="FwUpgradeManagerLog.txt" layout="comcast_dated" rollingpolicy="FWUPGRADEMANAGER_rollingpolicy"/>
    <appender name="RI_CELLULARMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="CellularManagerLog.txt" layout="comcast_dated" rollingpolicy="CELLULARMANAGER_rollingpolicy"/>
-    <appender name="RI_INTERDEVICEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="InterDeviceManager.txt" layout="comcast_dated" rollingpolicy="INTERDEVICEMANAGER_rollingpolicy"/>
+   <appender name="RI_INTERDEVICEMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="InterDeviceManager.txt" layout="comcast_dated" rollingpolicy="INTERDEVICEMANAGER_rollingpolicy"/>
    <appender name="RI_GATEWAYMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="GatewayManagerLog.txt" layout="comcast_dated" rollingpolicy="GATEWAYMANAGER_rollingpolicy"/>
+   <appender name="RI_LANMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="LanManagerLog.txt" layout="comcast_dated" rollingpolicy="LANMANAGER_rollingpolicy"/>
+   <appender name="RI_PLATFORMMANAGERrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="PlatformManager.txt" layout="comcast_dated" rollingpolicy="PLATFORMMANAGER_rollingpolicy"/>
     <appender name="stdout" type="stream_env" layout="comcast_dated"/>
 
     <!--
@@ -278,7 +281,8 @@
     <category name="RI.CELLULARMANAGER" priority="debug" appender="RI_CELLULARMANAGERrollingfileappender"/>
     <category name="RI.INTERDEVICEMANAGER" priority="debug" appender="RI_INTERDEVICEMANAGERrollingfileappender"/>
     <category name="RI.GATEWAYMANAGER" priority="debug" appender="RI_GATEWAYMANAGERrollingfileappender"/>
-
+    <category name="RI.LANMANAGER" priority="debug" appender="RI_LANMANAGERrollingfileappender"/>
+    <category name="RI.PLATFORMMANAGER" priority="debug" appender="RI_PLATFORMMANAGERrollingfileappender"/>
     <!--
         Logging categories available to the Platform are listed below
 
@@ -446,4 +450,8 @@
      <category name="RI.Stack.LOG.RDK.INTERDEVICEMANAGER" priority="debug" appender="RI_INTERDEVICEMANAGERrollingfileappender"/>
      <category name="RI.Stack.GATEWAYMANAGER" priority="debug" appender="RI_GATEWAYMANAGERrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.GATEWAYMANAGER" priority="debug" appender="RI_GATEWAYMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LANMANAGER" priority="debug" appender="RI_LANMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.LANMANAGER" priority="debug" appender="RI_LANMANAGERrollingfileappender"/>
+     <category name="RI.Stack.PLATFORMMANAGER" priority="debug" appender="RI_PLATFORMMANAGERrollingfileappender"/>
+     <category name="RI.Stack.LOG.RDK.PLATFORMMANAGER" priority="debug" appender="RI_PLATFORMMANAGERrollingfileappender"/>
 </log4c>
