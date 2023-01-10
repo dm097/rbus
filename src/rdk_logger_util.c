@@ -56,7 +56,6 @@ int global_count;
 
 /* Env var cache */
 static EnvVarNode *g_envCache = NULL;
-pthread_mutex_t g_cacheMutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void trim(char *instr, char* outstr)
 {
@@ -116,7 +115,6 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
     }
     printf("Conf file %s open success\n", path);
 
-     pthread_mutex_lock(&g_cacheMutex);
     /* Read each line of the file */
     while (fgets(lineBuffer,line_buf_len,f) != NULL)
     {
@@ -189,7 +187,6 @@ rdk_Error rdk_logger_env_add_conf_file( const char * path)
     }
 
     global_count = number;
-    pthread_mutex_unlock( &g_cacheMutex);
 
     fclose( f);
     return RDK_SUCCESS;
@@ -207,15 +204,12 @@ const char* rdk_logger_envGet(const char *name)
 {
     EnvVarNode *node = g_envCache;
 
-    pthread_mutex_lock(&g_cacheMutex);
-
     while (node != NULL)
     {
         /* Env var name match */
         if (strcmp(name,node->name) == 0)
         {
             /* return the value */
-            pthread_mutex_unlock(&g_cacheMutex);
             return node->value;
         }
 
@@ -223,7 +217,6 @@ const char* rdk_logger_envGet(const char *name)
     }
 
     /* Not found */
-    pthread_mutex_unlock(&g_cacheMutex);
     return NULL;
 }
 
@@ -239,15 +232,12 @@ const char* rdk_logger_envGetValueFromNum(int number)
 {   
     EnvVarNode *node = g_envCache;
         
-    pthread_mutex_lock(&g_cacheMutex);
-        
     while (node != NULL)
     {       
         /* Env var name match */
         if (number == node->number)
         {
             /* return the value */
-            pthread_mutex_unlock(&g_cacheMutex);
             return node->value;
         }
 
@@ -255,7 +245,6 @@ const char* rdk_logger_envGetValueFromNum(int number)
     }
 
     /* Not found */
-    pthread_mutex_unlock(&g_cacheMutex);
     return NULL;
 }
 
@@ -269,15 +258,12 @@ int rdk_logger_envGetNum(const char * mod)
 {
     EnvVarNode *node = g_envCache;
 
-    pthread_mutex_lock(&g_cacheMutex);
-
     while (node != NULL)
     {
         /* Env var name match */
         if (strcmp(mod,node->name) == 0)
         {
             /* return the value */
-            pthread_mutex_unlock(&g_cacheMutex);
             return node->number;
         }
 
@@ -285,7 +271,6 @@ int rdk_logger_envGetNum(const char * mod)
     }
 
     /* Not found */
-    pthread_mutex_unlock(&g_cacheMutex);
     return -1;
 }
 
@@ -301,15 +286,12 @@ const char* rdk_logger_envGetModFromNum(int Num)
 {
     EnvVarNode *node = g_envCache;
 
-    pthread_mutex_lock(&g_cacheMutex);
-
     while (node != NULL)
     {
         /* Env var name match */
         if (Num == node->number)
         {
             /* return the value */
-            pthread_mutex_unlock(&g_cacheMutex);
             return node->name;
         }
 
@@ -317,7 +299,6 @@ const char* rdk_logger_envGetModFromNum(int Num)
     }
 
     /* Not found */
-    pthread_mutex_unlock(&g_cacheMutex);
     return NULL;
 }
 
