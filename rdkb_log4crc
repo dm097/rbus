@@ -103,6 +103,7 @@
     <rollingpolicy name="Speedtest_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="IMAGEHEALTHCHECKER_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="BLE_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
+    <rollingpolicy name="BTRMGR_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="MAPTLOG_rollingpolicy" type="sizewin" maxsize="131072" maxnum="2"/>
     <rollingpolicy name="WANAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
     <rollingpolicy name="TELCOVOIPAGENT_rollingpolicy" type="sizewin" maxsize="2097152" maxnum="2"/>
@@ -168,6 +169,7 @@
     <appender name="RI_ADVSECrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="ADVSEClog.txt" layout="comcast_dated" rollingpolicy="ADVSEC_rollingpolicy"/>
     <appender name="RI_Speedtestrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="SpeedtestLog.txt" layout="comcast_dated" rollingpolicy="Speedtest_rollingpolicy"/>
     <appender name="RI_BLErollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="Blelog.txt" layout="comcast_dated" rollingpolicy="BLE_rollingpolicy"/>
+    <appender name="RI_BTRMGRrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="BTRMgrlog.txt" layout="comcast_dated" rollingpolicy="BTRMGR_rollingpolicy"/>
     <appender name="RI_MAPTLOGrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="MAPTLOG.txt" layout="comcast_dated" rollingpolicy="MAPTLOG_rollingpolicy"/>
     <appender name="RI_WANAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="WANAGENTLog.txt" layout="comcast_dated" rollingpolicy="WANAGENT_rollingpolicy"/>
     <appender name="RI_TELCOVOIPAGENTrollingfileappender" type="rollingfile" logdir="/rdklogs/logs/" prefix="TELCOVOIPAGENTLog.txt" layout="comcast_dated" rollingpolicy="TELCOVOIPAGENT_rollingpolicy"/>
@@ -264,6 +266,7 @@
     <category name="RI.ADVSEC" priority="debug" appender="RI_ADVSECrollingfileappender"/>
     <category name="RI.LIBSYSCALLWRAPPER" priority="debug" appender="RI_LIBSYSCALLWRAPPERrollingfileappender"/>
     <category name="RI.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
+    <category name="RI.BTRMGR" priority="debug" appender="RI_BTRMGRrollingfileappender"/>
     <category name="RI.MAPTLOG" priority="debug" appender="RI_MAPTLOGrollingfileappender"/>
     <category name="RI.WANAGENT" priority="debug" appender="RI_WANAGENTrollingfileappender"/>
     <category name="RI.TELCOVOIPAGENT" priority="debug" appender="RI_TELCOVOIPAGENTrollingfileappender"/>
@@ -424,6 +427,10 @@
 
      <category name="RI.Stack.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
         <category name="RI.Stack.LOG.RDK.BLE" priority="debug" appender="RI_BLErollingfileappender"/>
+
+     <category name="RI.Stack.BTRMGR" priority="debug" appender="RI_BTRMGRrollingfileappender"/>
+        <category name="RI.Stack.LOG.RDK.BTRMGR" priority="debug" appender="RI_BTRMGRrollingfileappender"/>
+        <category name="RI.Stack.LOG.RDK.BTRCORE" priority="debug" appender="RI_BTRMGRrollingfileappender"/>
 
      <category name="RI.Stack.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
      <category name="RI.Stack.LOG.RDK.WEBCONFIG" priority="debug" appender="RI_WEBCONFIGrollingfileappender"/>
