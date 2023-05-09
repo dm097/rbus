@@ -59,6 +59,7 @@ const char* rdk_logger_envGet(const char *name);
  *          is returned.
  */
 rdk_Error rdk_logger_env_add_conf_file(const char * path);
+rdk_Error rdk_logger_env_rem_conf_details(void);
 
 void 			rdk_dbg_priv_LogControlInit(void);
 void 			rdk_dbg_priv_Init(void);
