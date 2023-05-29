@@ -2261,6 +2261,16 @@ static void _subscribe_callback_handler (rbusHandle_t handle, rbusMessage reques
             {
                 RBUSLOG_ERROR("%s: payload missing in subscribe request for event %s from %s", __FUNCTION__, event_name, sender);
             }
+            //DEEPAK-S
+            elementNode* el = NULL;
+            el = retrieveInstanceElement(handleInfo->elementRoot, event_name);
+
+            if ((el->type == RBUS_ELEMENT_TYPE_TABLE)  && (event_name[strlen(event_name)-1] != '.'))
+            {
+                RBUSLOG_ERROR(":%s: Invalid event_name: %s, Element Table Subscription should end with '.'",__FUNCTION__, event_name);
+                return ;
+            }
+            //DEEPAK_E
 
             int added = strncmp(method, METHOD_SUBSCRIBE, MAX_METHOD_NAME_LENGTH) == 0 ? 1 : 0;
             if(added)

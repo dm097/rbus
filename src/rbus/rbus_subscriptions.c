@@ -432,10 +432,12 @@ static void rbusSubscriptions_loadCache(rbusSubscriptions_t subscriptions)
     snprintf(filePath, 256, CACHE_FILE_PATH_FORMAT, subscriptions->tmpDir, subscriptions->componentName);
 
     RBUSLOG_INFO("%s: file %s", __FUNCTION__, filePath);
+    RBUSLOG_ERROR("DEEPAK debugging file CACHE_FILE_PATH_FORMAT:%s in FUnc:%s:%d filePath %s subscriptions->tmpDir:%s subscriptions->componentName:%s", CACHE_FILE_PATH_FORMAT,  __FUNCTION__,  __LINE__, filePath, subscriptions->tmpDir,  subscriptions->componentName);
 
     if(stat(filePath, &st) != 0)
     {
         RBUSLOG_DEBUG("%s: file doesn't exist %s", __FUNCTION__, filePath);
+        RBUSLOG_ERROR("DEEPAK %s: file doesn't exist %s", __FUNCTION__, filePath);
         return;
     }
 
@@ -443,6 +445,7 @@ static void rbusSubscriptions_loadCache(rbusSubscriptions_t subscriptions)
     if(!file)
     {
         RBUSLOG_ERROR("%s: failed to open file %s", __FUNCTION__, filePath);
+        RBUSLOG_ERROR("DEEPAK %s: failed to open file %s", __FUNCTION__, filePath);
         goto remove_bad_file;
     }
 
@@ -451,6 +454,7 @@ static void rbusSubscriptions_loadCache(rbusSubscriptions_t subscriptions)
     if(size <= 0)
     {
         RBUSLOG_DEBUG("%s: file is empty %s", __FUNCTION__, filePath);
+        RBUSLOG_ERROR("DEEPAK %s: file is empty %s", __FUNCTION__, filePath);
         goto remove_bad_file;
     }
 
@@ -600,12 +604,14 @@ static void rbusSubscriptions_saveCache(rbusSubscriptions_t subscriptions)
     snprintf(filePath, 256, CACHE_FILE_PATH_FORMAT, subscriptions->tmpDir, subscriptions->componentName);
 
     RBUSLOG_INFO("%s: saving %s", __FUNCTION__, filePath);
+    RBUSLOG_ERROR(" DEEPAK %s: saving %s CACHE_FILE_PATH_FORMAT:%s , subscriptions->tmpDir:%s, subscriptions->componentName:%s", __FUNCTION__, filePath,CACHE_FILE_PATH_FORMAT, subscriptions->tmpDir, subscriptions->componentName);
 
     rtList_GetFront(subscriptions->subList, &item);
 
     if(!item)
     {
         RBUSLOG_DEBUG("%s: no subs so removing file %s", __FUNCTION__, filePath);
+        RBUSLOG_ERROR("DEEPAK %s: no subs so removing file %s", __FUNCTION__, filePath);
 
         if(remove(filePath) != 0)
             RBUSLOG_ERROR("%s: failed to remove %s", __FUNCTION__, filePath);
@@ -639,6 +645,7 @@ static void rbusSubscriptions_saveCache(rbusSubscriptions_t subscriptions)
           rbusFilter_Encode(sub->filter, buff);
 
         RBUSLOG_DEBUG("%s: saved %s %s", __FUNCTION__, sub->listener, sub->eventName);
+        RBUSLOG_ERROR("DEEPAK %s:%d saved %s %s", __FUNCTION__, __LINE__, sub->listener, sub->eventName);
 
         rtListItem_GetNext(item, &item);
     }
@@ -656,6 +663,7 @@ static int _compareEventNameToElemName(char const* event, char const* elem)
 {
     const char* p1 = event;
     const char* p2 = elem;
+    RBUSLOG_ERROR(" DEEPAK in func:%s:%d  event%s elem%s", __FUNCTION__,__LINE__, event, elem);
     for(;;)
     {
         if(*p1)
@@ -704,6 +712,7 @@ void rbusSubscriptions_resubscribeElementCache(rbusHandle_t handle, rbusSubscrip
     VERIFY_NULL(subscriptions);
     VERIFY_NULL(el);
     RBUSLOG_DEBUG("%s: event %s", __FUNCTION__, elementName);
+    RBUSLOG_ERROR("DEEPAK in Func:%s:%d event %s", __FUNCTION__, __LINE__, elementName);
 
     rtList_GetFront(subscriptions->subList, &item);
 
@@ -751,6 +760,7 @@ void rbusSubscriptions_resubscribeRowElementCache(rbusHandle_t handle, rbusSubsc
         rtList_GetFront(subscriptions->subList, &item);
         rtList_GetSize(subscriptions->subList, &size);
     }
+    RBUSLOG_ERROR("DEEPAK in Func:%s:%d file%s", __FUNCTION__, __LINE__,__FILE__);
 
     while(item && (count < size))
     {
@@ -761,12 +771,23 @@ void rbusSubscriptions_resubscribeRowElementCache(rbusHandle_t handle, rbusSubsc
         {
             rtListItem next = NULL;
             rtListItem_GetNext(item, &next);
-            if(strncmp(sub->eventName, rowNode->fullName, strlen(rowNode->fullName)) == 0)
+            char parentNode_Fullname[128];
+            sprintf(parentNode_Fullname, "%s%s", rowNode->parent->fullName, ".");//DEEPAK
+    RBUSLOG_ERROR("DEEPAK in Func:%s:%d file%s sub->eventName:%s, rowNode->fullName:%s parentNode_Fullname:%s rowNode->parent->fullName:%s", __FUNCTION__, __LINE__,__FILE__, sub->eventName, rowNode->fullName, parentNode_Fullname, rowNode->parent->fullName);
+            //if(strncmp(sub->eventName, rowNode->fullName, strlen(rowNode->fullName)) == 0)
+            //if(strncmp(sub->eventName, parentNode_Fullname, strlen(parentNode_Fullname)) == 0)
+            //if(strcmp(sub->eventName, parentNode_Fullname) == 0)
+            //if(strstr(sub->eventName, rowNode->fullName)) //DEEPAK
+            if(sub->eventName != NULL) //DEEPAK
             {
                 el = retrieveInstanceElement(handleInfo->elementRoot, sub->eventName);
                 if(el)
                 {
                     RBUSLOG_INFO("%s: resubscribing %s for %s", __FUNCTION__, sub->eventName, sub->listener);
+if(sub->element)
+RBUSLOG_ERROR("DEEPAK in Func:%s:%s:%d sub->element NOT NULL", __FUNCTION__,__FILE__,__LINE__);
+
+                    RBUSLOG_ERROR("DEEPAK in Func:%s:%s:%d resubscribing %s for %s calling subscribeHandlerImpl rowNode->name:%s ,rowNode->parent->fullName:%s   ", __FUNCTION__, __FILE__, __LINE__, sub->eventName, sub->listener, rowNode->name ,rowNode->parent->fullName );
                     rtList_RemoveItem(subscriptions->subList, item, NULL);
                     err = subscribeHandlerImpl(handle, true, el, sub->eventName, sub->listener, sub->componentId, sub->interval, sub->duration, sub->filter);
                     (void)err;
