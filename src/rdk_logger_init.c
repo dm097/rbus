@@ -110,6 +110,7 @@ rdk_Error rdk_logger_deinit()
     if(isLogInited)
     {
         rdk_dyn_log_deInit();
+        rdk_logger_env_rem_conf_details();
         log4c_fini();
     }
 

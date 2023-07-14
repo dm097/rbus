@@ -88,6 +88,31 @@ static void trim(char *instr, char* outstr)
 }
 
 /**
+ * @brief This Function removes the node contents while exit
+ *
+ * @return Returns Returns RDK_SUCCESS if the setting of environment variable is successful else it returns -1.
+ */
+rdk_Error rdk_logger_env_rem_conf_details()
+{
+    EnvVarNode *currentNode;
+    EnvVarNode *nextNode;
+
+    currentNode = g_envCache;
+    while(currentNode != NULL)
+    {
+       nextNode = currentNode->next;
+       if(currentNode->name != NULL)
+            free(currentNode->name);
+       if(currentNode->value != NULL)
+           free(currentNode->value);
+       free(currentNode);
+       currentNode = nextNode;
+    }
+    g_envCache = NULL;
+    return RDK_SUCCESS;
+}
+
+/**
  * @brief This Function sets up the environment variable cache by parsing configuration file and adding
  * each name/value pairs to the list.
  *
