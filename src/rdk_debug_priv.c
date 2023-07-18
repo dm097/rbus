@@ -835,19 +835,19 @@ static int stream_env_open(log4c_appender_t* appender, int append)
         goto parse_error;
 
         ///> Append env var value to the new name
+        if (newNameLen + strlen(envVar) > MAX_VAR_LEN)
+            goto length_error;
         strncat(newName, envVar, strlen(envVar));
         newNameLen += strlen(envVar);
-        if (newNameLen >MAX_VAR_LEN)
-        goto length_error;
 
         temp = varEnd + 1;
     }
 
     ///> Append remaining characters
+    if (newNameLen + (name + nameLen) - temp > MAX_VAR_LEN)
+        goto length_error;
     strncat(newName, temp, (name + nameLen) - temp);
     newNameLen += (name + nameLen) - temp;
-    if (newNameLen >MAX_VAR_LEN)
-    goto length_error;
 
     free(name);
 
