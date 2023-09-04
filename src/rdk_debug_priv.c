@@ -378,7 +378,7 @@ void rdk_dbg_priv_LogControlInit(void)
     memset(rdk_g_logControlTbl, 0, sizeof(rdk_g_logControlTbl));
 
     /** Intialize to the default configuration for all modules. */
-    strcpy(envVarName, "LOG.RDK.DEFAULT");
+    strncpy(envVarName,"LOG.RDK.DEFAULT",sizeof(envVarName));
     envVarValue = rdk_logger_envGet(envVarName);
     if ((envVarValue != NULL) && (envVarValue[0] != 0))
     {
@@ -500,7 +500,7 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
     assert(cfgStrMaxLen > 32);
 
     cfgStrMaxLen -= 1; /**< Ensure there is space for NUL. */
-    strcpy(cfgStr, "");
+    strncpy(cfgStr,"",cfgStrMaxLen);
 
     /** Get the module configuration. Note: DEFAULT is not valid as it
      * is an alias. 
@@ -517,26 +517,9 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
 
     if (modCfg == 0)
     {
-        strcpy(cfgStr, "NONE");
+        strncpy(cfgStr,"NONE",cfgStrMaxLen);
         return "OK"; /* This is a canonical response. */
     }
-
-#if 0 /* BAT: print out the level details instead of just these abbreviations */
-
-    /* Look for appropriate abberviations. */
-
-    if ((modCfg & LOG_ALL) == LOG_ALL)
-    {
-        strcpy(cfgStr, " ALL");
-        modCfg &= ~LOG_ALL;
-    }
-
-    if ((modCfg & LOG_TRACE) == LOG_TRACE)
-    {
-        strcat(cfgStr, " TRACE");
-        modCfg &= ~LOG_TRACE;
-    }
-#endif /* BAT */
 
     /** Loop through the control word and print out the enabled levels. */
 
@@ -547,14 +530,14 @@ const char * rdk_dbg_priv_LogQueryOpSysIntf(char *modName, char *cfgStr,
             /** Stop building out the config string if it would exceed
              * the buffer length. 
              */
-            if (strlen(cfgStr) + strlen(rdk_logLevelStrings[level])
+            if (strlen(cfgStr) + strlen(rdk_logLevelStrings[level]+1)
                     > (size_t) cfgStrMaxLen)
             {
                 return "Warning: Config string too long, config concatenated.";
             }
 
-            strcat(cfgStr, " "); /* Not efficient - rah rah. */
-            strcat(cfgStr, rdk_logLevelStrings[level]);
+            strncat(cfgStr," ",cfgStrMaxLen); /* Not efficient - rah rah. */
+            strncat(cfgStr,rdk_logLevelStrings[level],cfgStrMaxLen);
         }
     }
 
@@ -589,6 +572,7 @@ void rdk_debug_priv_log_msg( rdk_LogLevel level,
     
         cat = cat_cache[module];
     }
+    /* CID :19939-- some function when explicitly call this function, it might have module < 0, then the else condition will be applicable*/
     else
     {
         cat = log4c_category_get(cat_name);
@@ -835,11 +819,13 @@ static int stream_env_open(log4c_appender_t* appender, int append)
         goto parse_error;
 
         ///> Append env var value to the new name
-        if (newNameLen + strlen(envVar) > MAX_VAR_LEN)
-            goto length_error;
-        strncat(newName, envVar, strlen(envVar));
-        newNameLen += strlen(envVar);
-
+        if((newNameLen + strlen(envVar)) < MAX_VAR_LEN){
+           strncat(newName, envVar, strlen(envVar));
+           newNameLen += strlen(envVar);
+        }
+        else{
+           goto length_error;
+        }
         temp = varEnd + 1;
     }
 
