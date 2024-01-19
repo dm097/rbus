@@ -1,0 +1,33 @@
+name: l1-tests
+
+on:
+  push:
+    branches: [ main, 'release/**', develop, 'topic/**' ]
+  pull_request:
+    branches: [ main, 'release/**', develop, 'topic/**' ]
+
+#env:
+#  BUILD_TYPE: Debug
+#  THUNDER_REF: "5e7c0b1ed3c3dd0fc31c86518a364388dc24273b"
+  INTERFACES_REF: "669d9c6e5ed7a5938ff26e1e7736adf485c7a205"
+  CMAKE_REF: "v3.16.3"
+
+jobs:
+  l1-tests:
+    name: Build and run unit tests
+    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        compiler: [ gcc, clang ]
+#        coverage: [ with-coverage, without-coverage ]
+#        exclude:
+#          - compiler: clang
+#            coverage: with-coverage
+#          - compiler: clang
+#            coverage: without-coverage
+#          - compiler: gcc
+#            coverage: without-coverage
+    steps: # The list of steps to execute
+      - name: Print Hello World # The name of the step
+        run: echo "Hello World!" # The command to run
+
